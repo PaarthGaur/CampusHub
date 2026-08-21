@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CampusHub AI</title>
+
+    <link rel="stylesheet" href="css\ai_assistant.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         AI APPLICATION
+    ========================================== -->
+
+    <div class="ai_app">
+
+
+        <!-- =====================================
+             AI SIDEBAR
+        ====================================== -->
+
+        <aside class="ai_sidebar">
+
+
+            <!-- LOGO -->
+
+            <div class="ai_logo">
+
+                <div class="logo_icon">
+                    ✦
+                </div>
+
+                <div>
+
+                    <h2>CampusHub</h2>
+
+                    <span>AI Assistant</span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- NEW CHAT -->
+
+            <button class="new_chat">
+
+                <span>＋</span>
+
+                New Chat
+
+            </button>
+
+
+
+            <!-- SOURCES -->
+
+            <div class="sidebar_section">
+
+
+                <div class="sidebar_section_header">
+
+                    <span>SOURCES</span>
+
+                    <button class="insert_button">
+                        + Insert
+                    </button>
+
+                </div>
+
+
+
+                <!-- SOURCE CARD -->
+
+                <div class="source_card">
+
+                    <div class="source_icon pdf_icon">
+                        📄
+                    </div>
+
+                    <div class="source_info">
+
+                        <strong>
+                            AI Unit 1 Notes
+                        </strong>
+
+                        <span>
+                            PDF
+                        </span>
+
+                    </div>
+
+                    <button class="source_menu">
+                        ⋮
+                    </button>
+
+                </div>
+
+
+
+                <!-- SOURCE CARD -->
+
+                <div class="source_card">
+
+                    <div class="source_icon note_icon">
+                        📝
+                    </div>
+
+                    <div class="source_info">
+
+                        <strong>
+                            Search Algorithms
+                        </strong>
+
+                        <span>
+                            Notes
+                        </span>
+
+                    </div>
+
+                    <button class="source_menu">
+                        ⋮
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- CAMPUSHUB SOURCES -->
+
+            <div class="sidebar_section">
+
+
+                <div class="sidebar_section_header">
+
+                    <span>
+                        CAMPUSHUB SOURCES
+                    </span>
+
+                </div>
+
+
+                <button class="subject_source">
+
+                    <span class="subject_dot blue_dot"></span>
+
+                    Artificial Intelligence
+
+                </button>
+
+
+                <button class="subject_source">
+
+                    <span class="subject_dot teal_dot"></span>
+
+                    Database Management
+
+                </button>
+
+
+                <button class="subject_source">
+
+                    <span class="subject_dot yellow_dot"></span>
+
+                    Operating Systems
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- SIDEBAR BOTTOM -->
+
+            <div class="sidebar_bottom">
+
+                <button class="sidebar_link">
+                    ⚙ Settings
+                </button>
+
+                <button class="sidebar_link">
+                    ? Help
+                </button>
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =====================================
+             MAIN AREA
+        ====================================== -->
+
+        <main class="ai_main">
+
+
+            <!-- TOPBAR -->
+
+            <header class="ai_topbar">
+
+
+                <div class="mobile_logo">
+
+                    <div class="logo_icon">
+                        ✦
+                    </div>
+
+                    <strong>
+                        CampusHub AI
+                    </strong>
+
+                </div>
+
+
+                <div class="topbar_actions">
+
+                    <button class="topbar_button">
+                        ⤢
+                    </button>
+
+                    <button class="topbar_button">
+                        ⚙
+                    </button>
+
+                    <div class="user_avatar">
+                        P
+                    </div>
+
+                </div>
+
+
+            </header>
+
+
+
+            <!-- =================================
+                 CHAT AREA
+            ================================== -->
+
+            <section class="chat_area">
+
+
+                <!-- WELCOME -->
+
+                <div class="welcome">
+
+
+                    <div class="ai_avatar_large">
+                        ✦
+                    </div>
+
+
+                    <h1>
+                        What do you want to learn?
+                    </h1>
+
+
+                    <p>
+                        Ask questions, summarize your sources,
+                        or create notes from your study material.
+                    </p>
+
+
+                </div>
+
+
+
+                <!-- EXAMPLE PROMPTS -->
+
+                <div class="prompt_grid">
+
+
+                    <button class="prompt_card">
+
+                        <span>📚</span>
+
+                        <div>
+
+                            <strong>
+                                Make study notes
+                            </strong>
+
+                            <p>
+                                Create concise notes from my sources
+                            </p>
+
+                        </div>
+
+                    </button>
+
+
+
+                    <button class="prompt_card">
+
+                        <span>💡</span>
+
+                        <div>
+
+                            <strong>
+                                Explain a concept
+                            </strong>
+
+                            <p>
+                                Explain a topic using my sources
+                            </p>
+
+                        </div>
+
+                    </button>
+
+
+
+                    <button class="prompt_card">
+
+                        <span>❓</span>
+
+                        <div>
+
+                            <strong>
+                                Ask questions
+                            </strong>
+
+                            <p>
+                                Answer questions from my notes
+                            </p>
+
+                        </div>
+
+                    </button>
+
+
+
+                    <button class="prompt_card">
+
+                        <span>📝</span>
+
+                        <div>
+
+                            <strong>
+                                Create revision notes
+                            </strong>
+
+                            <p>
+                                Turn my material into quick revision notes
+                            </p>
+
+                        </div>
+
+                    </button>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================
+                 CHAT INPUT
+            ================================== -->
+
+            <div class="chat_input_area">
+
+
+                <div class="chat_input_box">
+
+
+                    <button class="input_add">
+                        ＋
+                    </button>
+
+
+                    <textarea
+                        placeholder="Ask anything about your sources..."
+                        rows="1"
+                    ></textarea>
+
+
+                    <button class="send_button">
+                        ↑
+                    </button>
+
+
+                </div>
+
+
+                <p class="input_hint">
+
+                    CampusHub AI answers based on
+                    the sources you provide.
+
+                </p>
+
+
+            </div>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         INSERT MENU
+
+         This is initially visible in the HTML
+         so you can see the UI.
+
+         Later JS can show/hide it.
+    ========================================== -->
+
+    <div class="insert_menu">
+
+
+        <div class="insert_menu_header">
+
+            <div>
+
+                <h3>
+                    Add a source
+                </h3>
+
+                <p>
+                    Choose where your study material comes from.
+                </p>
+
+            </div>
+
+            <button>
+                ×
+            </button>
+
+        </div>
+
+
+
+        <!-- UPLOAD PDF -->
+
+        <button class="insert_option">
+
+            <div class="insert_icon pdf_option">
+                📄
+            </div>
+
+            <div>
+
+                <strong>
+                    Upload PDF
+                </strong>
+
+                <span>
+                    Add a PDF from your computer
+                </span>
+
+            </div>
+
+        </button>
+
+
+
+        <!-- ADD NOTES -->
+
+        <button class="insert_option">
+
+            <div class="insert_icon notes_option">
+                📝
+            </div>
+
+            <div>
+
+                <strong>
+                    Add Notes
+                </strong>
+
+                <span>
+                    Paste or write your notes
+                </span>
+
+            </div>
+
+        </button>
+
+
+
+        <!-- CAMPUSHUB -->
+
+        <button class="insert_option campus_option">
+
+            <div class="insert_icon campus_source_option">
+                🎓
+            </div>
+
+            <div>
+
+                <strong>
+                    Extract from CampusHub
+                </strong>
+
+                <span>
+                    Use notes and resources from your subjects
+                </span>
+
+            </div>
+
+            <span class="option_arrow">
+                →
+            </span>
+
+        </button>
+
+
+    </div>
+
+
+</body>
+
+</html>

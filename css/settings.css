@@ -1,0 +1,923 @@
+/* =================================
+   CAMPUSHUB COLORS
+================================= */
+
+:root {
+
+    --primary: #2563EB;
+    --primary-dark: #1D4ED8;
+
+    --secondary: #14B8A6;
+
+    --accent: #FBBF24;
+
+    --background: #F8FAFC;
+    --section-bg: #EFF6FF;
+
+    --card: #FFFFFF;
+
+    --text: #172033;
+    --secondary-text: #64748B;
+
+    --border: #E2E8F0;
+
+    --danger: #DC2626;
+}
+
+
+/* =================================
+   BASIC
+================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-color: var(--background);
+
+    color: var(--text);
+}
+
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+
+/* =================================
+   MAIN
+================================= */
+
+.main {
+
+    /*
+       IMPORTANT:
+
+       Change this value to whatever
+       width your ORIGINAL dashboard
+       sidebar uses.
+    */
+
+    margin-left: 240px;
+
+    min-height: 100vh;
+}
+
+.sidebar {
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    width: 240px;
+    height: 100vh;
+
+    background: white;
+
+    border-right: 1px solid var(--border);
+
+    padding: 25px 15px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* LOGO */
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    padding: 0 10px;
+
+    margin-bottom: 35px;
+}
+
+.logo-icon {
+    width: 36px;
+    height: 36px;
+
+    /* background: var(--primary); */
+    color: white;
+
+    border-radius: 9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+}
+
+
+/* NAV */
+
+.nav-title {
+    font-size: 10px;
+
+    color: #94A3B8;
+
+    margin: 18px 10px 8px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 11px 12px;
+
+    margin-bottom: 4px;
+
+    border-radius: 8px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.nav-link:hover {
+    background: var(--section);
+
+    color: var(--primary);
+}
+
+.nav-link.active {
+    background: #E8F0FF;
+
+    color: var(--primary);
+
+    font-weight: bold;
+}
+
+.nav-link span {
+    width: 20px;
+
+    text-align: center;
+}
+
+.nav-link small {
+    margin-left: auto;
+
+    font-size: 8px;
+
+    background: #CCFBF1;
+
+    color: #0F766E;
+
+    padding: 4px 5px;
+
+    border-radius: 4px;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    border-top: 1px solid var(--border);
+
+    padding-top: 15px;
+}
+
+.logout:hover {
+    color: #DC2626;
+    background: #FEF2F2;
+}
+
+/* =================================
+   TOP BAR
+================================= */
+
+.topbar {
+
+    height: 75px;
+
+    padding: 0 35px;
+
+    background-color: white;
+
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 10;
+}
+
+
+.search_box {
+
+    width: 450px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 0 13px;
+
+    background-color: var(--background);
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+}
+
+
+.search_box span {
+
+    color: var(--secondary-text);
+}
+
+
+.search_box input {
+
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-size: 13px;
+}
+
+
+.topbar_right {
+
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+}
+
+
+.notification {
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+
+.profile {
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+.profile_avatar {
+
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: white;
+
+    background-color: var(--primary);
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+.profile strong {
+
+    font-size: 13px;
+}
+
+
+.profile p {
+
+    color: var(--secondary-text);
+
+    font-size: 11px;
+}
+
+
+/* =================================
+   SETTINGS CONTENT
+================================= */
+
+.settings_content {
+
+    width: 100%;
+
+    max-width: 1050px;
+
+    margin: auto;
+
+    padding: 40px;
+}
+
+
+.page_heading {
+
+    margin-bottom: 30px;
+}
+
+
+.section_label {
+
+    color: var(--primary);
+
+    font-size: 11px;
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 7px;
+}
+
+
+.page_heading h1 {
+
+    font-size: 34px;
+
+    margin-bottom: 7px;
+}
+
+
+.page_heading p {
+
+    color: var(--secondary-text);
+
+    font-size: 14px;
+}
+
+
+/* =================================
+   SETTINGS CARD
+================================= */
+
+.settings_card {
+
+    padding: 28px;
+
+    margin-bottom: 20px;
+
+    background-color: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    box-shadow: 0 5px 20px rgba(23, 32, 51, 0.04);
+}
+
+
+/* =================================
+   CARD HEADING
+================================= */
+
+.card_heading {
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding-bottom: 22px;
+
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.heading_icon {
+
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    font-size: 20px;
+}
+
+
+.heading_icon.blue {
+
+    background-color: #DBEAFE;
+}
+
+
+.heading_icon.teal {
+
+    background-color: #CCFBF1;
+}
+
+
+.heading_icon.yellow {
+
+    background-color: #FEF3C7;
+}
+
+
+.heading_icon.red {
+
+    background-color: #FEE2E2;
+}
+
+
+.card_heading h2 {
+
+    font-size: 18px;
+
+    margin-bottom: 4px;
+}
+
+
+.card_heading p {
+
+    color: var(--secondary-text);
+
+    font-size: 12px;
+}
+
+
+/* =================================
+   FORM
+================================= */
+
+.form_grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+
+.input_group {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.input_group label {
+
+    color: var(--text);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.input_group input,
+.input_group select {
+
+    width: 100%;
+    height: 43px;
+
+    padding: 0 13px;
+
+    color: var(--text);
+
+    background-color: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-size: 13px;
+
+    transition: 0.25s;
+}
+
+
+.input_group input:focus,
+.input_group select:focus {
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =================================
+   CARD FOOTER
+================================= */
+
+.card_footer {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid var(--border);
+}
+
+
+.save_message,
+.password_hint {
+
+    color: var(--secondary-text);
+
+    font-size: 11px;
+}
+
+
+/* =================================
+   BUTTON
+================================= */
+
+.primary_btn {
+
+    padding: 10px 17px;
+
+    color: white;
+
+    background-color: var(--primary);
+
+    border: none;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+
+.primary_btn:hover {
+
+    background-color: var(--primary-dark);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 15px rgba(37, 99, 235, 0.20);
+}
+
+
+/* =================================
+   PASSWORD
+================================= */
+
+.password_form {
+
+    max-width: 600px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* =================================
+   PREFERENCES
+================================= */
+
+.preference_list {
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.preference {
+
+    min-height: 70px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.preference:last-child {
+
+    border-bottom: none;
+}
+
+
+.preference h3 {
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+}
+
+
+.preference p {
+
+    color: var(--secondary-text);
+
+    font-size: 12px;
+}
+
+
+/* =================================
+   TOGGLE SWITCH
+================================= */
+
+.switch {
+
+    position: relative;
+
+    width: 42px;
+    height: 23px;
+
+    flex-shrink: 0;
+}
+
+
+.switch input {
+
+    display: none;
+}
+
+
+.slider {
+
+    position: absolute;
+
+    inset: 0;
+
+    background-color: #CBD5E1;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.slider::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 17px;
+    height: 17px;
+
+    left: 3px;
+    top: 3px;
+
+    background-color: white;
+
+    border-radius: 50%;
+
+    transition: 0.3s;
+}
+
+
+.switch input:checked + .slider {
+
+    background-color: var(--secondary);
+}
+
+
+.switch input:checked + .slider::before {
+
+    transform: translateX(19px);
+}
+
+
+/* =================================
+   ACCOUNT / DANGER
+================================= */
+
+.danger_card {
+
+    border-color: #FECACA;
+}
+
+
+.account_actions {
+
+    display: flex;
+
+    gap: 12px;
+}
+
+
+.logout_btn,
+.delete_btn {
+
+    padding: 10px 17px;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+
+.logout_btn {
+
+    color: var(--text);
+
+    background-color: white;
+
+    border: 1px solid var(--border);
+}
+
+
+.logout_btn:hover {
+
+    background-color: var(--background);
+}
+
+
+.delete_btn {
+
+    color: var(--danger);
+
+    background-color: #FEF2F2;
+
+    border: 1px solid #FECACA;
+}
+
+
+.delete_btn:hover {
+
+    background-color: #FEE2E2;
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 900px) {
+
+    .search_box {
+
+        width: 300px;
+    }
+
+    .settings_content {
+
+        padding: 30px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    /*
+       If your original sidebar becomes
+       smaller on mobile, keep the same
+       margin value used by your dashboard.
+    */
+
+    .main {
+
+        margin-left: 65px;
+    }
+
+
+    .topbar {
+
+        padding: 0 18px;
+    }
+
+
+    .search_box {
+
+        width: 100%;
+    }
+
+
+    .profile,
+    .notification {
+
+        display: none;
+    }
+
+
+    .settings_content {
+
+        padding: 25px 18px;
+    }
+
+
+    .page_heading h1 {
+
+        font-size: 28px;
+    }
+
+
+    .form_grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .settings_card {
+
+        padding: 20px;
+    }
+
+
+    .card_footer {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .account_actions {
+
+        flex-direction: column;
+    }
+
+
+    .logout_btn,
+    .delete_btn {
+
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 450px) {
+
+    .card_heading {
+
+        align-items: flex-start;
+    }
+
+
+    .preference {
+
+        align-items: flex-start;
+    }
+}

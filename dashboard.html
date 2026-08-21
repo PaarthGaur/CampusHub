@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EasyLearn - Dashboard</title>
+
+    <link rel="stylesheet" href="css\dashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">📚 </div>
+            <span>CampusHub</span>
+        </div>
+
+        <nav>
+
+            <p class="nav-title">MAIN</p>
+
+            <a href="" class="nav-link active">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="subjects.html" class="nav-link">
+                <span>📚</span>
+                Subjects
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>📄</span>
+                Resources
+            </a>
+
+            <a href="bookmarks.html" class="nav-link">
+                <span>🔖</span>
+                Bookmarks
+            </a>
+
+            <p class="nav-title">AI TOOLS</p>
+
+            <a href="#" class="nav-link">
+                <span>✦</span>
+                AI Study Assistant
+                <small>NEW</small>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>✓</span>
+                AI Quiz
+            </a>
+
+            <p class="nav-title">COMMUNITY</p>
+
+            <a href="#" class="nav-link">
+                <span>💬</span>
+                Discussions
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>🏆</span>
+                Leaderboard
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html" class="nav-link">
+                <span>⚙</span>
+                Settings
+            </a>
+
+            <a href="#" class="nav-link logout">
+                <span>↪</span>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN PAGE ================= -->
+
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="search-box">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    placeholder="Search subjects, notes, resources..."
+                >
+
+            </div>
+
+
+            <div class="profile">
+
+                <button class="notification">
+                    🔔
+                </button>
+
+                <div class="avatar">
+                    PG
+                </div>
+
+                <div class="profile-details">
+
+                    <strong>Paarth</strong>
+
+                    <span>
+                        CSE • Semester 5
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= PAGE CONTENT ================= -->
+
+        <div class="content">
+
+
+            <!-- WELCOME -->
+
+            <section class="welcome">
+
+                <div>
+
+                    <p class="hello">
+                        Good morning 👋
+                    </p>
+
+                    <h1>
+                        Your Semester Dashboard
+                    </h1>
+
+                    <p>
+                        Everything you need for your current semester,
+                        all in one place.
+                    </p>
+
+                </div>
+
+                <div class="semester-badge">
+
+                    <span>CURRENT SEMESTER</span>
+
+                    <strong>
+                        Semester 5
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= SUBJECTS ================= -->
+
+            <section class="subjects-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Your Subjects
+                        </h2>
+
+                        <p>
+                            Select a subject to explore its resources.
+                        </p>
+
+                    </div>
+
+                    <span class="subject-count">
+                        6 Subjects
+                    </span>
+
+                </div>
+
+
+                <!--
+                    IMPORTANT:
+
+                    These cards will later be generated using JS
+                    according to the logged-in student's semester.
+
+                    Example:
+
+                    Semester 5 → 6 subjects
+
+                    Semester 6 → different subjects
+
+                    Therefore DO NOT hard-code this logic in JS later.
+                -->
+
+                <div class="subject-grid">
+
+
+                    <!-- SUBJECT 1 -->
+
+                    <a href="#" class="subject-card">
+
+                        <div class="subject-icon blue">
+                            DB
+                        </div>
+
+                        <div class="subject-info">
+
+                            <span class="subject-code">
+                                CS501
+                            </span>
+
+                            <h3>
+                                Database Management Systems
+                            </h3>
+
+                            <p>
+                                Notes • PYQs • Resources
+                            </p>
+
+                        </div>
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- SUBJECT 2 -->
+
+                    <a href="#" class="subject-card">
+
+                        <div class="subject-icon teal">
+                            ML
+                        </div>
+
+                        <div class="subject-info">
+
+                            <span class="subject-code">
+                                AI502
+                            </span>
+
+                            <h3>
+                                Machine Learning
+                            </h3>
+
+                            <p>
+                                Notes • Practice • Resources
+                            </p>
+
+                        </div>
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- SUBJECT 3 -->
+
+                    <a href="#" class="subject-card">
+
+                        <div class="subject-icon purple">
+                            CN
+                        </div>
+
+                        <div class="subject-info">
+
+                            <span class="subject-code">
+                                CS503
+                            </span>
+
+                            <h3>
+                                Computer Networks
+                            </h3>
+
+                            <p>
+                                Notes • PYQs • Resources
+                            </p>
+
+                        </div>
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- SUBJECT 4 -->
+
+                    <a href="#" class="subject-card">
+
+                        <div class="subject-icon yellow">
+                            DL
+                        </div>
+
+                        <div class="subject-info">
+
+                            <span class="subject-code">
+                                AI504
+                            </span>
+
+                            <h3>
+                                Deep Learning
+                            </h3>
+
+                            <p>
+                                Notes • Videos • Resources
+                            </p>
+
+                        </div>
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- SUBJECT 5 -->
+
+                    <a href="#" class="subject-card">
+
+                        <div class="subject-icon red">
+                            OS
+                        </div>
+
+                        <div class="subject-info">
+
+                            <span class="subject-code">
+                                CS505
+                            </span>
+
+                            <h3>
+                                Operating Systems
+                            </h3>
+
+                            <p>
+                                Notes • PYQs • Resources
+                            </p>
+
+                        </div>
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- SUBJECT 6 -->
+
+                    <a href="#" class="subject-card">
+
+                        <div class="subject-icon green">
+                            OPT
+                        </div>
+
+                        <div class="subject-info">
+
+                            <span class="subject-code">
+                                MA506
+                            </span>
+
+                            <h3>
+                                Optimization Techniques
+                            </h3>
+
+                            <p>
+                                Notes • Problems • Resources
+                            </p>
+
+                        </div>
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= LOWER GRID ================= -->
+
+            <div class="main-grid">
+
+
+                <!-- ================= LEFT ================= -->
+
+                <div class="left-column">
+
+
+                    <!-- RECOMMENDED -->
+
+                    <section class="section">
+
+                        <div class="section-heading">
+
+                            <div>
+
+                                <h2>
+                                    Recommended For You
+                                </h2>
+
+                                <p>
+                                    Popular resources from your semester.
+                                </p>
+
+                            </div>
+
+                            <a href="#">
+                                View all →
+                            </a>
+
+                        </div>
+
+
+                        <div class="recommended-grid">
+
+
+                            <!-- RESOURCE -->
+
+                            <article class="resource-card">
+
+                                <div class="resource-top">
+
+                                    <span class="resource-tag teacher">
+                                        TEACHER
+                                    </span>
+
+                                    <button>
+                                        ♡
+                                    </button>
+
+                                </div>
+
+                                <h3>
+                                    DBMS Complete Unit 3 Notes
+                                </h3>
+
+                                <p>
+                                    Important concepts and exam-focused
+                                    explanations.
+                                </p>
+
+                                <div class="resource-author">
+
+                                    <div class="mini-avatar teacher-avatar">
+                                        DR
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Dr. Rahul Sharma
+                                        </strong>
+
+                                        <span>
+                                            Faculty • DBMS
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="resource-footer">
+
+                                    <span>
+                                        ⭐ 4.9
+                                    </span>
+
+                                    <span>
+                                        1.2k views
+                                    </span>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- RESOURCE -->
+
+                            <article class="resource-card">
+
+                                <div class="resource-top">
+
+                                    <span class="resource-tag student">
+                                        STUDENT
+                                    </span>
+
+                                    <button>
+                                        ♡
+                                    </button>
+
+                                </div>
+
+                                <h3>
+                                    DBMS Exam Revision Notes
+                                </h3>
+
+                                <p>
+                                    Short and easy revision notes shared
+                                    by a student.
+                                </p>
+
+                                <div class="resource-author">
+
+                                    <div class="mini-avatar">
+                                        AK
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Aman Kumar
+                                        </strong>
+
+                                        <span>
+                                            CSE • Semester 5
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="resource-footer">
+
+                                    <span>
+                                        ⭐ 4.7
+                                    </span>
+
+                                    <span>
+                                        860 views
+                                    </span>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- RESOURCE -->
+
+                            <article class="resource-card">
+
+                                <div class="resource-top">
+
+                                    <span class="resource-tag student">
+                                        STUDENT
+                                    </span>
+
+                                    <button>
+                                        ♡
+                                    </button>
+
+                                </div>
+
+                                <h3>
+                                    Machine Learning Unit 2
+                                </h3>
+
+                                <p>
+                                    Simplified notes with important
+                                    algorithms and diagrams.
+                                </p>
+
+                                <div class="resource-author">
+
+                                    <div class="mini-avatar">
+                                        RS
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Riya Sharma
+                                        </strong>
+
+                                        <span>
+                                            AI • Semester 5
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="resource-footer">
+
+                                    <span>
+                                        ⭐ 4.8
+                                    </span>
+
+                                    <span>
+                                        730 views
+                                    </span>
+
+                                </div>
+
+                            </article>
+
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- ================= QUICK ACCESS ================= -->
+
+                    <section class="section">
+
+                        <div class="section-heading">
+
+                            <div>
+
+                                <h2>
+                                    Quick Access
+                                </h2>
+
+                                <p>
+                                    Useful tools for your semester.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quick-grid">
+
+                            <a href="#" class="quick-card">
+
+                                <div class="quick-icon blue">
+                                    📄
+                                </div>
+
+                                <div>
+
+                                    <h3>
+                                        Previous Year Papers
+                                    </h3>
+
+                                    <p>
+                                        Find papers by subject and semester.
+                                    </p>
+
+                                </div>
+
+                                <span>
+                                    →
+                                </span>
+
+                            </a>
+
+
+                            <a href="#" class="quick-card">
+
+                                <div class="quick-icon teal">
+                                    ✦
+                                </div>
+
+                                <div>
+
+                                    <h3>
+                                        Generate AI Quiz
+                                    </h3>
+
+                                    <p>
+                                        Practice using your study material.
+                                    </p>
+
+                                </div>
+
+                                <span>
+                                    →
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+
+
+                <!-- ================= RIGHT ================= -->
+
+                <aside class="right-column">
+
+
+                    <!-- AI -->
+
+                    <section class="ai-card">
+
+                        <div class="ai-symbol">
+                            ✦
+                        </div>
+
+                        <span>
+                            EASYLEARN AI
+                        </span>
+
+                        <h2>
+                            Your personal
+                            study assistant.
+                        </h2>
+
+                        <p>
+                            Ask questions, summarize notes,
+                            generate quizzes and understand
+                            difficult topics.
+                        </p>
+
+                        <button>
+                            Ask AI →
+                        </button>
+
+                    </section>
+
+
+
+                    <!-- ================= UPCOMING ================= -->
+
+                    <section class="side-card">
+
+                        <div class="side-heading">
+
+                            <div>
+
+                                <h2>
+                                    Upcoming
+                                </h2>
+
+                                <p>
+                                    Don't miss important deadlines.
+                                </p>
+
+                            </div>
+
+                            <a href="#">
+                                View all
+                            </a>
+
+                        </div>
+
+
+                        <!-- Assignment -->
+
+                        <div class="upcoming-item">
+
+                            <div class="date assignment">
+                                <strong>
+                                    24
+                                </strong>
+
+                                <span>
+                                    AUG
+                                </span>
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    DBMS Assignment
+                                </h3>
+
+                                <p>
+                                    Submission • 5 days left
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Quiz -->
+
+                        <div class="upcoming-item">
+
+                            <div class="date quiz">
+                                <strong>
+                                    27
+                                </strong>
+
+                                <span>
+                                    AUG
+                                </span>
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Machine Learning Quiz
+                                </h3>
+
+                                <p>
+                                    Quiz • 8 days left
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Exam -->
+
+                        <div class="upcoming-item">
+
+                            <div class="date exam">
+                                <strong>
+                                    30
+                                </strong>
+
+                                <span>
+                                    AUG
+                                </span>
+
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    CN Internal Exam
+                                </h3>
+
+                                <p>
+                                    Exam • 11 days left
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- ================= LEADERBOARD ================= -->
+
+                    <section class="side-card">
+
+                        <div class="side-heading">
+
+                            <div>
+
+                                <h2>
+                                    Leaderboard
+                                </h2>
+
+                                <p>
+                                    Top students this week
+                                </p>
+
+                            </div>
+
+                            <span class="your-rank">
+                                #12
+                            </span>
+
+                        </div>
+
+
+                        <div class="leader">
+
+                            <span class="rank">
+                                01
+                            </span>
+
+                            <div class="leader-avatar">
+                                AR
+                            </div>
+
+                            <div class="leader-name">
+
+                                <strong>
+                                    Arjun Rao
+                                </strong>
+
+                                <span>
+                                    1,840 XP
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="leader">
+
+                            <span class="rank">
+                                02
+                            </span>
+
+                            <div class="leader-avatar">
+                                SK
+                            </div>
+
+                            <div class="leader-name">
+
+                                <strong>
+                                    Simran Kaur
+                                </strong>
+
+                                <span>
+                                    1,720 XP
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="leader current">
+
+                            <span class="rank">
+                                12
+                            </span>
+
+                            <div class="leader-avatar">
+                                PG
+                            </div>
+
+                            <div class="leader-name">
+
+                                <strong>
+                                    You</strong>
+
+                                <span>
+                                    1,120 XP
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                </aside>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

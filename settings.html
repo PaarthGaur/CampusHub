@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusHub | Settings</title>
+
+    <link rel="stylesheet" href="css\settings.css">
+</head>
+
+<body>
+
+
+    <!-- =================================
+         SIDEBAR
+    ================================= -->
+
+    <!-- ================= SIDEBAR ================= -->
+
+    
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">📚 </div>
+            <span>CampusHub</span>
+        </div>
+
+        <nav>
+
+            <p class="nav-title">MAIN</p>
+
+            <a href="dashboard.html" class="nav-link active">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="subjects.html" class="nav-link">
+                <span>📚</span>
+                Subjects
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>📄</span>
+                Resources
+            </a>
+
+            <a href="bookmarks.html" class="nav-link">
+                <span>🔖</span>
+                Bookmarks
+            </a>
+
+            <p class="nav-title">AI TOOLS</p>
+
+            <a href="#" class="nav-link">
+                <span>✦</span>
+                AI Study Assistant
+                <small>NEW</small>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>✓</span>
+                AI Quiz
+            </a>
+
+            <p class="nav-title">COMMUNITY</p>
+
+            <a href="#" class="nav-link">
+                <span>💬</span>
+                Discussions
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>🏆</span>
+                Leaderboard
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html" class="nav-link">
+                <span>⚙</span>
+                Settings
+            </a>
+
+            <a href="#" class="nav-link logout">
+                <span>↪</span>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =================================
+         MAIN CONTENT
+    ================================= -->
+
+    <main class="main">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="search_box">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    placeholder="Search resources, notes..."
+                >
+
+            </div>
+
+
+            <div class="topbar_right">
+
+                <button class="notification">
+                    🔔
+                </button>
+
+                <div class="profile">
+
+                    <div class="profile_avatar">
+                        P
+                    </div>
+
+                    <div>
+                        <strong>Paarth</strong>
+                        <p>CSE - AI</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================
+             SETTINGS CONTENT
+        ================================= -->
+
+        <section class="settings_content">
+
+
+            <!-- PAGE HEADING -->
+
+            <div class="page_heading">
+
+                <div>
+
+                    <p class="section_label">
+                        ACCOUNT
+                    </p>
+
+                    <h1>Settings</h1>
+
+                    <p>
+                        Manage your profile, account and preferences.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 PROFILE INFORMATION
+            ================================= -->
+
+            <section class="settings_card">
+
+                <div class="card_heading">
+
+                    <div class="heading_icon blue">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <h2>Profile Information</h2>
+
+                        <p>
+                            Update your personal and academic information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form_grid">
+
+
+                    <!-- FULL NAME -->
+
+                    <div class="input_group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            value="Paarth"
+                        >
+
+                    </div>
+
+
+                    <!-- USERNAME -->
+
+                    <div class="input_group">
+
+                        <label for="username">
+                            Username
+                        </label>
+
+                        <input
+                            type="text"
+                            id="username"
+                            value="paarth"
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="input_group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            value="your@email.com"
+                        >
+
+                    </div>
+
+
+                    <!-- AGE -->
+
+                    <div class="input_group">
+
+                        <label for="age">
+                            Age
+                        </label>
+
+                        <input
+                            type="number"
+                            id="age"
+                            value="20"
+                            min="13"
+                            max="100"
+                        >
+
+                    </div>
+
+
+                    <!-- UNIVERSITY -->
+
+                    <div class="input_group">
+
+                        <label for="university">
+                            University
+                        </label>
+
+                        <input
+                            type="text"
+                            id="university"
+                            placeholder="Enter your university"
+                        >
+
+                    </div>
+
+
+                    <!-- COURSE -->
+
+                    <div class="input_group">
+
+                        <label for="course">
+                            Course
+                        </label>
+
+                        <select id="course">
+
+                            <option>CSE - AI</option>
+                            <option>Computer Science</option>
+                            <option>Information Technology</option>
+                            <option>Electronics</option>
+                            <option>Other</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- SEMESTER -->
+
+                    <div class="input_group">
+
+                        <label for="semester">
+                            Current Semester
+                        </label>
+
+                        <select id="semester">
+
+                            <option>Semester 1</option>
+                            <option>Semester 2</option>
+                            <option>Semester 3</option>
+                            <option selected>Semester 4</option>
+                            <option>Semester 5</option>
+                            <option>Semester 6</option>
+                            <option>Semester 7</option>
+                            <option>Semester 8</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card_footer">
+
+                    <p class="save_message">
+                        Keep your information up to date.
+                    </p>
+
+                    <button class="primary_btn">
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 CHANGE PASSWORD
+            ================================= -->
+
+            <section class="settings_card">
+
+                <div class="card_heading">
+
+                    <div class="heading_icon teal">
+                        🔐
+                    </div>
+
+                    <div>
+
+                        <h2>Change Password</h2>
+
+                        <p>
+                            Keep your account secure with a strong password.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="password_form">
+
+
+                    <div class="input_group">
+
+                        <label for="current_password">
+                            Current Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="current_password"
+                            placeholder="Enter current password"
+                        >
+
+                    </div>
+
+
+                    <div class="input_group">
+
+                        <label for="new_password">
+                            New Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="new_password"
+                            placeholder="Enter new password"
+                        >
+
+                    </div>
+
+
+                    <div class="input_group">
+
+                        <label for="confirm_password">
+                            Confirm New Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirm_password"
+                            placeholder="Confirm new password"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="card_footer">
+
+                    <p class="password_hint">
+                        Use at least 8 characters.
+                    </p>
+
+                    <button class="primary_btn">
+                        Update Password
+                    </button>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 PREFERENCES
+            ================================= -->
+
+            <section class="settings_card">
+
+                <div class="card_heading">
+
+                    <div class="heading_icon yellow">
+                        ⚙️
+                    </div>
+
+                    <div>
+
+                        <h2>Preferences</h2>
+
+                        <p>
+                            Choose how CampusHub keeps you updated.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preference_list">
+
+
+                    <!-- EMAIL NOTIFICATIONS -->
+
+                    <div class="preference">
+
+                        <div>
+
+                            <h3>Email Notifications</h3>
+
+                            <p>
+                                Receive updates about your account and resources.
+                            </p>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- STUDY REMINDERS -->
+
+                    <div class="preference">
+
+                        <div>
+
+                            <h3>Study Reminders</h3>
+
+                            <p>
+                                Get reminders to continue your study sessions.
+                            </p>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- AI RECOMMENDATIONS -->
+
+                    <div class="preference">
+
+                        <div>
+
+                            <h3>AI Recommendations</h3>
+
+                            <p>
+                                Allow CampusHub AI to suggest useful resources.
+                            </p>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 ACCOUNT
+            ================================= -->
+
+            <section class="settings_card danger_card">
+
+                <div class="card_heading">
+
+                    <div class="heading_icon red">
+                        ⚠️
+                    </div>
+
+                    <div>
+
+                        <h2>Account</h2>
+
+                        <p>
+                            Manage your CampusHub account.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="account_actions">
+
+                    <button class="logout_btn">
+                        Log Out
+                    </button>
+
+                    <button class="delete_btn">
+                        Delete Account
+                    </button>
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
