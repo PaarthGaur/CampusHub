@@ -123,18 +123,18 @@
                     🔔
                 </button>
 
-                <div class="profile">
+<div class="profile">
 
-                    <div class="profile_avatar">
-                        P
-                    </div>
+    <div class="profile_avatar" id="profileAvatar">
+        P
+    </div>
 
-                    <div>
-                        <strong>Paarth</strong>
-                        <p>CSE - AI</p>
-                    </div>
+    <div>
+        <strong id="profileName">User</strong>
+        <p id="profileUsername">@username</p>
+    </div>
 
-                </div>
+</div>
 
             </div>
 
@@ -209,7 +209,7 @@
                         <input
                             type="text"
                             id="name"
-                            value="Paarth"
+                            value="Enter your full name"
                         >
 
                     </div>
@@ -226,7 +226,7 @@
                         <input
                             type="text"
                             id="username"
-                            value="paarth"
+                            value="Choose a username"
                         >
 
                     </div>
@@ -338,7 +338,7 @@
                         Keep your information up to date.
                     </p>
 
-                    <button class="primary_btn">
+                    <button class="primary_btn" id="SaveChanges">
                         Save Changes
                     </button>
 
@@ -429,7 +429,7 @@
                         Use at least 8 characters.
                     </p>
 
-                    <button class="primary_btn">
+                    <button class="primary_btn" id="updatePassword">
                         Update Password
                     </button>
 
@@ -443,9 +443,9 @@
                  PREFERENCES
             ================================= -->
 
-            <section class="settings_card">
+            <!-- <section class="settings_card"> -->
 
-                <div class="card_heading">
+                <!-- <div class="card_heading">
 
                     <div class="heading_icon yellow">
                         ⚙️
@@ -464,12 +464,12 @@
                 </div>
 
 
-                <div class="preference_list">
+                <div class="preference_list"> -->
 
 
                     <!-- EMAIL NOTIFICATIONS -->
 
-                    <div class="preference">
+                    <!-- <div class="preference">
 
                         <div>
 
@@ -492,12 +492,12 @@
 
                         </label>
 
-                    </div>
+                    </div> -->
 
 
                     <!-- STUDY REMINDERS -->
 
-                    <div class="preference">
+                    <!-- <div class="preference">
 
                         <div>
 
@@ -520,12 +520,12 @@
 
                         </label>
 
-                    </div>
+                    </div> -->
 
 
                     <!-- AI RECOMMENDATIONS -->
 
-                    <div class="preference">
+                    <!-- <div class="preference">
 
                         <div>
 
@@ -550,9 +550,9 @@
 
                     </div>
 
-                </div>
+                </div> -->
 
-            </section>
+            <!-- </section> -->
 
 
 
@@ -583,11 +583,11 @@
 
                 <div class="account_actions">
 
-                    <button class="logout_btn">
+                    <button class="logout_btn" id="logout_btn">
                         Log Out
                     </button>
 
-                    <button class="delete_btn">
+                    <button class="delete_btn" id="delete_btn">
                         Delete Account
                     </button>
 
@@ -599,7 +599,7 @@
         </section>
 
     </main>
-
+<script src="js/settings.js"></script>
 </body>
 
 </html>
