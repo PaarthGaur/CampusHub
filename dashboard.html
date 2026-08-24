@@ -184,8 +184,8 @@
 
                     </div>
 
-                    <span class="subject-count">
-                        6 Subjects
+                    <span class="subject-count" id="subjectCount">
+                        0 Subjects
                     </span>
 
                 </div>
@@ -206,194 +206,9 @@
                     Therefore DO NOT hard-code this logic in JS later.
                 -->
 
-                <div class="subject-grid">
+                
 
-
-                    <!-- SUBJECT 1 -->
-
-                    <a href="subject-details.html?id=cs501" class="subject-card">
-
-                        <div class="subject-icon blue">
-                            DB
-                        </div>
-
-                        <div class="subject-info">
-
-                            <span class="subject-code">
-                                CS501
-                            </span>
-
-                            <h3>
-                                Database Management Systems
-                            </h3>
-
-<p>
-                                Notes • PYQs • Resources
-                            </p>
-
-                        </div>
-
-                        <span class="arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-                    <!-- SUBJECT 2 -->
-
-                    <a href="subject-details.html?id=ai502" class="subject-card">
-
-                        <div class="subject-icon teal">
-                            ML
-                        </div>
-
-                        <div class="subject-info">
-
-                            <span class="subject-code">
-                                AI502
-                            </span>
-
-                            <h3>
-                                Machine Learning
-                            </h3>
-
-                            <p>
-                                Notes • Practice • Resources
-                            </p>
-
-                        </div>
-
-                        <span class="arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-                    <!-- SUBJECT 3 -->
-
-                    <a href="subject-details.html?id=cs503" class="subject-card">
-
-                        <div class="subject-icon purple">
-                            CN
-                        </div>
-
-                        <div class="subject-info">
-
-                            <span class="subject-code">
-                                CS503
-                            </span>
-
-                            <h3>
-                                Computer Networks
-                            </h3>
-
-                            <p>
-                                Notes • PYQs • Resources
-                            </p>
-
-                        </div>
-
-                        <span class="arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-                    <!-- SUBJECT 4 -->
-
-                    <a href="subject-details.html?id=ai504" class="subject-card">
-
-                        <div class="subject-icon yellow">
-                            DL
-                        </div>
-
-                        <div class="subject-info">
-
-                            <span class="subject-code">
-                                AI504
-                            </span>
-
-                            <h3>
-                                Deep Learning
-                            </h3>
-
-                            <p>
-                                Notes • Videos • Resources
-                            </p>
-
-                        </div>
-
-                        <span class="arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-                    <!-- SUBJECT 5 -->
-
-                    <a href="subject-details.html?id=cs505" class="subject-card">
-
-                        <div class="subject-icon red">
-                            OS
-                        </div>
-
-                        <div class="subject-info">
-
-                            <span class="subject-code">
-                                CS505
-                            </span>
-
-                            <h3>
-                                Operating Systems
-                            </h3>
-
-                            <p>
-                                Notes • PYQs • Resources
-                            </p>
-
-                        </div>
-
-                        <span class="arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-                    <!-- SUBJECT 6 -->
-
-                    <a href="subject-details.html?id=ma506" class="subject-card">
-
-                        <div class="subject-icon green">
-                            OPT
-                        </div>
-
-                        <div class="subject-info">
-
-                            <span class="subject-code">
-                                MA506
-                            </span>
-
-                            <h3>
-                                Optimization Techniques
-                            </h3>
-
-                            <p>
-                                Notes • Problems • Resources
-                            </p>
-
-                        </div>
-
-                        <span class="arrow">
-                            →
-                        </span>
-
-                    </a>
-
+                <div class="subject-grid" id="subjectGrid">
                 </div>
 
             </section>
@@ -965,6 +780,10 @@
     </main>
 
 </div>
+<script src="js/subjects-data.js"></script>
+<script src="js/curriculum-data.js"></script>
+<script src="js/subject-utils.js"></script>
 <script src="js/user.js"></script>
+<script src="js/dashboard.js"></script>
 </body>
 </html>

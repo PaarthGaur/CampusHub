@@ -7,6 +7,9 @@ form.addEventListener('submit',function(event){
     const fullname=document.getElementById('fullname').value;
     const username=document.getElementById('username').value;
     const email=document.getElementById('email').value;
+    const course = document.getElementById('course').value;
+    const year = document.getElementById('year').value;
+    const semester = document.getElementById('semester').value;
     const password=document.getElementById('password').value;
     const Cpassword=document.getElementById('confirm-password').value;
     const terms=document.getElementById('terms').value;
@@ -31,6 +34,9 @@ form.addEventListener('submit',function(event){
         fullname:fullname,
         username:username,
         email:email,
+         course: course,
+        year: Number(year),
+        semester: Number(semester),
         password:password
 
     }
