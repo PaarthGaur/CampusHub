@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // If no user is logged in
     if (!storedUser) {
+        alert("No user found. Please sign up first.");
+        window.location.href = "signup.html";
         return;
     }
 
