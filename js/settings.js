@@ -104,7 +104,7 @@ document.getElementById("logout_btn").addEventListener("click", function () {
     }
 
     // Remove logged-in user
-    localStorage.removeItem("user");
+    
 
     // Go to login page
     window.location.href = "signup.html";
