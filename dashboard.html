@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>EasyLearn - Dashboard</title>
+    <title>CampusHub - Dashboard</title>
 
     <link rel="stylesheet" href="css\dashboard.css">
 </head>
@@ -80,7 +80,7 @@
                 Settings
             </a>
 
-            <a href="#" class="nav-link logout">
+            <a href="settings.html#account_details" class="nav-link logout">
                 <span>↪</span>
                 Logout
             </a>
@@ -110,27 +110,18 @@
             </div>
 
 
-            <div class="profile">
+<div class="profile">
 
-                <button class="notification">
-                    🔔
-                </button>
+    <div class="profile_avatar" id="profileAvatar">
+        U
+    </div>
 
-                <div class="avatar">
-                    PG
-                </div>
+    <div>
+        <strong id="profileName">User</strong>
+        <p id="profileUsername">@username</p>
+    </div>
 
-                <div class="profile-details">
-
-                    <strong>Paarth</strong>
-
-                    <span>
-                        CSE • Semester 5
-                    </span>
-
-                </div>
-
-            </div>
+</div>
 
         </header>
 
@@ -165,9 +156,7 @@
 
                     <span>CURRENT SEMESTER</span>
 
-                    <strong>
-                        Semester 5
-                    </strong>
+            <strong id="profileSemester"></strong>
 
                 </div>
 
@@ -974,6 +963,6 @@
     </main>
 
 </div>
-
+<script src="js/user.js"></script>
 </body>
 </html>

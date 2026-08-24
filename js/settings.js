@@ -62,6 +62,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const newEmail =
             document.getElementById("email").value.trim();
 
+        const newSem=document.getElementById("semester").value.trim();
+
 
         if (newName === "" || newUsername === "" || newEmail === "") {
             alert("Please fill all fields.");
@@ -73,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
         user.fullname = newName;
         user.username = newUsername;
         user.email = newEmail;
+        user.semester=newSem;
 
 
         // Save updated user
