@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusHub | Subject</title>
+
+    <link rel="stylesheet" href="css\dashboard.css">
+
+    <style>
+        /* ================= SUBJECT PAGE ================= */
+
+        .subject-page {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .subject-back {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #1760e9;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .subject-hero {
+            width: 100%;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, #172b63, #24479b);
+            color: white;
+            border-radius: 16px;
+            padding: 32px 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 35px;
+            overflow: hidden;
+        }
+
+        .subject-hero-content {
+            min-width: 0;
+        }
+
+        .subject-code-large {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.15);
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .subject-hero h1 {
+            margin: 0 0 10px;
+            font-size: 32px;
+            line-height: 1.2;
+        }
+
+        .subject-hero-description {
+            margin: 0;
+            color: #dce7ff;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 750px;
+        }
+
+        .subject-teacher {
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        .subject-big-icon {
+            width: 100px;
+            height: 100px;
+            min-width: 100px;
+            border-radius: 22px;
+            background: rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+        }
+
+        .subject-section {
+            margin-bottom: 38px;
+        }
+
+        .subject-heading {
+            margin-bottom: 18px;
+        }
+
+        .subject-heading .small-title {
+            color: #1760e9;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+        }
+
+        .subject-heading h2 {
+            margin: 5px 0 5px;
+            font-size: 22px;
+        }
+
+        .subject-heading p {
+            margin: 0;
+            color: #71819a;
+            font-size: 13px;
+        }
+
+        /* ================= STATS ================= */
+
+        .subject-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .subject-stat {
+            background: white;
+            border: 1px solid #e0e7f0;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .subject-stat-icon {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .subject-stat strong {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .subject-stat span {
+            color: #75859c;
+            font-size: 12px;
+        }
+
+        /* ================= RESOURCES ================= */
+
+        .subject-resources {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .subject-resource {
+            background: white;
+            border: 1px solid #e0e7f0;
+            border-radius: 12px;
+            padding: 19px;
+            min-height: 185px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .resource-tag {
+            display: inline-block;
+            width: fit-content;
+            padding: 5px 8px;
+            border-radius: 5px;
+            background: #eaf2ff;
+            color: #1760e9;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .subject-resource h3 {
+            margin: 17px 0 7px;
+            font-size: 15px;
+        }
+
+        .subject-resource p {
+            margin: 0;
+            color: #71819a;
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        .resource-footer {
+            margin-top: auto;
+            padding-top: 14px;
+            border-top: 1px solid #edf1f6;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: #7a8aa2;
+            font-size: 10px;
+        }
+
+        .resource-footer a {
+            color: #1760e9;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* ================= UNITS ================= */
+
+        .subject-units {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .subject-unit {
+            background: white;
+            border: 1px solid #e0e7f0;
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            gap: 14px;
+        }
+
+        .unit-number {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            border-radius: 9px;
+            background: #edf3ff;
+            color: #1760e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .subject-unit h3 {
+            margin: 2px 0 6px;
+            font-size: 14px;
+        }
+
+        .subject-unit p {
+            margin: 0;
+            color: #75859c;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1100px) {
+
+            .subject-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .subject-resources {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .subject-hero {
+                padding: 25px;
+            }
+
+            .subject-big-icon {
+                display: none;
+            }
+
+            .subject-stats,
+            .subject-resources,
+            .subject-units {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">📚 </div>
+            <span>CampusHub</span>
+        </div>
+
+        <nav>
+
+            <p class="nav-title">MAIN</p>
+
+            <a href="dashboard.html" class="nav-link active">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="subjects.html" class="nav-link">
+                <span>📚</span>
+                Subjects
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>📄</span>
+                Resources
+            </a>
+
+            <a href="bookmarks.html" class="nav-link">
+                <span>🔖</span>
+                Bookmarks
+            </a>
+
+            <p class="nav-title">AI TOOLS</p>
+
+            <a href="#" class="nav-link">
+                <span>✦</span>
+                AI Study Assistant
+                <small>NEW</small>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>✓</span>
+                AI Quiz
+            </a>
+
+            <p class="nav-title">COMMUNITY</p>
+
+            <a href="#" class="nav-link">
+                <span>💬</span>
+                Discussions
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>🏆</span>
+                Leaderboard
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html" class="nav-link">
+                <span>⚙</span>
+                Settings
+            </a>
+
+            <a href="#" class="nav-link logout">
+                <span>↪</span>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+        <!-- ================= TOP BAR ================= -->
+
+        <header class="topbar">
+
+            <div class="search-box">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    placeholder="Search subjects, notes, resources..."
+                >
+
+            </div>
+
+            <div class="profile">
+
+                <button class="notification">
+                    🔔
+                </button>
+
+                <div class="avatar">
+                    PG
+                </div>
+
+                <div class="profile-details">
+
+                    <strong>Paarth</strong>
+
+                    <span>
+                        CSE • Semester 5
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <div class="content">
+
+            <div class="subject-page">
+
+                <a href="dashboard.html" class="subject-back">
+                    ← Back to Dashboard
+                </a>
+
+
+                <!-- ================= SUBJECT HERO ================= -->
+
+                <section class="subject-hero">
+
+                    <div class="subject-hero-content">
+
+                        <span
+                            class="subject-code-large"
+                            id="subjectCode">
+                        </span>
+
+                        <h1 id="subjectName"></h1>
+
+                        <p
+                            class="subject-hero-description"
+                            id="subjectDescription">
+                        </p>
+
+                        <div class="subject-teacher">
+                            👨‍🏫
+                            <span id="subjectTeacher"></span>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="subject-big-icon"
+                        id="subjectIcon">
+                    </div>
+
+                </section>
+
+
+                <!-- ================= OVERVIEW ================= -->
+
+                <section class="subject-section">
+
+                    <div class="subject-heading">
+
+                        <span class="small-title">
+                            SUBJECT OVERVIEW
+                        </span>
+
+                        <h2>
+                            Everything for this subject
+                        </h2>
+
+                        <p>
+                            Only information and learning material
+                            for the selected subject.
+                        </p>
+
+                    </div>
+
+                    <div
+                        class="subject-stats"
+                        id="subjectStats">
+                    </div>
+
+                </section>
+
+
+                <!-- ================= RESOURCES ================= -->
+
+                <section class="subject-section">
+
+                    <div class="subject-heading">
+
+                        <span class="small-title">
+                            LEARNING MATERIAL
+                        </span>
+
+                        <h2>
+                            Resources
+                        </h2>
+
+                        <p>
+                            Notes, PYQs, presentations, practice
+                            and videos for this subject.
+                        </p>
+
+                    </div>
+
+                    <div
+                        class="subject-resources"
+                        id="subjectResources">
+                    </div>
+
+                </section>
+
+
+                <!-- ================= UNITS ================= -->
+
+                <section class="subject-section">
+
+                    <div class="subject-heading">
+
+                        <span class="small-title">
+                            SYLLABUS
+                        </span>
+
+                        <h2>
+                            Units & Topics
+                        </h2>
+
+                        <p>
+                            Topics covered in this subject.
+                        </p>
+
+                    </div>
+
+                    <div
+                        class="subject-units"
+                        id="subjectUnits">
+                    </div>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SUBJECT DATA
+========================================================= */
+
+const subjects = {
+
+    cs501: {
+
+        code: "CS501",
+
+        name: "Database Management Systems",
+
+        icon: "🗄️",
+
+        description:
+            "Database design, relational models, SQL, normalization, transactions and database management concepts.",
+
+        teacher: "Dr. Rahul Sharma",
+
+        stats: [
+            ["📄", "18", "Resources"],
+            ["📝", "7", "Practice Sets"],
+            ["📚", "6", "Units"],
+            ["⭐", "4.8", "Rating"]
+        ],
+
+        resources: [
+
+            [
+                "NOTES",
+                "DBMS Complete Unit 3 Notes",
+                "Important concepts and exam-focused explanations.",
+                "Dr. Rahul Sharma",
+                "24 Pages"
+            ],
+
+            [
+                "PYQs",
+                "DBMS Previous Year Questions",
+                "Previous-year questions arranged unit-wise.",
+                "Department",
+                "42 Questions"
+            ],
+
+            [
+                "NOTES",
+                "Normalization & Transactions",
+                "Concise notes on normalization and transactions.",
+                "Dr. Rahul Sharma",
+                "18 Pages"
+            ],
+
+            [
+                "PPT",
+                "Relational Database Model",
+                "Relational models and database architecture.",
+                "Dr. Rahul Sharma",
+                "28 Slides"
+            ],
+
+            [
+                "PRACTICE",
+                "SQL Practice Set",
+                "Queries and problems for SQL practice.",
+                "CampusHub",
+                "30 Questions"
+            ],
+
+            [
+                "VIDEO",
+                "SQL & Database Revision",
+                "Quick revision of important DBMS concepts.",
+                "CampusHub",
+                "8 Videos"
+            ]
+
+        ],
+
+        units: [
+
+            [
+                "01",
+                "Introduction to DBMS",
+                "Database concepts, architecture, data models and users."
+            ],
+
+            [
+                "02",
+                "Relational Model & SQL",
+                "Relations, keys, relational algebra and SQL queries."
+            ],
+
+            [
+                "03",
+                "Normalization",
+                "Functional dependencies, normal forms and decomposition."
+            ],
+
+            [
+                "04",
+                "Transactions",
+                "ACID properties, concurrency control and serializability."
+            ],
+
+            [
+                "05",
+                "Storage & Indexing",
+                "File organization, indexing and B-trees."
+            ],
+
+            [
+                "06",
+                "Recovery & Security",
+                "Recovery techniques and database security."
+            ]
+
+        ]
+
+    },
+
+
+    ai502: {
+
+        code: "AI502",
+
+        name: "Machine Learning",
+
+        icon: "🧠",
+
+        description:
+            "Supervised and unsupervised learning, model evaluation, algorithms and practical machine learning workflows.",
+
+        teacher: "Dr. Priya Mehta",
+
+        stats: [
+            ["📄", "21", "Resources"],
+            ["📝", "9", "Practice Sets"],
+            ["📚", "6", "Units"],
+            ["⭐", "4.8", "Rating"]
+        ],
+
+        resources: [
+            [
+                "NOTES",
+                "Machine Learning Unit 2",
+                "Simplified notes with important algorithms and diagrams.",
+                "Riya Sharma",
+                "22 Pages"
+            ],
+            [
+                "PPT",
+                "Regression Algorithms",
+                "Linear and logistic regression with examples.",
+                "Dr. Priya Mehta",
+                "31 Slides"
+            ],
+            [
+                "NOTES",
+                "Classification Notes",
+                "Decision trees, KNN, Naive Bayes and metrics.",
+                "Dr. Priya Mehta",
+                "27 Pages"
+            ],
+            [
+                "PYQs",
+                "ML Previous Year Questions",
+                "Exam-focused questions arranged by unit.",
+                "Department",
+                "38 Questions"
+            ],
+            [
+                "PRACTICE",
+                "Model Evaluation Practice",
+                "Accuracy, precision, recall, F1 and confusion matrix.",
+                "CampusHub",
+                "25 Questions"
+            ],
+            [
+                "VIDEO",
+                "ML Quick Revision",
+                "Short revision videos for important ML algorithms.",
+                "CampusHub",
+                "10 Videos"
+            ]
+        ],
+
+        units: [
+            [
+                "01",
+                "Introduction to Machine Learning",
+                "Learning types, datasets, features and workflows."
+            ],
+            [
+                "02",
+                "Regression",
+                "Linear, multiple and logistic regression."
+            ],
+            [
+                "03",
+                "Classification",
+                "KNN, decision trees, Naive Bayes and evaluation."
+            ],
+            [
+                "04",
+                "Clustering",
+                "K-means and hierarchical clustering."
+            ],
+            [
+                "05",
+                "Ensemble Learning",
+                "Bagging, boosting and random forests."
+            ],
+            [
+                "06",
+                "Model Selection",
+                "Cross-validation, regularization and tuning."
+            ]
+        ]
+
+    },
+
+
+    cs503: {
+
+        code: "CS503",
+
+        name: "Computer Networks",
+
+        icon: "🌐",
+
+        description:
+            "Network architectures, communication protocols, routing, transport services and application-layer concepts.",
+
+        teacher: "Dr. Anil Verma",
+
+        stats: [
+            ["📄", "16", "Resources"],
+            ["📝", "8", "Practice Sets"],
+            ["📚", "5", "Units"],
+            ["⭐", "4.9", "Rating"]
+        ],
+
+        resources: [
+            [
+                "NOTES",
+                "Computer Networks Unit 1",
+                "Network models, topologies and communication fundamentals.",
+                "Dr. Anil Verma",
+                "20 Pages"
+            ],
+            [
+                "PPT",
+                "OSI & TCP/IP Models",
+                "Layered network architecture explained with diagrams.",
+                "Dr. Anil Verma",
+                "26 Slides"
+            ],
+            [
+                "PYQs",
+                "CN Previous Year Questions",
+                "Important previous university examination questions.",
+                "Department",
+                "45 Questions"
+            ],
+            [
+                "NOTES",
+                "Routing Algorithms",
+                "Distance vector, link state and routing concepts.",
+                "Dr. Anil Verma",
+                "24 Pages"
+            ],
+            [
+                "PRACTICE",
+                "Subnetting Practice",
+                "IP addressing and subnetting problems.",
+                "CampusHub",
+                "32 Questions"
+            ],
+            [
+                "VIDEO",
+                "CN Exam Revision",
+                "Quick revision of important networking topics.",
+                "CampusHub",
+                "7 Videos"
+            ]
+        ],
+
+        units: [
+            [
+                "01",
+                "Network Fundamentals",
+                "Communication models, topologies and network types."
+            ],
+            [
+                "02",
+                "Data Link Layer",
+                "Framing, error control, flow control and MAC."
+            ],
+            [
+                "03",
+                "Network Layer",
+                "IP addressing, routing and routing algorithms."
+            ],
+            [
+                "04",
+                "Transport Layer",
+                "TCP, UDP, flow control and congestion control."
+            ],
+            [
+                "05",
+                "Application Layer",
+                "DNS, HTTP, FTP, email and application protocols."
+            ]
+        ]
+
+    },
+
+
+    ai504: {
+
+        code: "AI504",
+
+        name: "Deep Learning",
+
+        icon: "🤖",
+
+        description:
+            "Neural networks, deep learning architectures, optimization and modern intelligent application models.",
+
+        teacher: "Dr. Neha Kapoor",
+
+        stats: [
+            ["📄", "15", "Resources"],
+            ["📝", "6", "Practice Sets"],
+            ["📚", "5", "Units"],
+            ["⭐", "4.7", "Rating"]
+        ],
+
+        resources: [
+            [
+                "PPT",
+                "Neural Networks Fundamentals",
+                "Perceptrons, activation functions and feed-forward networks.",
+                "Dr. Neha Kapoor",
+                "34 Slides"
+            ],
+            [
+                "NOTES",
+                "Backpropagation",
+                "Step-by-step backpropagation and gradient descent.",
+                "Dr. Neha Kapoor",
+                "21 Pages"
+            ],
+            [
+                "NOTES",
+                "CNN Revision Notes",
+                "Convolutional neural networks with architecture diagrams.",
+                "Dr. Neha Kapoor",
+                "25 Pages"
+            ],
+            [
+                "PYQs",
+                "Deep Learning PYQs",
+                "Important university questions for deep learning.",
+                "Department",
+                "30 Questions"
+            ],
+            [
+                "PRACTICE",
+                "Neural Network Problems",
+                "Numerical and conceptual practice problems.",
+                "CampusHub",
+                "20 Questions"
+            ],
+            [
+                "VIDEO",
+                "DL Architecture Revision",
+                "Quick revision of CNN, RNN and modern architectures.",
+                "CampusHub",
+                "9 Videos"
+            ]
+        ],
+
+        units: [
+            [
+                "01",
+                "Neural Network Basics",
+                "Perceptrons, activation functions and multilayer networks."
+            ],
+            [
+                "02",
+                "Training & Optimization",
+                "Loss functions, gradient descent and backpropagation."
+            ],
+            [
+                "03",
+                "Convolutional Networks",
+                "CNN layers, pooling and image classification."
+            ],
+            [
+                "04",
+                "Sequence Models",
+                "RNNs, LSTMs and sequence learning."
+            ],
+            [
+                "05",
+                "Modern Deep Learning",
+                "Transfer learning, attention and transformer concepts."
+            ]
+        ]
+
+    },
+
+
+    cs505: {
+
+        code: "CS505",
+
+        name: "Operating Systems",
+
+        icon: "⚙️",
+
+        description:
+            "Processes, threads, CPU scheduling, synchronization, memory management, file systems and security.",
+
+        teacher: "Dr. Vivek Singh",
+
+        stats: [
+            ["📄", "19", "Resources"],
+            ["📝", "8", "Practice Sets"],
+            ["📚", "6", "Units"],
+            ["⭐", "4.8", "Rating"]
+        ],
+
+        resources: [
+            [
+                "NOTES",
+                "Operating Systems Unit 1",
+                "Processes, system calls and OS structures.",
+                "Dr. Vivek Singh",
+                "23 Pages"
+            ],
+            [
+                "PPT",
+                "CPU Scheduling",
+                "Scheduling algorithms with solved examples.",
+                "Dr. Vivek Singh",
+                "29 Slides"
+            ],
+            [
+                "PYQs",
+                "OS Previous Year Questions",
+                "Exam-focused OS questions from previous years.",
+                "Department",
+                "40 Questions"
+            ],
+            [
+                "NOTES",
+                "Deadlocks & Synchronization",
+                "Semaphores, critical sections and deadlock handling.",
+                "Dr. Vivek Singh",
+                "26 Pages"
+            ],
+            [
+                "PRACTICE",
+                "Page Replacement Problems",
+                "FIFO, LRU and optimal page replacement problems.",
+                "CampusHub",
+                "24 Questions"
+            ],
+            [
+                "VIDEO",
+                "OS Quick Revision",
+                "Short videos covering high-weightage OS topics.",
+                "CampusHub",
+                "8 Videos"
+            ]
+        ],
+
+        units: [
+            [
+                "01",
+                "OS Fundamentals",
+                "OS services, structures, system calls and processes."
+            ],
+            [
+                "02",
+                "Process Management",
+                "Threads, scheduling and inter-process communication."
+            ],
+            [
+                "03",
+                "Synchronization & Deadlocks",
+                "Critical sections, semaphores and deadlock algorithms."
+            ],
+            [
+                "04",
+                "Memory Management",
+                "Paging, segmentation and virtual memory."
+            ],
+            [
+                "05",
+                "File Systems",
+                "Files, directories, allocation and disk management."
+            ],
+            [
+                "06",
+                "Security & Protection",
+                "Protection mechanisms and OS security concepts."
+            ]
+        ]
+
+    },
+
+
+    ma506: {
+
+        code: "MA506",
+
+        name: "Optimization Techniques",
+
+        icon: "📈",
+
+        description:
+            "Mathematical optimization methods, linear programming, transportation, assignment and decision-making techniques.",
+
+        teacher: "Dr. Rakesh Gupta",
+
+        stats: [
+            ["📄", "14", "Resources"],
+            ["📝", "10", "Practice Sets"],
+            ["📚", "6", "Units"],
+            ["⭐", "4.6", "Rating"]
+        ],
+
+        resources: [
+            [
+                "NOTES",
+                "Linear Programming",
+                "Formulation and graphical solutions of LPP problems.",
+                "Dr. Rakesh Gupta",
+                "26 Pages"
+            ],
+            [
+                "PRACTICE",
+                "Simplex Method Problems",
+                "Step-by-step simplex method practice problems.",
+                "Dr. Rakesh Gupta",
+                "35 Questions"
+            ],
+            [
+                "NOTES",
+                "Transportation Problems",
+                "North-West Corner, Least Cost and VAM methods.",
+                "Dr. Rakesh Gupta",
+                "20 Pages"
+            ],
+            [
+                "PYQs",
+                "Optimization PYQs",
+                "Previous-year numerical and theory questions.",
+                "Department",
+                "42 Questions"
+            ],
+            [
+                "PPT",
+                "Assignment Problems",
+                "Assignment model and Hungarian method.",
+                "Dr. Rakesh Gupta",
+                "24 Slides"
+            ],
+            [
+                "VIDEO",
+                "Optimization Revision",
+                "Fast revision of important numerical methods.",
+                "CampusHub",
+                "6 Videos"
+            ]
+        ],
+
+        units: [
+            [
+                "01",
+                "Linear Programming",
+                "Problem formulation, graphical method and feasible solutions."
+            ],
+            [
+                "02",
+                "Simplex Method",
+                "Standard form, simplex tables and optimal solutions."
+            ],
+            [
+                "03",
+                "Transportation",
+                "Transportation models and solution methods."
+            ],
+            [
+                "04",
+                "Assignment",
+                "Assignment model and Hungarian method."
+            ],
+            [
+                "05",
+                "Game Theory",
+                "Two-person zero-sum games and solution techniques."
+            ],
+            [
+                "06",
+                "Decision Theory",
+                "Decision-making under certainty, risk and uncertainty."
+            ]
+        ]
+
+    }
+
+};
+
+
+/* =========================================================
+   LOAD SELECTED SUBJECT
+========================================================= */
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const subjectId =
+    params.get("id") || "cs501";
+
+const subject =
+    subjects[subjectId] || subjects.cs501;
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+document.title =
+    "CampusHub | " + subject.name;
+
+document.getElementById("subjectCode")
+    .textContent = subject.code;
+
+document.getElementById("subjectName")
+    .textContent = subject.name;
+
+document.getElementById("subjectDescription")
+    .textContent = subject.description;
+
+document.getElementById("subjectTeacher")
+    .textContent = subject.teacher;
+
+document.getElementById("subjectIcon")
+    .textContent = subject.icon;
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+document.getElementById("subjectStats").innerHTML =
+    subject.stats.map(function(stat) {
+
+        return `
+            <div class="subject-stat">
+
+                <div class="subject-stat-icon">
+                    ${stat[0]}
+                </div>
+
+                <strong>
+                    ${stat[1]}
+                </strong>
+
+                <span>
+                    ${stat[2]}
+                </span>
+
+            </div>
+        `;
+
+    }).join("");
+
+
+/* =========================================================
+   RESOURCES
+========================================================= */
+
+document.getElementById("subjectResources").innerHTML =
+    subject.resources.map(function(resource) {
+
+        return `
+            <article class="subject-resource">
+
+                <span class="resource-tag">
+                    ${resource[0]}
+                </span>
+
+                <h3>
+                    ${resource[1]}
+                </h3>
+
+                <p>
+                    ${resource[2]}
+                </p>
+
+                <div class="resource-footer">
+
+                    <span>
+                        ${resource[3]}
+                    </span>
+
+                    <span>
+                        ${resource[4]}
+                    </span>
+
+                    <a href="#">
+                        Open →
+                    </a>
+
+                </div>
+
+            </article>
+        `;
+
+    }).join("");
+
+
+/* =========================================================
+   UNITS
+========================================================= */
+
+document.getElementById("subjectUnits").innerHTML =
+    subject.units.map(function(unit) {
+
+        return `
+            <article class="subject-unit">
+
+                <div class="unit-number">
+                    ${unit[0]}
+                </div>
+
+                <div>
+
+                    <h3>
+                        ${unit[1]}
+                    </h3>
+
+                    <p>
+                        ${unit[2]}
+                    </p>
+
+                </div>
+
+            </article>
+        `;
+
+    }).join("");
+
+</script>
+
+</body>
+</html>
