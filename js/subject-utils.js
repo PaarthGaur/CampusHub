@@ -1,32 +1,38 @@
 function getCurrentSubjects() {
 
-    let userData = localStorage.getItem("user");
+    const userData = localStorage.getItem("user");
 
-    if (userData == null) {
+    if (userData === null) {
         return [];
     }
 
-    let user = JSON.parse(userData);
+    const user = JSON.parse(userData);
 
-    let course = user.course;
-    let year = user.year;
-    let semester = user.semester;
+    const course = user.course;
+    const year = user.year;
 
-    let subjectIds =
-        curriculum[course][year][semester];
+    // Convert "Semester 5" → 5
+    const semester = parseInt(
+        user.semester.replace("Semester ", ""),
+        10
+    );
 
-    let result = [];
+    const subjectIds =
+        curriculum[course][year][semester] || [];
+
+    const result = [];
 
     for (let i = 0; i < subjectIds.length; i++) {
 
-        let id = subjectIds[i];
+        const id = subjectIds[i];
+        const subject = subjects[id];
 
-        let subject = subjects[id];
-
-        result.push({
-            id: id,
-            data: subject
-        });
+        if (subject) {
+            result.push({
+                id: id,
+                data: subject
+            });
+        }
     }
 
     return result;

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusHub | Resources</title>
+
+    <link rel="stylesheet" href="css\resources.css">
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">📚</div>
+            <span>CampusHub</span>
+        </div>
+
+        <nav>
+            <p class="nav-title">MAIN</p>
+
+            <a href="dashboard.html" class="nav-link">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="subjects.html" class="nav-link">
+                <span>📚</span>
+                Subjects
+            </a>
+
+            <a href="resources.html" class="nav-link active">
+                <span>📄</span>
+                Resources
+            </a>
+
+            <a href="bookmarks.html" class="nav-link">
+                <span>🔖</span>
+                Bookmarks
+            </a>
+
+            <p class="nav-title">AI TOOLS</p>
+
+            <a href="#" class="nav-link">
+                <span>✦</span>
+                AI Study Assistant
+                <small>NEW</small>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>✓</span>
+                AI Quiz
+            </a>
+
+            <p class="nav-title">COMMUNITY</p>
+
+            <a href="#" class="nav-link">
+                <span>💬</span>
+                Discussions
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>🏆</span>
+                Leaderboard
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="settings.html" class="nav-link">
+                <span>⚙</span>
+                Settings
+            </a>
+
+            <a href="#" class="nav-link logout">
+                <span>↪</span>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <!-- TOP BAR: matches subjects.html -->
+
+        <header class="topbar">
+
+            <div class="search_box">
+                <span>🔍</span>
+
+                <input
+                    id="globalSearch"
+                    type="text"
+                    placeholder="Search subjects, notes, resources..."
+                    aria-label="Search subjects, notes, resources"
+                >
+            </div>
+
+            <div class="topbar_right">
+
+                <button class="notification" type="button" aria-label="Notifications">
+                    🔔
+                </button>
+
+                <div class="profile">
+
+                    <div class="profile_avatar" id="profileAvatar">
+                        U
+                    </div>
+
+                    <div>
+                        <strong id="profileName">User</strong>
+                        <p id="profileUsername">@username</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= PAGE CONTENT ================= -->
+
+        <section class="page_content">
+
+            <div class="page_heading">
+
+                <div>
+                    <p class="section_label">RESOURCE LIBRARY</p>
+
+                    <h1>Resources</h1>
+
+                    <p>
+                        Explore notes, PYQs, presentations and learning material
+                        from every year, semester and subject.
+                    </p>
+                </div>
+
+                <div class="resource_count" id="resourceCount">
+                    0 Resources
+                </div>
+
+            </div>
+
+
+            <!-- RESOURCE FILTERS -->
+
+            <div class="resource_controls">
+
+                <div class="filters">
+
+                    <select id="yearFilter" aria-label="Filter by year">
+                        <option value="All">All Years</option>
+                    </select>
+
+                    <select id="semesterFilter" aria-label="Filter by semester">
+                        <option value="All">All Semesters</option>
+                    </select>
+
+                    <select id="subjectFilter" aria-label="Filter by subject">
+                        <option value="All">All Subjects</option>
+                    </select>
+
+                    <select id="typeFilter" aria-label="Filter by resource type">
+                        <option value="All">All Types</option>
+                    </select>
+
+                    <select id="sortFilter" aria-label="Sort resources">
+                        <option value="newest">Newest</option>
+                        <option value="rating">Highest Rated</option>
+                        <option value="az">A-Z</option>
+                        <option value="za">Z-A</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESOURCE GRID -->
+
+            <div class="resource_grid" id="resourceGrid" aria-live="polite"></div>
+
+
+            <!-- EMPTY STATE -->
+
+            <div class="empty_state" id="emptyState" hidden>
+
+                <div class="empty_icon">📚</div>
+
+                <h2>No resources found</h2>
+
+                <p>
+                    Try changing your search or filters to find learning
+                    material from another subject or semester.
+                </p>
+
+                <button type="button" id="clearFilters">
+                    Clear Filters
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/resources.js"></script>
+
+</body>
+
+</html>

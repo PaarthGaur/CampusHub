@@ -73,19 +73,26 @@ document.getElementById("subjectStats").innerHTML =
     }).join("");
 
 
-/* =========================================================
-   RESOURCES
-========================================================= */
-
 document.getElementById("subjectResources").innerHTML =
-    subject.resources.map(function(resource) {
+    subject.resources.map(function(resource, index) {
 
         return `
             <article class="subject-resource">
 
-                <span class="resource-tag">
-                    ${resource[0]}
-                </span>
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <span class="resource-tag">
+                        ${resource[0]}
+                    </span>
+                    
+                    <!-- BOOKMARK BUTTON -->
+                    <button 
+                        class="save_btn" 
+                        onclick="toggleBookmark('${subjectId}', ${index})" 
+                        style="background:none; border:none; font-size:20px; cursor:pointer;"
+                        title="Save Bookmark">
+                        🔖
+                    </button>
+                </div>
 
                 <h3>
                     ${resource[1]}
@@ -115,8 +122,6 @@ document.getElementById("subjectResources").innerHTML =
         `;
 
     }).join("");
-
-
 /* =========================================================
    UNITS
 ========================================================= */
