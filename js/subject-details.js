@@ -1,6 +1,4 @@
-/* =========================================================
-   LOAD SELECTED SUBJECT
-========================================================= */
+//   LOAD SELECTED SUBJECT
 
 const params =
     new URLSearchParams(window.location.search);
@@ -22,9 +20,7 @@ if (!subject) {
 }
 
 
-/* =========================================================
    HEADER
-========================================================= */
 
 document.title =
     "CampusHub | " + subject.name;
@@ -45,9 +41,8 @@ document.getElementById("subjectIcon")
     .textContent = subject.icon;
 
 
-/* =========================================================
+
    STATS
-========================================================= */
 
 document.getElementById("subjectStats").innerHTML =
     subject.stats.map(function(stat) {
@@ -122,9 +117,7 @@ document.getElementById("subjectResources").innerHTML =
         `;
 
     }).join("");
-/* =========================================================
    UNITS
-========================================================= */
 
 document.getElementById("subjectUnits").innerHTML =
     subject.units.map(function(unit) {

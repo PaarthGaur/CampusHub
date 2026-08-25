@@ -12,33 +12,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const user = JSON.parse(storedUser);
 
-
-    // =========================
     // USER NAME
-    // =========================
-
     const userName = document.getElementById("profileName");
 
     if (userName) {
         userName.textContent = user.fullname;
     }
 
-
-    // =========================
     // USERNAME
-    // =========================
-
     const userUsername = document.getElementById("profileUsername");
 
     if (userUsername) {
         userUsername.textContent = "@" + user.username;
     }
 
-
-    // =========================
     // PROFILE AVATAR
-    // =========================
-
     const userAvatar = document.getElementById("profileAvatar");
 
     if (userAvatar) {

@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // =================================
     // GET CURRENT USER
-    // =================================
 
     const storedUser = localStorage.getItem("user");
 
@@ -14,10 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const user = JSON.parse(storedUser);
 
-
-    // =================================
     // PROFILE ELEMENTS
-    // =================================
 
     const profileName =
         document.getElementById("profileName");
@@ -29,9 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("profileAvatar");
 
 
-    // =================================
     // LOAD USER DATA
-    // =================================
 
     document.getElementById("name").value =
         user.fullname || "";
@@ -46,9 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         user.semester || "Semester 1";
 
 
-    // =================================
     // LOAD TOP PROFILE
-    // =================================
 
     if (profileName) {
         profileName.textContent = user.fullname;
@@ -63,10 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
             user.fullname.charAt(0).toUpperCase();
     }
 
-
-    // =================================
     // SAVE CHANGES
-    // =================================
 
     const saveButton =
         document.getElementById("SaveChanges");
@@ -134,9 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    // =================================
     // CHANGE PASSWORD
-    // =================================
 
     const updatePassword =
         document.getElementById("updatePassword");
@@ -195,10 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "dashboard.html";
     });
 
-
-    // =================================
     // LOGOUT
-    // =================================
 
     const logoutButton =
         document.getElementById("logout_btn");
@@ -212,15 +195,11 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        localStorage.removeItem("user");
-
         window.location.href = "signup.html";
     });
 
 
-    // =================================
     // DELETE ACCOUNT
-    // =================================
 
     const deleteButton =
         document.getElementById("delete_btn");

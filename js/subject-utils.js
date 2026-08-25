@@ -11,7 +11,7 @@ function getCurrentSubjects() {
     const course = user.course;
     const year = user.year;
 
-    // Convert "Semester 5" → 5
+
     const semester = parseInt(
         user.semester.replace("Semester ", ""),
         10
