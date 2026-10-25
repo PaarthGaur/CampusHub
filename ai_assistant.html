@@ -12,13 +12,10 @@
 
     <title>CampusHub AI</title>
 
-    <link rel="stylesheet" href="css\ai_assistant.css">
-
+    <link rel="stylesheet" href="css/ai_assistant.css">
 </head>
 
-
 <body>
-
 
     <!-- =========================================
          AI APPLICATION
@@ -26,31 +23,20 @@
 
     <div class="ai_app">
 
-
         <!-- =====================================
              AI SIDEBAR
         ====================================== -->
 
         <aside class="ai_sidebar">
 
-
             <!-- LOGO -->
-
-            <div class="ai_logo">
-
-                <div class="logo_icon">
-                    ✦
-                </div>
-
+            <a href="dashboard.html" class="ai_logo" title="← Back to Dashboard" style="text-decoration:none; color:inherit; display:flex; cursor:pointer;">
+                <div class="logo_icon">✦</div>
                 <div>
-
                     <h2>CampusHub</h2>
-
                     <span>AI Assistant</span>
-
                 </div>
-
-            </div>
+            </a>
 
 
 
@@ -528,12 +514,99 @@
                 →
             </span>
 
-        </button>
-
-
     </div>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const chatArea = document.querySelector(".chat_area");
+    const textarea = document.querySelector(".chat_input_box textarea");
+    const sendBtn = document.querySelector(".send_button");
+    const newChatBtn = document.querySelector(".new_chat");
+    const promptCards = document.querySelectorAll(".prompt_card");
 
+    function appendMessage(text, isUser = true) {
+        const msgDiv = document.createElement("div");
+        msgDiv.style.margin = "16px 0";
+        msgDiv.style.display = "flex";
+        msgDiv.style.flexDirection = isUser ? "row-reverse" : "row";
+        msgDiv.style.alignItems = "flex-start";
+        msgDiv.style.gap = "12px";
+
+        const bubble = document.createElement("div");
+        bubble.style.padding = "12px 18px";
+        bubble.style.borderRadius = "14px";
+        bubble.style.maxWidth = "75%";
+        bubble.style.lineHeight = "1.5";
+        bubble.style.fontSize = "14px";
+
+        if (isUser) {
+            bubble.style.background = "var(--primary-color, #2563eb)";
+            bubble.style.color = "#ffffff";
+            bubble.style.borderBottomRightRadius = "4px";
+        } else {
+            bubble.style.background = "#f3f4f6";
+            bubble.style.color = "#1f2937";
+            bubble.style.borderBottomLeftRadius = "4px";
+            bubble.style.boxShadow = "0 1px 3px rgba(0,0,0,0.06)";
+        }
+
+        bubble.textContent = text;
+        msgDiv.appendChild(bubble);
+        chatArea.appendChild(msgDiv);
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function handleSend() {
+        const val = textarea.value.trim();
+        if (!val) return;
+
+        // Hide welcome hero on first message
+        const welcome = document.querySelector(".welcome");
+        const promptGrid = document.querySelector(".prompt_grid");
+        if (welcome) welcome.style.display = "none";
+        if (promptGrid) promptGrid.style.display = "none";
+
+        appendMessage(val, true);
+        textarea.value = "";
+
+        // Simulated AI answer based on university context
+        setTimeout(() => {
+            const replies = [
+                `Here is a summary based on your course materials: "${val}" relates to key concepts covered in your semester curriculum. Review Unit 2 & Unit 3 lecture notes for exam preparation.`,
+                `Great question! In Computer Science and Engineering, ${val} is typically analyzed using time complexity metrics and relational models. Check your DBMS and OS notes for complete derivations.`,
+                `Notes generated for: "${val}". 1) Review foundational definitions, 2) Practice numerical problems from previous year questions, 3) Check recommended slide decks in Resources.`
+            ];
+            const randomReply = replies[Math.floor(Math.random() * replies.length)];
+            appendMessage(randomReply, false);
+        }, 500);
+    }
+
+    if (sendBtn) sendBtn.addEventListener("click", handleSend);
+    if (textarea) {
+        textarea.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+            }
+        });
+    }
+
+    promptCards.forEach(card => {
+        card.addEventListener("click", () => {
+            const text = card.querySelector("strong")?.textContent?.trim() || "";
+            if (text) {
+                textarea.value = text;
+                handleSend();
+            }
+        });
+    });
+
+    if (newChatBtn) {
+        newChatBtn.addEventListener("click", () => {
+            window.location.reload();
+        });
+    }
+});
+</script>
 </body>
-
 </html>

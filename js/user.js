@@ -1,45 +1,46 @@
+/**
+ * CampusHub Active User Profile Resolver
+ * Populates header profile badges safely across all pages without crashing or blocking guests.
+ */
 document.addEventListener("DOMContentLoaded", function () {
+    const rawUser = localStorage.getItem("user") || localStorage.getItem("currentUser");
+    let user = null;
 
-    // Get current user
-    const storedUser = localStorage.getItem("user");
-
-    // If no user is logged in
-    if (!storedUser) {
-        alert("No user found. Please sign up first.");
-        window.location.href = "signup.html";
-        return;
+    if (rawUser) {
+        try {
+            user = JSON.parse(rawUser);
+        } catch {
+            user = null;
+        }
     }
 
-    const user = JSON.parse(storedUser);
+    // Default guest profile if not logged in
+    const displayName = user?.fullname || user?.name || "Student Guest";
+    const displayUsername = user?.username || (user?.email ? user.email.split('@')[0] : "student");
+    const displaySemester = user?.semester ? (typeof user.semester === 'number' ? `Semester ${user.semester}` : user.semester) : "Semester 4";
+    const avatarLetter = (displayName.trim().charAt(0) || "S").toUpperCase();
 
     // USER NAME
-    const userName = document.getElementById("profileName");
-
-    if (userName) {
-        userName.textContent = user.fullname;
+    const userNameEl = document.getElementById("profileName");
+    if (userNameEl) {
+        userNameEl.textContent = displayName;
     }
 
     // USERNAME
-    const userUsername = document.getElementById("profileUsername");
-
-    if (userUsername) {
-        userUsername.textContent = "@" + user.username;
+    const userUsernameEl = document.getElementById("profileUsername");
+    if (userUsernameEl) {
+        userUsernameEl.textContent = "@" + displayUsername.replace(/^@/, '');
     }
 
     // PROFILE AVATAR
-    const userAvatar = document.getElementById("profileAvatar");
-
-    if (userAvatar) {
-        userAvatar.textContent =
-            user.fullname.charAt(0).toUpperCase();
+    const userAvatarEl = document.getElementById("profileAvatar");
+    if (userAvatarEl) {
+        userAvatarEl.textContent = avatarLetter;
     }
 
-const profileSemester =
-    document.getElementById("profileSemester");
-
-if (profileSemester) {
-    profileSemester.textContent =
-        user.semester || "Semester 1";
-}
-
+    // PROFILE SEMESTER
+    const profileSemesterEl = document.getElementById("profileSemester");
+    if (profileSemesterEl) {
+        profileSemesterEl.textContent = displaySemester;
+    }
 });

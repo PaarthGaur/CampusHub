@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>CampusHub - Create Account</title>
-
-    <link rel="stylesheet" href="css\signup.css">
+    <link rel="stylesheet" href="css/signup.css">
 </head>
 
 <body>
@@ -20,23 +18,15 @@
 
                 <!-- Logo -->
                 <div class="brand">
-                    <div class="brand-logo">
-                        C
-                    </div>
-
+                    <div class="brand-logo">C</div>
                     <span class="brand-name">Campus<span>Hub</span></span>
                 </div>
-
 
                 <!-- Heading -->
                 <div class="form-header">
                     <h1>Create Account</h1>
-
-                    <p>
-                        Join CampusHub and make studying easier.
-                    </p>
+                    <p>Join the student community today.</p>
                 </div>
-
 
                 <!-- Signup Form -->
                 <form class="signup-form" id="signupForm">
@@ -44,7 +34,6 @@
                     <!-- Full Name -->
                     <div class="input-group">
                         <label for="fullname">Full Name</label>
-
                         <input
                             type="text"
                             id="fullname"
@@ -54,131 +43,116 @@
                         >
                     </div>
 
-
                     <!-- Username -->
                     <div class="input-group">
                         <label for="username">Username</label>
-
                         <input
                             type="text"
                             id="username"
                             name="username"
                             placeholder="Choose a username"
+                            required
                         >
                     </div>
-
 
                     <!-- Email -->
                     <div class="input-group">
                         <label for="email">Email</label>
-
                         <input
                             type="email"
                             id="email"
                             name="email"
                             placeholder="Enter your university email"
+                            required
                         >
                     </div>
-                    
+
                     <!-- Academic Details -->
-<div class="academic-row">
+                    <div class="academic-row">
 
-    <!-- Course -->
-    <div class="input-group">
-        <label for="course">Course</label>
+                        <!-- Course -->
+                        <div class="input-group">
+                            <label for="course">Course</label>
+                            <select id="course" name="course" required>
+                                <option value="" disabled selected>Select Course</option>
+                                <option value="CSE">CSE</option>
+                                <option value="ECE">ECE</option>
+                                <option value="EEE">EEE</option>
+                                <option value="ME">Mechanical</option>
+                                <option value="CIVIL">Civil</option>
+                            </select>
+                        </div>
 
-        <select id="course" name="course" required>
-            <option value="" disabled selected>Select Course</option>
-            <option value="CSE">CSE</option>
-            <option value="ECE">ECE</option>
-            <option value="EEE">EEE</option>
-            <option value="ME">Mechanical</option>
-            <option value="CIVIL">Civil</option>
-        </select>
-    </div>
+                        <!-- Year -->
+                        <div class="input-group">
+                            <label for="year">Year</label>
+                            <select id="year" name="year" required>
+                                <option value="" disabled selected>Select Year</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                            </select>
+                        </div>
 
+                        <!-- Semester -->
+                        <div class="input-group">
+                            <label for="semester">Semester</label>
+                            <select id="semester" name="semester" required>
+                                <option value="" disabled selected>Select Semester</option>
+                                <option value="1">Semester 1</option>
+                                <option value="2">Semester 2</option>
+                                <option value="3">Semester 3</option>
+                                <option value="4">Semester 4</option>
+                                <option value="5">Semester 5</option>
+                                <option value="6">Semester 6</option>
+                                <option value="7">Semester 7</option>
+                                <option value="8">Semester 8</option>
+                            </select>
+                        </div>
 
-    <!-- Year -->
-    <div class="input-group">
-        <label for="year">Year</label>
-
-        <select id="year" name="year" required>
-            <option value="" disabled selected>Select Year</option>
-            <option value="1">1st Year</option>
-            <option value="2">2nd Year</option>
-            <option value="3">3rd Year</option>
-            <option value="4">4th Year</option>
-        </select>
-    </div>
-
-
-    <!-- Semester -->
-    <div class="input-group">
-        <label for="semester">Semester</label>
-
-        <select id="semester" name="semester" required>
-            <option value="" disabled selected>Select Semester</option>
-            <option value="1">Semester 1</option>
-            <option value="2">Semester 2</option>
-            <option value="3">Semester 3</option>
-            <option value="4">Semester 4</option>
-            <option value="5">Semester 5</option>
-            <option value="6">Semester 6</option>
-            <option value="7">Semester 7</option>
-            <option value="8">Semester 8</option>
-        </select>
-    </div>
-
-</div>
+                    </div>
 
                     <!-- Password Fields -->
                     <div class="password-row">
 
                         <div class="input-group">
                             <label for="password">Password</label>
-
                             <input
                                 type="password"
                                 id="password"
                                 name="password"
-                                placeholder="Create a password"
+                                placeholder="Create a password (min 6 chars)"
+                                required
                             >
                         </div>
 
-
                         <div class="input-group">
-                            <label for="confirm-password">
-                                Confirm Password
-                            </label>
-
+                            <label for="confirm-password">Confirm Password</label>
                             <input
                                 type="password"
                                 id="confirm-password"
                                 name="confirm-password"
                                 placeholder="Confirm password"
+                                required
                             >
                         </div>
 
                     </div>
 
-
                     <!-- Terms -->
                     <div class="terms">
-
                         <input
                             type="checkbox"
                             id="terms"
                             name="terms"
                             required
                         >
-
                         <label for="terms">
                             I agree to the
                             <a href="#">Terms & Conditions</a>
                         </label>
-
                     </div>
-
 
                     <!-- Main Button -->
                     <button type="submit" class="signup-button">
@@ -187,45 +161,15 @@
 
                 </form>
 
-
-                <!-- Divider
-                <div class="divider">
-                    <span></span>
-                    <p>or sign up with</p>
-                    <span></span>
-                </div> -->
-
-
-                <!-- Social Buttons
-                <div class="social-buttons">
-
-                    <button type="button" class="social-button">
-                        <span class="google-icon">G</span>
-                        <span>Sign up with Google</span>
-                    </button>
-
-
-                    <button type="button" class="social-button">
-                        <span class="facebook-icon">f</span>
-                        <span>Sign up with Facebook</span>
-                    </button>
-
-                </div> -->
-
-
-                <!-- Login -->
+                <!-- Login Redirect -->
                 <div class="login-text">
-
                     <p>
                         Already have an account?
                         <a href="login.html">Login Now</a>
                     </p>
-
                 </div>
 
             </div>
-
-
 
             <!-- ================= RIGHT SIDE ================= -->
             <aside class="visual-section">
@@ -235,47 +179,21 @@
                 <div class="circle circle-two"></div>
                 <div class="circle circle-three"></div>
 
-
                 <!-- Main visual content -->
                 <div class="visual-content">
-
-                    <div class="learning-icon">
-                        🎓
-                    </div>
-
-                    <span class="visual-label">
-                        CAMPUSHUB
-                    </span>
-
-                    <h2>
-                        Your learning
-                        <br>
-                        journey starts here.
-                    </h2>
-
-                    <p>
-                        Connect, learn, collaborate and
-                        make your university experience better.
-                    </p>
-
+                    <div class="learning-icon">🎓</div>
+                    <span class="visual-label">CAMPUSHUB</span>
+                    <h2>Your learning<br>journey starts here.</h2>
+                    <p>Connect, learn, collaborate and make your university experience better.</p>
                 </div>
-
 
                 <!-- Bottom decorative card -->
                 <div class="visual-card">
-
-                    <div class="mini-icon">
-                        ✦
-                    </div>
-
+                    <div class="mini-icon">✦</div>
                     <div>
                         <strong>Learn. Connect. Grow.</strong>
-
-                        <span>
-                            Everything students need in one place.
-                        </span>
+                        <span>Everything students need in one place.</span>
                     </div>
-
                 </div>
 
             </aside>
@@ -283,6 +201,8 @@
         </section>
 
     </main>
-<script src="js/signup.js"></script>
+
+    <script src="js/api.js"></script>
+    <script src="js/signup.js"></script>
 </body>
 </html>

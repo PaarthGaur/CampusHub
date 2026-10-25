@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>CampusHub - Login Account</title>
-
-    <link rel="stylesheet" href="css\signup.css">
+    <link rel="stylesheet" href="css/signup.css">
 </head>
 
 <body>
@@ -20,77 +18,45 @@
 
                 <!-- Logo -->
                 <div class="brand">
-                    <div class="brand-logo">
-                        C
-                    </div>
-
+                    <div class="brand-logo">C</div>
                     <span class="brand-name">Campus<span>Hub</span></span>
                 </div>
 
-
                 <!-- Heading -->
                 <div class="form-header">
-                    <h1>Welcome Back!!</h1>
-
-                    <p>
-                        Glad to to have you back with us.
-                    </p>
+                    <h1>Welcome Back!</h1>
+                    <p>Glad to have you back with us.</p>
                 </div>
 
-
-                <!-- Signup Form -->
+                <!-- Login Form -->
                 <form class="signup-form" id="LoginForm">
 
-                    <!-- Full Name -->
+                    <!-- Email or Username -->
                     <div class="input-group">
-                        <label for="fullname">Full Name</label>
-
+                        <label for="identifier">Email or Username</label>
                         <input
                             type="text"
-                            id="fullname"
-                            name="fullname"
-                            placeholder="Enter your full name"
+                            id="identifier"
+                            name="identifier"
+                            placeholder="Enter your email or username"
                             required
+                            autofocus
                         >
                     </div>
 
-
-                    <!-- Username -->
-                    <div class="input-group">
-                        <label for="username">Username</label>
-
-                        <input
-                            type="text"
-                            id="username"
-                            name="username"
-                            placeholder="Enter your username"
-                        >
-                    </div>
-
-
-                    
-
-
-                    <!-- Password Fields -->
+                    <!-- Password Field -->
                     <div class="password-row">
-
-                        <div class="input-group">
+                        <div class="input-group" style="width: 100%;">
                             <label for="password">Password</label>
-
                             <input
                                 type="password"
                                 id="password"
                                 name="password"
                                 placeholder="Enter password"
+                                required
                             >
                         </div>
-
                     </div>
-
-
-                   
-                    
-
 
                     <!-- Main Button -->
                     <button type="submit" class="signup-button">
@@ -99,45 +65,15 @@
 
                 </form>
 
-
-                <!-- Divider
-                <div class="divider">
-                    <span></span>
-                    <p>or sign up with</p>
-                    <span></span>
-                </div> -->
-
-
-                <!-- Social Buttons
-                <div class="social-buttons">
-
-                    <button type="button" class="social-button">
-                        <span class="google-icon">G</span>
-                        <span>Sign up with Google</span>
-                    </button>
-
-
-                    <button type="button" class="social-button">
-                        <span class="facebook-icon">f</span>
-                        <span>Sign up with Facebook</span>
-                    </button>
-
-                </div> -->
-
-
-                <!-- Login -->
+                <!-- Signup Link -->
                 <div class="login-text">
-
                     <p>
                         Do not have an account?
                         <a href="signup.html">Sign Up</a>
                     </p>
-
                 </div>
 
             </div>
-
-
 
             <!-- ================= RIGHT SIDE ================= -->
             <aside class="visual-section">
@@ -147,47 +83,21 @@
                 <div class="circle circle-two"></div>
                 <div class="circle circle-three"></div>
 
-
                 <!-- Main visual content -->
                 <div class="visual-content">
-
-                    <div class="learning-icon">
-                        🎓
-                    </div>
-
-                    <span class="visual-label">
-                        CAMPUSHUB
-                    </span>
-
-                    <h2>
-                        Your learning
-                        <br>
-                        journey starts here.
-                    </h2>
-
-                    <p>
-                        Connect, learn, collaborate and
-                        make your university experience better.
-                    </p>
-
+                    <div class="learning-icon">🎓</div>
+                    <span class="visual-label">CAMPUSHUB</span>
+                    <h2>Your learning<br>journey starts here.</h2>
+                    <p>Connect, learn, collaborate and make your university experience better.</p>
                 </div>
-
 
                 <!-- Bottom decorative card -->
                 <div class="visual-card">
-
-                    <div class="mini-icon">
-                        ✦
-                    </div>
-
+                    <div class="mini-icon">✦</div>
                     <div>
                         <strong>Learn. Connect. Grow.</strong>
-
-                        <span>
-                            Everything students need in one place.
-                        </span>
+                        <span>Everything students need in one place.</span>
                     </div>
-
                 </div>
 
             </aside>
@@ -195,6 +105,8 @@
         </section>
 
     </main>
-<script src="js/login.js"></script>
+
+    <script src="js/api.js"></script>
+    <script src="js/login.js"></script>
 </body>
 </html>
