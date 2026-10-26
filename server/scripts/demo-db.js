@@ -16,6 +16,7 @@ console.log('🎓 CampusHub: Topics 59 & 60 - MongoDB & Mongoose Demo');
 console.log('='.repeat(65));
 
 async function runDemo() {
+  if(config.isProd) throw new Error('Database demo must only run against a development database.');
   // 1. Demonstration of Mongoose Schemas & In-Memory Validation (Offline/Standalone)
   console.log('\n[1] Mongoose Schema Validation (Negative Validation Tests):');
   try {
@@ -46,7 +47,7 @@ async function runDemo() {
 
   // 3. Live Connection & CRUD Operations
   try {
-    console.log(`\n[3] Connecting to MongoDB: ${config.mongoUri}...`);
+    console.log('Connecting to MongoDB...');
     await mongoose.connect(config.mongoUri, { serverSelectionTimeoutMS: 4000 });
     console.log(`✅ Connected successfully to: ${mongoose.connection.host}`);
 

@@ -68,7 +68,7 @@ const noteSchema = new mongoose.Schema(
     ],
     isPublic: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   {

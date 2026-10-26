@@ -1,6 +1,8 @@
 /**
  * Bookmark Controller (Course Topic: 55, 56 & 57 - Relations & Populates)
  */
+import { Note } from '../models/Note.js';
+import { Subject } from '../models/Subject.js';
 import { Bookmark } from '../models/Bookmark.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
@@ -13,6 +15,7 @@ export const getMyBookmarks = catchAsync(async (req, res) => {
   const bookmarks = await Bookmark.find({ user: req.user._id })
     .populate({
       path: 'note',
+      match: { $or: [{isPublic:true},{author:req.user._id}] },
       populate: [
         { path: 'author', select: 'name email avatar' },
         { path: 'subject', select: 'name code color' }
@@ -39,6 +42,9 @@ export const toggleBookmark = catchAsync(async (req, res, next) => {
     return next(new AppError('Please provide a noteId or subjectId to bookmark.', 400));
   }
 
+  if (Boolean(noteId) === Boolean(subjectId)) return next(new AppError('Provide exactly one bookmark target.',400));
+  const target = noteId ? await Note.findOne({ _id: noteId, $or: [{ isPublic: true }, { author: req.user._id }] }) : await Subject.findById(subjectId);
+  if (!target) return next(new AppError('Bookmark target not found.',404));
   const query = { user: req.user._id };
   if (noteId) query.note = noteId;
   if (subjectId) query.subject = subjectId;

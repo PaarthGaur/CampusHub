@@ -1,6 +1,7 @@
 /**
  * Authentication & Authorization Middleware (Course Topic: 57 - JWT Authentication & Protected Routes)
  */
+import { checkDbConnection } from './dbCheck.js';
 import { verifyToken } from '../utils/jwt.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
@@ -24,6 +25,9 @@ export const protect = catchAsync(async (req, res, next) => {
   const decoded = await verifyToken(token);
 
   // 3. Verify user still exists in database
+  let unavailable;
+  checkDbConnection(req, res, err => { unavailable = err; });
+  if (unavailable) return next(unavailable);
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
     return next(new AppError('The user belonging to this token no longer exists.', 401));

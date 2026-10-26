@@ -1,3 +1,5 @@
+import { Resource } from '../models/Resource.js';
+import { Note } from '../models/Note.js';
 /**
  * Resource Controller (Course Topic: 52 - Streams/Buffers & 58 - Multer Uploads)
  * Handles file uploads via Multer, stream-based downloads, and metadata retrieval.
@@ -54,6 +56,9 @@ export const uploadResource = catchAsync(async (req, res, next) => {
  */
 export const streamDownloadResource = catchAsync(async (req, res, next) => {
   const { fileName } = req.params;
+  const resource = await Resource.findOne({fileName});
+  const publicNote = await Note.exists({fileName,isPublic:true});
+  if (!resource || (String(resource.owner)!==String(req.user._id) && !publicNote)) return next(new AppError('Resource not found.',404));
 
   // Prevent directory traversal attacks
   const safeBaseName = path.basename(fileName);
@@ -85,6 +90,9 @@ export const streamDownloadResource = catchAsync(async (req, res, next) => {
  * GET /api/v1/resources/info/:fileName
  */
 export const getResourceInfo = catchAsync(async (req, res, next) => {
+  const resource = await Resource.findOne({fileName:req.params.fileName});
+  const publicNote = await Note.exists({fileName:req.params.fileName,isPublic:true});
+  if (!resource || (String(resource.owner)!==String(req.user._id) && !publicNote)) return next(new AppError('Resource not found.',404));
   const safeBaseName = path.basename(req.params.fileName);
   const filePath = resolveFromRoot('uploads', safeBaseName);
 
@@ -107,3 +115,5 @@ export const getResourceInfo = catchAsync(async (req, res, next) => {
     return next(err);
   }
 });
+
+export const listResources=catchAsync(async(req,res)=>{ const resources=await Resource.find({owner:req.user._id}).sort('-createdAt'); res.json({status:'success',data:{resources}}); });

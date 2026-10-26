@@ -1,6 +1,7 @@
 /**
  * Note Controller (Course Topic: 55, 56 & 57 - CRUD APIs & Populate)
  */
+import { Subject } from '../models/Subject.js';
 import { Note } from '../models/Note.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
@@ -10,13 +11,14 @@ import catchAsync from '../utils/catchAsync.js';
  * GET /api/v1/notes
  */
 export const getAllNotes = catchAsync(async (req, res) => {
-  const queryObj = {};
+  const queryObj = { $and: [{ $or: [{ isPublic: true }, { author: req.user._id }] }] };
 
   if (req.query.subject) queryObj.subject = req.query.subject;
   if (req.query.author) queryObj.author = req.query.author;
   if (req.query.unit) queryObj.unit = Number(req.query.unit);
 
   if (req.query.search) {
+    req.query.search = String(req.query.search).slice(0,100).replace(/[^a-zA-Z0-9 ]/g, char => String.fromCharCode(92) + char);
     queryObj.$or = [
       { title: { $regex: req.query.search, $options: 'i' } },
       { description: { $regex: req.query.search, $options: 'i' } },
@@ -25,8 +27,8 @@ export const getAllNotes = catchAsync(async (req, res) => {
   }
 
   // Pagination
-  const page = parseInt(req.query.page, 10) || 1;
-  const limit = parseInt(req.query.limit, 10) || 20;
+  const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+  const limit = Math.min(100, Math.max(1, parseInt(req.query.limit, 10) || 20));
   const skip = (page - 1) * limit;
 
   const notes = await Note.find(queryObj)
@@ -53,7 +55,7 @@ export const getAllNotes = catchAsync(async (req, res) => {
  * GET /api/v1/notes/:id
  */
 export const getNote = catchAsync(async (req, res, next) => {
-  const note = await Note.findById(req.params.id)
+  const note = await Note.findOne({ _id: req.params.id, $or: [{ isPublic: true }, { author: req.user._id }] })
     .populate('author', 'name email role avatar department')
     .populate('subject', 'name code department semester credits color');
 
@@ -73,8 +75,10 @@ export const getNote = catchAsync(async (req, res, next) => {
  */
 export const createNote = catchAsync(async (req, res, next) => {
   // Automatically assign logged-in user as the author
+  req.body = Object.fromEntries(['title','description','subject','unit','tags','isPublic'].filter(k => req.body[k] !== undefined).map(k => [k,req.body[k]]));
   req.body.author = req.user._id;
 
+  if (!(await Subject.exists({_id:req.body.subject}))) return next(new AppError('Subject not found.',404));
   const newNote = await Note.create(req.body);
 
   const populated = await newNote.populate([
@@ -93,6 +97,7 @@ export const createNote = catchAsync(async (req, res, next) => {
  * POST /api/v1/notes/with-file (Protected)
  */
 export const createNoteWithFile = catchAsync(async (req, res, next) => {
+  req.body = Object.fromEntries(['title','description','subject','unit','tags','isPublic'].filter(k => req.body[k] !== undefined).map(k => [k,req.body[k]]));
   req.body.author = req.user._id;
 
   if (req.file) {
@@ -111,6 +116,7 @@ export const createNoteWithFile = catchAsync(async (req, res, next) => {
     }
   }
 
+  if (!(await Subject.exists({_id:req.body.subject}))) return next(new AppError('Subject not found.',404));
   const newNote = await Note.create(req.body);
 
   const populated = await newNote.populate([
@@ -140,7 +146,7 @@ export const updateNote = catchAsync(async (req, res, next) => {
     return next(new AppError('You are not authorized to edit this note.', 403));
   }
 
-  const updatedNote = await Note.findByIdAndUpdate(req.params.id, req.body, {
+  const updatedNote = await Note.findByIdAndUpdate(req.params.id, Object.fromEntries(['title','description','unit','tags','isPublic'].filter(k => req.body[k] !== undefined).map(k => [k,req.body[k]])), {
     new: true,
     runValidators: true
   }).populate([
@@ -188,6 +194,7 @@ export const toggleLike = catchAsync(async (req, res, next) => {
     return next(new AppError('No note found with that ID', 404));
   }
 
+  if (!note.isPublic && String(note.author)!==String(req.user._id)) return next(new AppError('Note not found.',404));
   const userId = req.user._id;
   const alreadyLiked = note.likes.some((id) => id.toString() === userId.toString());
 

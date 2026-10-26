@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema(
       minlength: [2, 'Name must be at least 2 characters'],
       maxlength: [60, 'Name cannot exceed 60 characters']
     },
+    username: { type: String, trim: true, maxlength: 40, match: [/^[a-zA-Z0-9_-]*$/, 'Username may contain letters, numbers, underscores and hyphens'] },
+    university: { type: String, trim: true, maxlength: [150, 'University cannot exceed 150 characters'], default: '' },
+    age: { type: Number, min: 13, max: 100, default: null, validate: { validator: value => value == null || Number.isInteger(value), message: 'Age must be a whole number' } },
     email: {
       type: String,
       required: [true, 'Email address is required'],
@@ -53,6 +56,7 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
+      validate: { validator: value => /^https:\/\//i.test(value), message: 'Avatar must use HTTPS' },
       default: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80'
     },
     isActive: {
@@ -67,13 +71,15 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+userSchema.virtual('year').get(function () { return Math.ceil(this.semester / 2); });
+
 // Mongoose Pre-save Hook: Hash password before saving if modified
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+userSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
 
   const salt = await bcrypt.genSalt(12);
   this.password = await bcrypt.hash(this.password, salt);
-  next();
+
 });
 
 // Instance Method: Compare candidate password with stored hash

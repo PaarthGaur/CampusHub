@@ -19,6 +19,7 @@ import { uploadStudyFile } from '../middleware/uploadMiddleware.js';
 const router = Router();
 
 // Ensure DB is ready before querying
+router.use(protect);
 router.use(checkDbConnection);
 
 // Public routes for viewing and searching notes
@@ -26,9 +27,9 @@ router.get('/', getAllNotes);
 router.get('/:id', getNote);
 
 // Protected routes (User must be authenticated)
-router.use(protect);
+
 router.post('/', validateNote, createNote);
-router.post('/with-file', uploadStudyFile, createNoteWithFile);
+router.post('/with-file', uploadStudyFile, validateNote, createNoteWithFile);
 router.patch('/:id', updateNote);
 router.delete('/:id', deleteNote);
 router.post('/:id/like', toggleLike);
