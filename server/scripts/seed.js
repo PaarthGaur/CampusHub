@@ -1,7 +1,4 @@
-/**
- * Database Seed Script (Course Topic: 59 & 60 - MongoDB CRUD & Mongoose Models)
- * Populates MongoDB with standard university subjects, initial student users, and course notes.
- */
+
 import mongoose from 'mongoose';
 import config from '../config/env.js';
 import { User, Subject, Note } from '../models/index.js';

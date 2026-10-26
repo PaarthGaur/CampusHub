@@ -1,18 +1,10 @@
-/**
- * MongoDB & Mongoose Comprehensive Demonstration Script
- * Topics Covered: 59 & 60:
- * - MongoDB Connection
- * - Mongoose Schemas & Models
- * - Validation (Type checking, regex email, custom error messages)
- * - CRUD Operations (Create, Read, Update, Delete)
- * - Mongoose .populate() for relational joins
- */
+
 import mongoose from 'mongoose';
 import config from '../config/env.js';
 import { User, Subject, Note } from '../models/index.js';
 
 console.log('='.repeat(65));
-console.log('🎓 CampusHub: Topics 59 & 60 - MongoDB & Mongoose Demo');
+console.log('🎓 CampusHub:MongoDB & Mongoose Demo');
 console.log('='.repeat(65));
 
 async function runDemo() {
