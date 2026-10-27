@@ -11,7 +11,11 @@
     "demo:http": "node demo/raw-http.js",
     "demo:db": "node scripts/demo-db.js",
     "seed": "node scripts/seed.js",
-    "test:api": "node tests/api-test.js"
+    "test:api": "node tests/api-test.js",
+    "test": "node --test tests/regression.test.js",
+    "db:start": "node scripts/start-local-db.js",
+    "prestart": "node scripts/start-local-db.js --optional",
+    "predev": "node scripts/start-local-db.js --optional"
   },
   "keywords": [
     "nodejs",

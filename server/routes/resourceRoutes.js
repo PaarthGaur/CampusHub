@@ -3,6 +3,7 @@
  */
 import { Router } from 'express';
 import {
+  listResources,
   uploadResource,
   streamDownloadResource,
   getResourceInfo
@@ -11,12 +12,14 @@ import { uploadStudyFile } from '../middleware/uploadMiddleware.js';
 import { protect } from '../middleware/authMiddleware.js';
 
 const router = Router();
+router.use(protect);
+router.get('/', listResources);
 
 // Public download and info routes (uses Node.js Streams)
 router.get('/download/:fileName', streamDownloadResource);
 router.get('/info/:fileName', getResourceInfo);
 
 // Protected upload route (requires authentication & multipart/form-data)
-router.post('/upload', protect, uploadStudyFile, uploadResource);
+router.post('/upload', uploadStudyFile, uploadResource);
 
 export default router;

@@ -10,8 +10,9 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>CampusHub | Subject</title>
+    <title>CampusHub | Notes</title>
 
+    <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/notes.css">
 
 </head>
@@ -57,15 +58,16 @@
 
             <p class="nav-title">AI TOOLS</p>
 
-            <a href="ai_assistant.html" class="nav-link">
+            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
                 <span>✦</span>
                 AI Study Assistant
-                <small>NEW</small>
-            </a>
+                <small class="badge-upcoming">UPCOMING</small>
+            </span>
 
             <a href="#" class="nav-link">
                 <span>✓</span>
                 AI Quiz
+                <small class="badge-upcoming">UPCOMING</small>
             </a>
 
             <p class="nav-title">COMMUNITY</p>
@@ -75,10 +77,11 @@
                 Discussions
             </a>
 
-            <a href="#" class="nav-link">
+            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
                 <span>🏆</span>
                 Leaderboard
-            </a>
+                <small class="badge-upcoming">UPCOMING</small>
+            </span>
 
         </nav>
 
@@ -89,7 +92,7 @@
                 Settings
             </a>
 
-            <a href="#" class="nav-link logout">
+            <a href="login.html" class="nav-link logout" id="sidebarLogout">
                 <span>↪</span>
                 Logout
             </a>
@@ -105,21 +108,16 @@
 
     <main class="main">
 
-
-        <!-- =====================================
-             TOPBAR
-
-             Paste your ORIGINAL dashboard
-             topbar here.
-        ====================================== -->
+        <!-- TOPBAR -->
 
         <header class="topbar">
 
-            <div class="search_box">
+            <div class="search-box">
 
-                <span>🔍</span>
+                <span>⌕</span>
 
                 <input
+                    id="notesSearchInput"
                     type="text"
                     placeholder="Search resources, notes..."
                 >
@@ -136,16 +134,11 @@
 
                 <div class="profile">
 
-                    <div class="profile_avatar">
-                        P
-                    </div>
+                    <div class="profile_avatar" id="profileAvatar">U</div>
 
                     <div>
-
-                        <strong>Paarth</strong>
-
-                        <p>CSE - AI</p>
-
+                        <strong id="profileName">User</strong>
+                        <p id="profileUsername">@username</p>
                     </div>
 
                 </div>
@@ -183,31 +176,27 @@
                 <div class="subject_header_content">
 
 
-                    <span class="subject_code">
-                        AI401
+                    <span class="subject_code" id="notesSubjectCode">
+                        ALL
                     </span>
 
 
-                    <h1>
-                        Artificial Intelligence
+                    <h1 id="notesSubjectTitle">
+                        Study Notes & Learning Materials
                     </h1>
 
 
-                    <p class="subject_description">
-
-                        Introduction to artificial intelligence,
-                        intelligent systems and problem-solving
-                        techniques.
-
+                    <p class="subject_description" id="notesSubjectDesc">
+                        Access official faculty lecture slides, revision notes and student study materials from MongoDB.
                     </p>
 
 
-                    <div class="subject_teacher">
+                    <div class="subject_teacher" id="notesTeacherBlock">
 
                         👨‍🏫
 
-                        <span>
-                            Dr. Sharma
+                        <span id="notesTeacherName">
+                            Faculty Instructor
                         </span>
 
                     </div>
@@ -216,9 +205,9 @@
                 </div>
 
 
-                <div class="subject_icon">
+                <div class="subject_icon" id="notesSubjectIcon">
 
-                    🤖
+                    📄
 
                 </div>
 
@@ -227,7 +216,7 @@
 
 
             <!-- =================================
-                 TEACHER RESOURCES
+                 RESOURCES SECTION
             ================================== -->
 
             <section class="resource_section">
@@ -239,611 +228,31 @@
                     <div>
 
                         <span class="section_label">
-                            OFFICIAL MATERIAL
+                            COURSE NOTES
                         </span>
 
                         <h2>
-                            Teacher Resources
+                            Study Materials
                         </h2>
 
                         <p>
-                            Notes and learning material
-                            uploaded by your teacher.
+                            Verified notes and learning resources from your curriculum.
                         </p>
 
                     </div>
 
 
-                    <span class="resource_count">
-                        4 Resources
+                    <span class="resource_count" id="notesCount">
+                        0 Resources
                     </span>
 
                 </div>
 
 
 
-                <!-- RESOURCE LIST -->
+                <!-- RESOURCE LIST (Populated dynamically from backend MongoDB) -->
 
-                <div class="resource_list">
-
-
-                    <!-- RESOURCE 1 -->
-
-                    <article class="resource_card">
-
-
-                        <div class="file_icon ppt">
-                            📊
-                        </div>
-
-
-                        <div class="resource_details">
-
-                            <h3>
-                                Introduction to Artificial Intelligence
-                            </h3>
-
-                            <p>
-                                Uploaded by Dr. Sharma
-                            </p>
-
-
-                            <div class="resource_meta">
-
-                                <span>
-                                    PPT
-                                </span>
-
-                                <span>
-                                    24 Slides
-                                </span>
-
-                                <span>
-                                    18 Aug 2026
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <a
-                            href="#"
-                            class="open_button"
-                        >
-                            Open →
-                        </a>
-
-                    </article>
-
-
-
-                    <!-- RESOURCE 2 -->
-
-                    <article class="resource_card">
-
-
-                        <div class="file_icon pdf">
-                            📄
-                        </div>
-
-
-                        <div class="resource_details">
-
-                            <h3>
-                                Search Algorithms
-                            </h3>
-
-                            <p>
-                                Uploaded by Dr. Sharma
-                            </p>
-
-
-                            <div class="resource_meta">
-
-                                <span>
-                                    PDF
-                                </span>
-
-                                <span>
-                                    32 Pages
-                                </span>
-
-                                <span>
-                                    17 Aug 2026
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <a
-                            href="#"
-                            class="open_button"
-                        >
-                            Open →
-                        </a>
-
-                    </article>
-
-
-
-                    <!-- RESOURCE 3 -->
-
-                    <article class="resource_card">
-
-
-                        <div class="file_icon notes">
-                            📝
-                        </div>
-
-
-                        <div class="resource_details">
-
-                            <h3>
-                                Knowledge Representation
-                            </h3>
-
-                            <p>
-                                Uploaded by Dr. Sharma
-                            </p>
-
-
-                            <div class="resource_meta">
-
-                                <span>
-                                    NOTES
-                                </span>
-
-                                <span>
-                                    18 Pages
-                                </span>
-
-                                <span>
-                                    15 Aug 2026
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <a
-                            href="#"
-                            class="open_button"
-                        >
-                            Open →
-                        </a>
-
-                    </article>
-
-
-
-                    <!-- RESOURCE 4 -->
-
-                    <article class="resource_card">
-
-
-                        <div class="file_icon assignment">
-                            📋
-                        </div>
-
-
-                        <div class="resource_details">
-
-                            <h3>
-                                AI Unit 1 Assignment
-                            </h3>
-
-                            <p>
-                                Uploaded by Dr. Sharma
-                            </p>
-
-
-                            <div class="resource_meta">
-
-                                <span>
-                                    PDF
-                                </span>
-
-                                <span>
-                                    Assignment
-                                </span>
-
-                                <span>
-                                    14 Aug 2026
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <a
-                            href="#"
-                            class="open_button"
-                        >
-                            Open →
-                        </a>
-
-                    </article>
-
-
-                </div>
-
-            </section>
-
-
-
-            <!-- =================================
-                 STUDENT RESOURCES
-            ================================== -->
-
-            <section class="resource_section student_section">
-
-
-                <div class="section_header">
-
-
-                    <div>
-
-                        <span class="section_label teal_label">
-                            COMMUNITY RESOURCES
-                        </span>
-
-                        <h2>
-                            Student Resources
-                        </h2>
-
-                        <p>
-                            Notes shared by students and ranked
-                            by the CampusHub community.
-                        </p>
-
-                    </div>
-
-
-                    <span class="ranking_badge">
-                        🏆 Top Notes
-                    </span>
-
-                </div>
-
-
-
-                <!-- STUDENT RESOURCE LIST -->
-
-                <div class="student_resource_list">
-
-
-                    <!-- =================================
-                         RANK 1
-                    ================================== -->
-
-                    <article class="student_resource_card top_rank">
-
-
-                        <div class="rank first">
-                            1
-                        </div>
-
-
-                        <div class="student_file_icon">
-                            📄
-                        </div>
-
-
-                        <div class="student_resource_details">
-
-
-                            <div class="resource_title_row">
-
-                                <h3>
-                                    Complete AI Unit 1 Notes
-                                </h3>
-
-                                <span class="top_badge">
-                                    #1 Ranked
-                                </span>
-
-                            </div>
-
-
-                            <p>
-                                Uploaded by
-                                <strong>Rahul</strong>
-                            </p>
-
-
-                            <div class="student_meta">
-
-                                <span>
-                                    ⭐ 4.9
-                                </span>
-
-                                <span>
-                                    📥 124 Downloads
-                                </span>
-
-                                <span>
-                                    PDF
-                                </span>
-
-                                <span>
-                                    28 Pages
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="resource_actions">
-
-                            <button
-                                class="bookmark_button"
-                                title="Bookmark"
-                            >
-                                🔖
-                            </button>
-
-                            <a
-                                href="#"
-                                class="open_button"
-                            >
-                                Open →
-                            </a>
-
-                        </div>
-
-
-                    </article>
-
-
-
-                    <!-- =================================
-                         RANK 2
-                    ================================== -->
-
-                    <article class="student_resource_card">
-
-
-                        <div class="rank second">
-                            2
-                        </div>
-
-
-                        <div class="student_file_icon">
-                            📝
-                        </div>
-
-
-                        <div class="student_resource_details">
-
-
-                            <div class="resource_title_row">
-
-                                <h3>
-                                    AI Quick Revision Notes
-                                </h3>
-
-                            </div>
-
-
-                            <p>
-                                Uploaded by
-                                <strong>Aman</strong>
-                            </p>
-
-
-                            <div class="student_meta">
-
-                                <span>
-                                    ⭐ 4.7
-                                </span>
-
-                                <span>
-                                    📥 89 Downloads
-                                </span>
-
-                                <span>
-                                    PDF
-                                </span>
-
-                                <span>
-                                    16 Pages
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="resource_actions">
-
-                            <button
-                                class="bookmark_button"
-                                title="Bookmark"
-                            >
-                                🔖
-                            </button>
-
-                            <a
-                                href="#"
-                                class="open_button"
-                            >
-                                Open →
-                            </a>
-
-                        </div>
-
-
-                    </article>
-
-
-
-                    <!-- =================================
-                         RANK 3
-                    ================================== -->
-
-                    <article class="student_resource_card">
-
-
-                        <div class="rank third">
-                            3
-                        </div>
-
-
-                        <div class="student_file_icon">
-                            📚
-                        </div>
-
-
-                        <div class="student_resource_details">
-
-
-                            <div class="resource_title_row">
-
-                                <h3>
-                                    AI Important Questions
-                                </h3>
-
-                            </div>
-
-
-                            <p>
-                                Uploaded by
-                                <strong>Rohan</strong>
-                            </p>
-
-
-                            <div class="student_meta">
-
-                                <span>
-                                    ⭐ 4.6
-                                </span>
-
-                                <span>
-                                    📥 72 Downloads
-                                </span>
-
-                                <span>
-                                    PDF
-                                </span>
-
-                                <span>
-                                    12 Pages
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="resource_actions">
-
-                            <button
-                                class="bookmark_button"
-                                title="Bookmark"
-                            >
-                                🔖
-                            </button>
-
-                            <a
-                                href="#"
-                                class="open_button"
-                            >
-                                Open →
-                            </a>
-
-                        </div>
-
-
-                    </article>
-
-
-
-                    <!-- =================================
-                         RANK 4
-                    ================================== -->
-
-                    <article class="student_resource_card">
-
-
-                        <div class="rank normal">
-                            4
-                        </div>
-
-
-                        <div class="student_file_icon">
-                            📄
-                        </div>
-
-
-                        <div class="student_resource_details">
-
-
-                            <div class="resource_title_row">
-
-                                <h3>
-                                    Unit 1 Short Notes
-                                </h3>
-
-                            </div>
-
-
-                            <p>
-                                Uploaded by
-                                <strong>Arjun</strong>
-                            </p>
-
-
-                            <div class="student_meta">
-
-                                <span>
-                                    ⭐ 4.4
-                                </span>
-
-                                <span>
-                                    📥 51 Downloads
-                                </span>
-
-                                <span>
-                                    PDF
-                                </span>
-
-                                <span>
-                                    10 Pages
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="resource_actions">
-
-                            <button
-                                class="bookmark_button"
-                                title="Bookmark"
-                            >
-                                🔖
-                            </button>
-
-                            <a
-                                href="#"
-                                class="open_button"
-                            >
-                                Open →
-                            </a>
-
-                        </div>
-
-
-                    </article>
-
-
+                <div class="resource_list" id="notesList">
                 </div>
 
             </section>
@@ -855,6 +264,8 @@
 
 
 <script src="js/api.js"></script>
+<script src="js/user.js"></script>
+<script src="js/bookmark.js"></script>
 <script src="js/notes.js"></script>
 </body>
 </html>

@@ -6,6 +6,7 @@
 
     <title>CampusHub | Subject</title>
 
+    <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/dashboard.css">
 
     <style>
@@ -280,12 +281,12 @@
 
 <div class="dashboard">
 
-    <!-- ================= SIDEBAR ================= -->
+        <!-- ================= SIDEBAR ================= -->
 
     <aside class="sidebar">
 
         <div class="logo">
-            <div class="logo-icon">📚 </div>
+            <div class="logo-icon">📚</div>
             <span>CampusHub</span>
         </div>
 
@@ -293,17 +294,17 @@
 
             <p class="nav-title">MAIN</p>
 
-            <a href="dashboard.html" class="nav-link active">
+            <a href="dashboard.html" class="nav-link">
                 <span>⌂</span>
                 Dashboard
             </a>
 
-            <a href="subjects.html" class="nav-link">
+            <a href="subjects.html" class="nav-link active">
                 <span>📚</span>
                 Subjects
             </a>
 
-            <a href="#" class="nav-link">
+            <a href="notes.html" class="nav-link">
                 <span>📄</span>
                 Resources
             </a>
@@ -315,15 +316,16 @@
 
             <p class="nav-title">AI TOOLS</p>
 
-            <a href="#" class="nav-link">
+            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
                 <span>✦</span>
                 AI Study Assistant
-                <small>NEW</small>
-            </a>
+                <small class="badge-upcoming">UPCOMING</small>
+            </span>
 
             <a href="#" class="nav-link">
                 <span>✓</span>
                 AI Quiz
+                <small class="badge-upcoming">UPCOMING</small>
             </a>
 
             <p class="nav-title">COMMUNITY</p>
@@ -333,10 +335,11 @@
                 Discussions
             </a>
 
-            <a href="#" class="nav-link">
+            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
                 <span>🏆</span>
                 Leaderboard
-            </a>
+                <small class="badge-upcoming">UPCOMING</small>
+            </span>
 
         </nav>
 
@@ -347,7 +350,7 @@
                 Settings
             </a>
 
-            <a href="#" class="nav-link logout">
+            <a href="login.html" class="nav-link logout" id="sidebarLogout">
                 <span>↪</span>
                 Logout
             </a>
@@ -363,39 +366,27 @@
 
         <!-- ================= TOP BAR ================= -->
 
-        <header class="topbar">
+                <header class="topbar">
 
             <div class="search-box">
-
                 <span>⌕</span>
-
                 <input
                     type="text"
                     placeholder="Search subjects, notes, resources..."
                 >
-
             </div>
 
-            <div class="profile">
-
-                <button class="notification">
+            <div class="topbar_right">
+                <button class="notification" type="button" aria-label="Notifications">
                     🔔
                 </button>
-
-                <div class="avatar">
-                    PG
+                <div class="profile">
+                    <div class="profile_avatar" id="profileAvatar">U</div>
+                    <div>
+                        <strong id="profileName">User</strong>
+                        <p id="profileUsername">@username</p>
+                    </div>
                 </div>
-
-                <div class="profile-details">
-
-                    <strong>Paarth</strong>
-
-                    <span>
-                        CSE • Semester 5
-                    </span>
-
-                </div>
-
             </div>
 
         </header>
@@ -538,10 +529,10 @@
 
 </div>
 
-<script src="js/subjects-data.js"></script>
 <script src="js/api.js"></script>
 <script src="js/bookmark.js"></script>
 <script src="js/subject-details.js"></script>
+<script src="js/user.js"></script>
 
 </body>
 </html>

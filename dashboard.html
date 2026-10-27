@@ -6,6 +6,7 @@
 
     <title>CampusHub - Dashboard</title>
 
+    <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 
@@ -48,16 +49,16 @@
 
             <p class="nav-title">AI TOOLS</p>
 
-            <a href="ai_assistant.html" class="nav-link">
+            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
                 <span>✦</span>
                 AI Study Assistant
-                <small>NEW</small>
-            </a>
+                <small class="badge-upcoming">UPCOMING</small>
+            </span>
 
             <a href="#" class="nav-link">
                 <span>✓</span>
                 AI Quiz
-                 <small>UPCOMING</small>
+                <small class="badge-upcoming">UPCOMING</small>
             </a>
 
             <p class="nav-title">COMMUNITY</p>
@@ -67,10 +68,11 @@
                 Discussions
             </a>
 
-            <a href="#" class="nav-link">
+            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
                 <span>🏆</span>
                 Leaderboard
-            </a>
+                <small class="badge-upcoming">UPCOMING</small>
+            </span>
 
         </nav>
 
@@ -81,7 +83,7 @@
                 Settings
             </a>
 
-            <a href="settings.html#account_details" class="nav-link logout">
+            <a href="login.html" class="nav-link logout" id="sidebarLogout">
                 <span>↪</span>
                 Logout
             </a>
@@ -97,32 +99,28 @@
 
         <!-- TOP BAR -->
 
-        <header class="topbar">
+                <header class="topbar">
 
             <div class="search-box">
-
                 <span>⌕</span>
-
                 <input
                     type="text"
                     placeholder="Search subjects, notes, resources..."
                 >
-
             </div>
 
-
-<div class="profile">
-
-    <div class="profile_avatar" id="profileAvatar">
-        U
-    </div>
-
-    <div>
-        <strong id="profileName">User</strong>
-        <p id="profileUsername">@username</p>
-    </div>
-
-</div>
+            <div class="topbar_right">
+                <button class="notification" type="button" aria-label="Notifications">
+                    🔔
+                </button>
+                <div class="profile">
+                    <div class="profile_avatar" id="profileAvatar">U</div>
+                    <div>
+                        <strong id="profileName">User</strong>
+                        <p id="profileUsername">@username</p>
+                    </div>
+                </div>
+            </div>
 
         </header>
 
@@ -241,191 +239,7 @@
                         </div>
 
 
-                        <div class="recommended-grid">
-
-
-                            <!-- RESOURCE -->
-
-                            <article class="resource-card">
-
-                                <div class="resource-top">
-
-                                    <span class="resource-tag teacher">
-                                        TEACHER
-                                    </span>
-
-                                    <button>
-                                        ♡
-                                    </button>
-
-                                </div>
-
-                                <h3>
-                                    DBMS Complete Unit 3 Notes
-                                </h3>
-
-                                <p>
-                                    Important concepts and exam-focused
-                                    explanations.
-                                </p>
-
-                                <div class="resource-author">
-
-                                    <div class="mini-avatar teacher-avatar">
-                                        DR
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            Dr. Rahul Sharma
-                                        </strong>
-
-                                        <span>
-                                            Faculty • DBMS
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="resource-footer">
-
-                                    <span>
-                                        ⭐ 4.9
-                                    </span>
-
-                                    <span>
-                                        1.2k views
-                                    </span>
-
-                                </div>
-
-                            </article>
-
-
-                            <!-- RESOURCE -->
-
-                            <article class="resource-card">
-
-                                <div class="resource-top">
-
-                                    <span class="resource-tag student">
-                                        STUDENT
-                                    </span>
-
-                                    <button>
-                                        ♡
-                                    </button>
-
-                                </div>
-
-                                <h3>
-                                    DBMS Exam Revision Notes
-                                </h3>
-
-                                <p>
-                                    Short and easy revision notes shared
-                                    by a student.
-                                </p>
-
-                                <div class="resource-author">
-
-                                    <div class="mini-avatar">
-                                        AK
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            Aman Kumar
-                                        </strong>
-
-                                        <span>
-                                            CSE • Semester 5
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="resource-footer">
-
-                                    <span>
-                                        ⭐ 4.7
-                                    </span>
-
-                                    <span>
-                                        860 views
-                                    </span>
-
-                                </div>
-
-                            </article>
-
-
-                            <!-- RESOURCE -->
-
-                            <article class="resource-card">
-
-                                <div class="resource-top">
-
-                                    <span class="resource-tag student">
-                                        STUDENT
-                                    </span>
-
-                                    <button>
-                                        ♡
-                                    </button>
-
-                                </div>
-
-                                <h3>
-                                    Machine Learning Unit 2
-                                </h3>
-
-                                <p>
-                                    Simplified notes with important
-                                    algorithms and diagrams.
-                                </p>
-
-                                <div class="resource-author">
-
-                                    <div class="mini-avatar">
-                                        RS
-                                    </div>
-
-                                    <div>
-
-                                        <strong>
-                                            Riya Sharma
-                                        </strong>
-
-                                        <span>
-                                            AI • Semester 5
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="resource-footer">
-
-                                    <span>
-                                        ⭐ 4.8
-                                    </span>
-
-                                    <span>
-                                        730 views
-                                    </span>
-
-                                </div>
-
-                            </article>
-
-
-                        </div>
-
+                        <div class="recommended-grid" id="recommendedGrid"></div>
                     </section>
 
 
@@ -771,11 +585,10 @@
     </main>
 
 </div>
-<script src="js/subjects-data.js"></script>
-<script src="js/curriculum-data.js"></script>
-<script src="js/subject-utils.js"></script>
+
 <script src="js/api.js"></script>
 <script src="js/user.js"></script>
+<script src="js/bookmark.js"></script>
 <script src="js/dashboard.js"></script>
 </body>
 </html>

@@ -35,7 +35,8 @@ const bookmarkSchema = new mongoose.Schema(
 );
 
 // Prevent duplicate bookmarking of the exact same note by the same user
-bookmarkSchema.index({ user: 1, note: 1 }, { unique: true, sparse: true });
+bookmarkSchema.index({ user: 1, note: 1 }, { unique: true, partialFilterExpression: { note: { $type: 'objectId' } } });
 
+bookmarkSchema.index({ user: 1, subject: 1 }, { unique: true, partialFilterExpression: { subject: { $type: 'objectId' } } });
 export const Bookmark = mongoose.model('Bookmark', bookmarkSchema);
 export default Bookmark;

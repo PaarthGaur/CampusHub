@@ -60,6 +60,9 @@ function sendErrorProd(err, res) {
 
 // Global Express Error Middleware: (err, req, res, next)
 export const globalErrorHandler = (err, req, res, next) => {
+  if (res.headersSent) return next(err);
+  if (err.name === 'MulterError') err = new AppError(err.code === 'LIMIT_FILE_SIZE' ? 'File exceeds upload size limit.' : 'Invalid multipart upload.',400);
+  if (err.type === 'entity.parse.failed') err = new AppError('Invalid JSON request body.',400);
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 

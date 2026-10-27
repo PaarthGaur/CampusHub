@@ -21,10 +21,14 @@ function createSendToken(user, statusCode, res) {
       user: {
         id: user._id,
         name: user.name,
+        username: user.username,
         email: user.email,
         role: user.role,
         department: user.department,
         semester: user.semester,
+        year: Math.ceil(user.semester / 2),
+        university: user.university,
+        age: user.age,
         avatar: user.avatar
       }
     }
@@ -36,7 +40,7 @@ function createSendToken(user, statusCode, res) {
  * POST /api/v1/auth/signup
  */
 export const signup = catchAsync(async (req, res, next) => {
-  const { name, email, password, role, department, semester } = req.body;
+  const { name, email, password, role, department, semester, username } = req.body;
 
   // Check if email already registered
   const existingUser = await User.findOne({ email });
@@ -47,9 +51,10 @@ export const signup = catchAsync(async (req, res, next) => {
   // User pre-save hook handles bcrypt password hashing
   const newUser = await User.create({
     name,
+    username,
     email,
     password,
-    role: role || 'student',
+    role: 'student',
     department: department || 'Computer Science & AI',
     semester: semester || 4
   });
@@ -114,7 +119,7 @@ export const updateMe = catchAsync(async (req, res, next) => {
   }
 
   // Filter allowed fields
-  const allowedFields = ['name', 'department', 'semester', 'avatar'];
+  const allowedFields = ['name', 'username', 'email', 'university', 'age', 'department', 'semester', 'avatar'];
   const updateData = {};
   for (const key of allowedFields) {
     if (req.body[key] !== undefined) updateData[key] = req.body[key];
@@ -131,4 +136,13 @@ export const updateMe = catchAsync(async (req, res, next) => {
       user: updatedUser
     }
   });
+});
+
+export const updatePassword = catchAsync(async (req,res,next) => {
+ const user = await User.findById(req.user._id).select('+password');
+ if (typeof req.body.currentPassword !== 'string' || !(await user.comparePassword(req.body.currentPassword))) return next(new AppError('Current password is incorrect.',400));
+ if (typeof req.body.password !== 'string' || req.body.password.length < 6 || Buffer.byteLength(req.body.password) > 72) return next(new AppError('Password must contain at least 6 characters.',400));
+ user.password = req.body.password;
+ await user.save();
+ createSendToken(user,200,res);
 });

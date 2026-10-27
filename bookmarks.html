@@ -7,6 +7,7 @@
 
     <title>CampusHub | Bookmarks</title>
 
+    <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/bookmarks.css">
 </head>
 
@@ -47,15 +48,16 @@
 
             <p class="nav-title">AI TOOLS</p>
 
-            <a href="ai_assistant.html" class="nav-link">
+            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
                 <span>✦</span>
                 AI Study Assistant
-                <small>NEW</small>
-            </a>
+                <small class="badge-upcoming">UPCOMING</small>
+            </span>
 
             <a href="#" class="nav-link">
                 <span>✓</span>
                 AI Quiz
+                <small class="badge-upcoming">UPCOMING</small>
             </a>
 
             <p class="nav-title">COMMUNITY</p>
@@ -65,10 +67,11 @@
                 Discussions
             </a>
 
-            <a href="#" class="nav-link">
+            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
                 <span>🏆</span>
                 Leaderboard
-            </a>
+                <small class="badge-upcoming">UPCOMING</small>
+            </span>
 
         </nav>
 
@@ -79,7 +82,7 @@
                 Settings
             </a>
 
-            <a href="#" class="nav-link logout">
+            <a href="login.html" class="nav-link logout" id="sidebarLogout">
                 <span>↪</span>
                 Logout
             </a>
@@ -96,9 +99,9 @@
 
         <header class="topbar">
 
-            <div class="search_box">
+            <div class="search-box">
 
-                <span>🔍</span>
+                <span>⌕</span>
 
                 <input
                     type="text"
@@ -115,13 +118,11 @@
 
                 <div class="profile">
 
-                    <div class="profile_avatar">
-                        P
-                    </div>
+                    <div class="profile_avatar" id="profileAvatar">U</div>
 
                     <div>
-                        <strong>Paarth</strong>
-                        <p>CSE - AI</p>
+                        <strong id="profileName">User</strong>
+                        <p id="profileUsername">@username</p>
                     </div>
 
                 </div>
@@ -152,7 +153,7 @@
                 </div>
 
                 <div class="bookmark_count">
-                    🔖 4 Saved
+                    🔖 0 Saved
                 </div>
 
             </div>
@@ -161,96 +162,15 @@
             <!-- BOOKMARKS -->
 
             <div class="bookmark_grid">
-
-
-                <!-- RESOURCE -->
-
-                
-
-
             </div>
 
         </section>
 
     </main>
-    <!-- Link your subjects data first -->
     
-    <script src="js/subjects-data.js"></script>
     <script src="js/api.js"></script>
+    <script src="js/user.js"></script>
     <script src="js/bookmark.js"></script>
-
-    <!-- Script to render and manage the bookmarks -->
-    <script>
-        function renderBookmarks() {
-            const grid = document.querySelector('.bookmark_grid');
-            const countDisplay = document.querySelector('.bookmark_count');
-            
-            // 1. Get live data from localStorage instead of hardcoded array
-            let savedBookmarks = JSON.parse(localStorage.getItem('campusHub_bookmarks')) || [];
-            
-            grid.innerHTML = ""; 
-
-            // 2. Handle empty state
-            if (savedBookmarks.length === 0) {
-                grid.innerHTML = "<p style='color: var(--secondary-text); padding: 20px 0;'>No bookmarks saved yet. Go to your subjects to add some!</p>";
-                countDisplay.innerText = `🔖 0 Saved`;
-                return;
-            }
-
-            // 3. Loop through saved items and build HTML
-            savedBookmarks.forEach((bookmark, index) => {
-                const subject = subjects[bookmark.subjectId];
-                if (!subject) return;
-
-                const resource = subject.resources[bookmark.resourceIndex];
-                const type = resource[0]; 
-                const title = resource[1];
-                const desc = resource[2];
-                
-                const rating = subject.stats.find(s => s[2] === "Rating")[1];
-
-                let tagClass = "notes";
-                if (type === "PYQs") tagClass = "pyq";
-                if (type === "PRACTICE") tagClass = "important";
-                if (type === "VIDEO" || type === "PPT") tagClass = "revision";
-
-                // Added an onclick event to the remove button
-                const cardHTML = `
-                    <div class="bookmark_card">
-                        <div class="bookmark_top">
-                            <span class="resource_tag ${tagClass}">${type}</span>
-                            <button class="remove_bookmark" onclick="removeBookmark(${index})" title="Remove bookmark">🔖</button>
-                        </div>
-                        <h2>${title}</h2>
-                        <p>${desc}</p>
-                        <div class="bookmark_info">
-                            <span>📚 ${subject.name}</span>
-                            <span>⭐ ${rating}</span>
-                        </div>
-                        <a href="#" class="view_btn">Open Resource →</a>
-                    </div>
-                `;
-                
-                grid.innerHTML += cardHTML;
-            });
-
-            countDisplay.innerText = `🔖 ${savedBookmarks.length} Saved`;
-        }
-
-        // Function to handle removing items directly from the bookmarks page
-        function removeBookmark(indexToRemove) {
-            let savedBookmarks = JSON.parse(localStorage.getItem('campusHub_bookmarks')) || [];
-            savedBookmarks.splice(indexToRemove, 1);
-            localStorage.setItem('campusHub_bookmarks', JSON.stringify(savedBookmarks));
-            
-            // Re-render the page to immediately hide the deleted card
-            renderBookmarks();
-        }
-
-        // Execute when the page loads
-        renderBookmarks();
-    </script>
-
 </body>
 
 </html>

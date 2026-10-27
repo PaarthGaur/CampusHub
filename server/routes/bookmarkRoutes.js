@@ -13,10 +13,11 @@ import { checkDbConnection } from '../middleware/dbCheck.js';
 const router = Router();
 
 // Ensure DB is ready before querying
+router.use(protect);
 router.use(checkDbConnection);
 
 // All bookmark actions are personal and require authentication
-router.use(protect);
+
 
 router.get('/', getMyBookmarks);
 router.post('/toggle', toggleBookmark);

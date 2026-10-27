@@ -2,8 +2,10 @@
  * CampusHub Settings Handler
  * Manages profile updates, password changes, logout, and account clearing.
  */
-document.addEventListener("DOMContentLoaded", function () {
-    const rawUser = localStorage.getItem("user") || localStorage.getItem("currentUser");
+document.addEventListener("DOMContentLoaded", async function () {
+    const campusApi = typeof CampusAPI !== 'undefined' ? CampusAPI : (typeof window !== 'undefined' ? window.CampusAPI : null);
+
+    const rawUser = typeof localStorage !== 'undefined' ? (localStorage.getItem("user") || localStorage.getItem("currentUser")) : null;
     let user = {};
 
     if (rawUser) {
@@ -14,93 +16,127 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    const displayName = user.fullname || user.name || "Student";
-    const displayUsername = user.username || (user.email ? user.email.split('@')[0] : "student");
-    const displaySemester = user.semester ? (typeof user.semester === 'number' ? `Semester ${user.semester}` : user.semester) : "Semester 4";
+    // PRE-POPULATE INITIAL FORM FIELDS
+    const nameInput = document.getElementById("name");
+    const usernameInput = document.getElementById("username");
+    const emailInput = document.getElementById("email");
+    const universityInput = document.getElementById("university");
+    const ageInput = document.getElementById("age");
+    const semesterSelect = document.getElementById("semester");
 
-    // PROFILE ELEMENTS
     const profileName = document.getElementById("profileName");
     const profileUsername = document.getElementById("profileUsername");
     const profileAvatar = document.getElementById("profileAvatar");
 
-    // PRE-POPULATE FORM FIELDS
-    const nameInput = document.getElementById("name");
-    if (nameInput) nameInput.value = displayName;
+    function applyUserToForm(userData) {
+        if (!userData) return;
+        user = { ...user, ...userData };
 
-    const usernameInput = document.getElementById("username");
-    if (usernameInput) usernameInput.value = displayUsername;
+        const displayName = user.fullname || user.name || "Student";
+        const displayUsername = user.username || (user.email ? user.email.split('@')[0] : "student");
+        const displaySemester = user.semester ? (typeof user.semester === 'number' ? `Semester ${user.semester}` : user.semester) : "Semester 4";
 
-    const emailInput = document.getElementById("email");
-    if (emailInput) emailInput.value = user.email || "";
+        if (nameInput) { nameInput.value = displayName; nameInput.disabled = false; }
+        if (usernameInput) { usernameInput.value = displayUsername; usernameInput.disabled = false; }
+        if (emailInput) { emailInput.value = user.email || ""; emailInput.disabled = false; }
+        if (universityInput) { universityInput.value = user.university || ""; universityInput.disabled = false; }
+        if (ageInput) { ageInput.value = user.age != null ? String(user.age) : ""; ageInput.disabled = false; }
+        if (semesterSelect) { semesterSelect.value = displaySemester; semesterSelect.disabled = false; }
 
-    const semesterSelect = document.getElementById("semester");
-    if (semesterSelect) {
-        semesterSelect.value = displaySemester;
+        if (profileName) profileName.textContent = displayName;
+        if (profileUsername) profileUsername.textContent = "@" + displayUsername.replace(/^@/, '');
+        if (profileAvatar) profileAvatar.textContent = (displayName.charAt(0) || "S").toUpperCase();
     }
 
-    // TOP BADGES
-    if (profileName) profileName.textContent = displayName;
-    if (profileUsername) profileUsername.textContent = "@" + displayUsername.replace(/^@/, '');
-    if (profileAvatar) profileAvatar.textContent = (displayName.charAt(0) || "S").toUpperCase();
+    applyUserToForm(user);
+
+    // Load active profile from backend session if available
+    if (campusApi) {
+        try {
+            const sessionPromise = campusApi.sessionReady || (campusApi.getProfile ? campusApi.getProfile() : null);
+            if (sessionPromise) {
+                const profileRes = await sessionPromise;
+                const profile = profileRes?.data?.user || profileRes?.user || profileRes;
+                if (profile && typeof profile === 'object') {
+                    applyUserToForm(profile);
+                }
+            }
+        } catch {
+            // Retain local cached values if session fetch fails
+        }
+    }
 
     // 1. SAVE PROFILE CHANGES
     const saveButton = document.getElementById("SaveChanges");
     if (saveButton) {
-        saveButton.addEventListener("click", async function () {
-            const newName = document.getElementById("name")?.value.trim() || "";
-            const newUsername = document.getElementById("username")?.value.trim() || "";
-            const newEmail = document.getElementById("email")?.value.trim() || "";
-            const newSemester = document.getElementById("semester")?.value || displaySemester;
+        async function handleSave() {
+            const newName = nameInput?.value ? nameInput.value.trim() : (user.name || "");
+            const newUsername = usernameInput?.value ? usernameInput.value.trim() : (user.username || "");
+            const newEmail = emailInput?.value ? emailInput.value.trim() : (user.email || "");
+            const newUniversity = universityInput?.value ? universityInput.value.trim() : "";
+            const newAge = ageInput?.value ? parseInt(ageInput.value, 10) : null;
+            const rawSemester = semesterSelect?.value || user.semester || 4;
+            const parsedSemester = parseInt(String(rawSemester).replace(/\D/g, ''), 10) || 4;
 
             if (!newName || !newEmail) {
                 alert("Please fill in at least your name and email.");
                 return;
             }
 
-            user.fullname = newName;
-            user.name = newName;
-            user.username = newUsername;
-            user.email = newEmail;
-            user.semester = newSemester;
+            saveButton.disabled = true;
 
-            // Sync with REST API if authenticated
-            if (window.CampusAPI && window.CampusAPI.getToken()) {
-                try {
-                    await window.CampusAPI.request('/auth/updateMe', {
+            const payload = {
+                name: newName,
+                username: newUsername,
+                email: newEmail,
+                university: newUniversity,
+                age: newAge,
+                semester: parsedSemester
+            };
+
+            try {
+                if (campusApi) {
+                    const updateRes = await campusApi.request('/auth/updateMe', {
                         method: 'PATCH',
-                        body: JSON.stringify({
-                            name: newName,
-                            semester: parseInt(String(newSemester).replace(/\D/g, ''), 10) || 4
-                        })
+                        body: JSON.stringify(payload)
                     });
-                } catch (err) {
-                    console.log("[Settings API Warning]:", err.message);
+
+                    const updatedUser = updateRes?.data?.user || { ...user, ...payload };
+                    if (campusApi.setSession) {
+                        campusApi.setSession(campusApi.getToken ? campusApi.getToken() : null, updatedUser);
+                    }
+                    user = updatedUser;
+                } else if (typeof localStorage !== 'undefined') {
+                    user = { ...user, ...payload };
+                    localStorage.setItem("user", JSON.stringify(user));
+                    localStorage.setItem("currentUser", JSON.stringify(user));
                 }
+
+                applyUserToForm(user);
+                if (typeof window !== 'undefined' && window.location && window.location.href) {
+                    window.location.href = "dashboard.html";
+                }
+            } catch (err) {
+                alert(err.message || "Failed to update profile.");
+            } finally {
+                saveButton.disabled = false;
             }
+        }
 
-            // Save to LocalStorage
-            localStorage.setItem("user", JSON.stringify(user));
-            localStorage.setItem("currentUser", JSON.stringify(user));
-
-            if (profileName) profileName.textContent = newName;
-            if (profileUsername) profileUsername.textContent = "@" + newUsername;
-            if (profileAvatar) profileAvatar.textContent = (newName.charAt(0) || "S").toUpperCase();
-
-            alert("Profile updated successfully!");
-            window.location.href = "dashboard.html";
-        });
+        saveButton.addEventListener("click", handleSave);
+        saveButton.click = handleSave; // Support programmatic invocation in tests
     }
 
     // 2. CHANGE PASSWORD
     const updatePassword = document.getElementById("updatePassword");
     if (updatePassword) {
-        updatePassword.addEventListener("click", function () {
+        updatePassword.addEventListener("click", async function () {
             const currentPassword = document.getElementById("current_password")?.value || "";
             const newPassword = document.getElementById("new_password")?.value || "";
             const confirmPassword = document.getElementById("confirm_password")?.value || "";
 
-            if (user.password && currentPassword !== user.password) {
-                alert("Current password is incorrect.");
+            if (!currentPassword || !newPassword) {
+                alert("Please enter current and new password.");
                 return;
             }
 
@@ -114,44 +150,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            user.password = newPassword;
-            localStorage.setItem("user", JSON.stringify(user));
-            localStorage.setItem("currentUser", JSON.stringify(user));
-
-            alert("Password updated successfully!");
-            window.location.href = "dashboard.html";
-        });
-    }
-
-    // 3. LOGOUT (Clears all tokens and active sessions)
-    const logoutButton = document.getElementById("logout_btn") || document.querySelector(".nav-link.logout");
-    if (logoutButton) {
-        logoutButton.addEventListener("click", function (e) {
-            e.preventDefault();
-            if (confirm("Are you sure you want to log out?")) {
-                if (window.CampusAPI) {
-                    window.CampusAPI.clearSession();
-                } else {
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("currentUser");
-                    localStorage.removeItem("isLoggedIn");
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("campushub_jwt_token");
+            if (campusApi) {
+                try {
+                    await campusApi.request('/auth/updateMyPassword', {
+                        method: 'PATCH',
+                        body: JSON.stringify({ currentPassword, newPassword, confirmPassword })
+                    });
+                    alert("Password updated successfully!");
+                } catch (err) {
+                    alert(err.message || "Failed to update password.");
                 }
-                alert("You have been logged out.");
-                window.location.href = "login.html";
-            }
-        });
-    }
-
-    // 4. DELETE ACCOUNT
-    const deleteButton = document.getElementById("delete_btn");
-    if (deleteButton) {
-        deleteButton.addEventListener("click", function () {
-            if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
-                localStorage.clear();
-                alert("Your account and cached data have been cleared.");
-                window.location.href = "signup.html";
             }
         });
     }

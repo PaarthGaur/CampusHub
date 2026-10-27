@@ -1,59 +1,96 @@
-document.addEventListener("DOMContentLoaded", function () {
+/**
+ * CampusHub Subjects Page Controller
+ * Fetches real subjects from MongoDB REST API (/api/v1/subjects).
+ * No hardcoded subjects or mock arrays.
+ */
+
+document.addEventListener("DOMContentLoaded", async function () {
     const subjectGrid = document.getElementById("subjectGrid");
+    const semesterBadge = document.getElementById("profileSemester");
+
     if (!subjectGrid) return;
 
-    const currentSubjects = (typeof getCurrentSubjects === "function") ? getCurrentSubjects() : [];
+    const api = window.CampusAPI;
 
-    if (currentSubjects.length === 0) {
-        subjectGrid.innerHTML = `
-            <p style="padding: 20px 0; color: var(--secondary-text, #6b7280);">No subjects found for your current semester.</p>
-        `;
-        return;
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
     }
 
-    const colors = ["blue", "teal", "yellow", "purple", "red", "green"];
+    // Resolve user data if available
+    const rawUserData = localStorage.getItem("user") || localStorage.getItem("currentUser");
+    let user = {};
+    if (rawUserData) {
+        try {
+            user = JSON.parse(rawUserData);
+        } catch {
+            user = {};
+        }
+    }
 
-    subjectGrid.innerHTML = "";
+    const userSemester = user.semester ? parseInt(String(user.semester).replace(/\D/g, ''), 10) : null;
+    if (semesterBadge) {
+        semesterBadge.textContent = userSemester ? `Semester ${userSemester}` : "All Semesters";
+    }
 
-    for (let i = 0; i < currentSubjects.length; i++) {
-        const subject = currentSubjects[i];
-        const id = subject.id;
-        const data = subject.data || {};
-        const subjectName = data.name || "Course Subject";
-        const subjectDesc = data.description || "Course study curriculum and resources.";
-        const subjectCode = data.code || id?.toUpperCase() || "";
+    subjectGrid.innerHTML = '<p style="padding: 20px 0; color: var(--muted, #64748B);">Loading subjects from database...</p>';
 
-        // Safe stats resolution
-        const resourcesCount = (data.stats && data.stats[0] && data.stats[0][1]) || (data.resources ? data.resources.length : "12");
-        const practiceCount = (data.stats && data.stats[1] && data.stats[1][1]) || "5";
+    try {
+        if (!api) {
+            throw new Error("CampusAPI client is not loaded.");
+        }
 
-        const card = document.createElement("div");
-        card.className = "subject_card";
+        // Fetch subjects for user's semester if available
+        let subjects = [];
+        if (userSemester) {
+            const semRes = await api.getSubjects({ semester: userSemester });
+            subjects = semRes?.data?.subjects || [];
+        }
 
-        const icon = document.createElement("div");
-        icon.className = "subject_icon " + colors[i % colors.length];
-        icon.textContent = subjectName.substring(0, 2).toUpperCase();
+        // If no subjects found for specific semester, fetch all subjects
+        if (subjects.length === 0) {
+            const allRes = await api.getSubjects();
+            subjects = allRes?.data?.subjects || [];
+        }
 
-        const info = document.createElement("div");
-        info.className = "subject_info";
-        info.innerHTML = `
-            <h2>${subjectName}</h2>
-            <p>${subjectDesc}</p>
-            <div class="subject_stats">
-                <span>📄 ${resourcesCount} Resources</span>
-                <span>📝 ${practiceCount} Practice Sets</span>
-            </div>
-        `;
+        if (subjects.length === 0) {
+            subjectGrid.innerHTML = '<p style="padding: 20px 0; color: var(--muted, #64748B);">No subjects found in the curriculum database.</p>';
+            return;
+        }
 
-        const openButton = document.createElement("a");
-        openButton.className = "open_btn";
-        openButton.href = "subject-details.html?id=" + encodeURIComponent(id);
-        openButton.textContent = "Open →";
+        const colors = ["blue", "teal", "yellow", "purple", "red", "green"];
+        subjectGrid.innerHTML = "";
 
-        card.appendChild(icon);
-        card.appendChild(info);
-        card.appendChild(openButton);
+        subjects.forEach((subject, i) => {
+            const card = document.createElement("div");
+            card.className = "subject_card";
 
-        subjectGrid.appendChild(card);
+            const iconText = (subject.code || subject.name || "SU").substring(0, 2).toUpperCase();
+            const colorClass = colors[i % colors.length];
+
+            card.innerHTML = `
+                <div class="subject_icon ${colorClass}">${escapeHtml(iconText)}</div>
+                <div class="subject_info">
+                    <h2>${escapeHtml(subject.name)}</h2>
+                    <p>${escapeHtml(subject.description || 'Course syllabus and study resources.')}</p>
+                    <div class="subject_stats">
+                        <span>📚 ${escapeHtml(subject.code)}</span>
+                        <span>🎓 Semester ${subject.semester || 1} • ${subject.credits || 4} Credits</span>
+                        <span>🏛️ ${escapeHtml(subject.department || 'Computer Science')}</span>
+                    </div>
+                </div>
+                <a href="subject-details.html?id=${encodeURIComponent(subject._id)}" class="open_btn">Open →</a>
+            `;
+
+            subjectGrid.appendChild(card);
+        });
+    } catch (err) {
+        console.error("[Subjects API Error]:", err);
+        subjectGrid.innerHTML = `<p style="padding: 20px 0; color: #dc2626;">Failed to load subjects: ${escapeHtml(err.message)}</p>`;
     }
 });

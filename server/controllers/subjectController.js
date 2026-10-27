@@ -19,6 +19,7 @@ export const getAllSubjects = catchAsync(async (req, res) => {
 
   // Search by keyword (name or code)
   if (req.query.search) {
+    req.query.search = String(req.query.search).slice(0,100).replace(/[^a-zA-Z0-9 ]/g, char => String.fromCharCode(92) + char);
     queryObj.$or = [
       { name: { $regex: req.query.search, $options: 'i' } },
       { code: { $regex: req.query.search, $options: 'i' } }
@@ -57,7 +58,7 @@ export const getSubject = catchAsync(async (req, res, next) => {
   }
 
   // Attach associated notes count
-  const notesCount = await Note.countDocuments({ subject: subject._id });
+  const notesCount = await Note.countDocuments({ subject: subject._id, isPublic: true });
 
   res.status(200).json({
     status: 'success',

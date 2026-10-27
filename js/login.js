@@ -1,6 +1,6 @@
 /**
  * CampusHub Login Handler
- * Connects to the Express REST API (/api/v1/auth/login) with seamless offline fallback.
+ * Connects to the Express REST API (/api/v1/auth/login) with real backend authentication.
  */
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("LoginForm");
@@ -10,7 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        // Support both new #identifier input and legacy #username / #fullname
+        const submitBtn = loginForm.querySelector("button[type='submit']") || loginForm.querySelector("button");
+
+        // Support both #identifier input and legacy #username / #fullname
         const identifierInput = (
             document.getElementById("identifier")?.value ||
             document.getElementById("username")?.value ||
@@ -25,68 +27,34 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Format email for REST API if user entered an email or username
         const emailAttempt = identifierInput.includes("@")
             ? identifierInput
             : `${identifierInput.replace(/\s+/g, '').toLowerCase()}@campushub.edu`;
 
-        // 1. Attempt REST API Login (if server is available)
-        if (window.CampusAPI) {
-            try {
-                const apiRes = await window.CampusAPI.login(emailAttempt, passwordInput);
-                if (apiRes?.status === "success") {
-                    alert(`Welcome back, ${apiRes.data.user.name}!`);
-                    window.location.href = "dashboard.html";
-                    return;
-                }
-            } catch (apiErr) {
-                console.log("[Auth API Notice]:", apiErr.message, "- Trying local storage fallback.");
+        const campusApi = typeof CampusAPI !== 'undefined' ? CampusAPI : (typeof window !== 'undefined' ? window.CampusAPI : null);
+
+        if (submitBtn) submitBtn.disabled = true;
+
+        try {
+            if (!campusApi) {
+                throw new Error("API client unavailable. Please ensure the server is running.");
             }
+
+            const apiRes = await campusApi.login(emailAttempt, passwordInput);
+            if (apiRes?.status === "success") {
+                if (typeof location !== 'undefined' && location.assign) {
+                    location.assign("dashboard.html");
+                } else if (typeof window !== 'undefined' && window.location) {
+                    window.location.href = "dashboard.html";
+                }
+                return;
+            } else {
+                throw new Error(apiRes?.message || "Invalid credentials.");
+            }
+        } catch (apiErr) {
+            alert(apiErr.message || "Login failed. Please check your credentials.");
+        } finally {
+            if (submitBtn) submitBtn.disabled = false;
         }
-
-        // 2. LocalStorage Authentication Fallback
-        const storedUserData = localStorage.getItem("user") || localStorage.getItem("currentUser");
-
-        if (!storedUserData) {
-            // Auto-provision demo account if none exists, allowing immediate preview
-            const demoUser = {
-                fullname: identifierInput.includes("@") ? identifierInput.split('@')[0] : identifierInput,
-                username: identifierInput.includes("@") ? identifierInput.split('@')[0] : identifierInput,
-                email: emailAttempt,
-                semester: 4,
-                course: "CSE"
-            };
-            localStorage.setItem("user", JSON.stringify(demoUser));
-            localStorage.setItem("currentUser", JSON.stringify(demoUser));
-            localStorage.setItem("isLoggedIn", "true");
-            alert(`Welcome back, ${demoUser.fullname}!`);
-            window.location.href = "dashboard.html";
-            return;
-        }
-
-        const storedUser = JSON.parse(storedUserData);
-        const lowerIdentifier = identifierInput.toLowerCase();
-
-        const isMatch = (
-            (storedUser.email && storedUser.email.toLowerCase() === lowerIdentifier) ||
-            (storedUser.username && storedUser.username.toLowerCase() === lowerIdentifier) ||
-            (storedUser.fullname && storedUser.fullname.toLowerCase() === lowerIdentifier) ||
-            (storedUser.name && storedUser.name.toLowerCase() === lowerIdentifier)
-        );
-
-        if (!isMatch) {
-            // Also accept login for general credentials
-            console.warn("Account identifier differed, logging in with saved session.");
-        }
-
-        if (storedUser.password && storedUser.password !== passwordInput) {
-            alert("Incorrect password. Please try again.");
-            return;
-        }
-
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("currentUser", JSON.stringify(storedUser));
-        alert(`Welcome back, ${storedUser.fullname || storedUser.name || "Student"}!`);
-        window.location.href = "dashboard.html";
     });
 });

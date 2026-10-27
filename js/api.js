@@ -1,7 +1,7 @@
 /**
  * CampusHub Frontend API Client
  * Seamlessly interfaces the frontend HTML pages with the Express.js & MongoDB REST API.
- * Includes automatic JWT header injection and offline fallback.
+ * Includes automatic JWT header injection.
  */
 
 const API_BASE = 'http://localhost:5000/api/v1';
@@ -9,10 +9,12 @@ const API_BASE = 'http://localhost:5000/api/v1';
 const CampusAPI = {
   // Token & Session Storage
   getToken() {
+    if (typeof localStorage === 'undefined') return null;
     return localStorage.getItem('campushub_jwt_token') || localStorage.getItem('token');
   },
 
   setSession(token, user) {
+    if (typeof localStorage === 'undefined') return;
     if (token) {
       localStorage.setItem('campushub_jwt_token', token);
       localStorage.setItem('token', token);
@@ -25,13 +27,16 @@ const CampusAPI = {
   },
 
   clearSession() {
+    if (typeof localStorage === 'undefined') return;
     localStorage.removeItem('campushub_jwt_token');
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('user');
     localStorage.removeItem('isLoggedIn');
   },
 
   getCurrentUser() {
+    if (typeof localStorage === 'undefined') return null;
     try {
       return JSON.parse(localStorage.getItem('currentUser') || localStorage.getItem('user'));
     } catch {
@@ -49,7 +54,7 @@ const CampusAPI = {
     };
 
     // If body is not FormData, default to application/json
-    if (!(options.body instanceof FormData) && !headers['Content-Type']) {
+    if (!(options.body instanceof (typeof FormData !== 'undefined' ? FormData : Object)) && !headers['Content-Type']) {
       headers['Content-Type'] = 'application/json';
     }
 
@@ -117,6 +122,10 @@ const CampusAPI = {
     return this.request(endpoint, { method: 'GET' });
   },
 
+  async getNote(id) {
+    return this.request(`/notes/${encodeURIComponent(id)}`, { method: 'GET' });
+  },
+
   async createNote(noteData) {
     return this.request('/notes', {
       method: 'POST',
@@ -142,9 +151,19 @@ const CampusAPI = {
   },
 
   async toggleBookmark(noteId, subjectId) {
+    const payload = {};
+    if (noteId) payload.noteId = noteId;
+    if (subjectId) payload.subjectId = subjectId;
+
     return this.request('/bookmarks/toggle', {
       method: 'POST',
-      body: JSON.stringify({ noteId, subjectId })
+      body: JSON.stringify(payload)
+    });
+  },
+
+  async deleteBookmark(bookmarkId) {
+    return this.request(`/bookmarks/${encodeURIComponent(bookmarkId)}`, {
+      method: 'DELETE'
     });
   }
 };

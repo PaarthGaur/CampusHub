@@ -7,6 +7,7 @@
 
     <title>CampusHub | Resources</title>
 
+    <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/resources.css">
 </head>
 
@@ -46,15 +47,16 @@
 
             <p class="nav-title">AI TOOLS</p>
 
-            <a href="ai_assistant.html" class="nav-link">
+            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
                 <span>✦</span>
                 AI Study Assistant
-                <small>NEW</small>
-            </a>
+                <small class="badge-upcoming">UPCOMING</small>
+            </span>
 
             <a href="#" class="nav-link">
                 <span>✓</span>
                 AI Quiz
+                <small class="badge-upcoming">UPCOMING</small>
             </a>
 
             <p class="nav-title">COMMUNITY</p>
@@ -64,10 +66,11 @@
                 Discussions
             </a>
 
-            <a href="#" class="nav-link">
+            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
                 <span>🏆</span>
                 Leaderboard
-            </a>
+                <small class="badge-upcoming">UPCOMING</small>
+            </span>
         </nav>
 
         <div class="sidebar-bottom">
@@ -77,7 +80,7 @@
                 Settings
             </a>
 
-            <a href="login.html" class="nav-link logout">
+            <a href="login.html" class="nav-link logout" id="sidebarLogout">
                 <span>↪</span>
                 Logout
             </a>
@@ -95,8 +98,8 @@
 
         <header class="topbar">
 
-            <div class="search_box">
-                <span>🔍</span>
+            <div class="search-box">
+                <span>⌕</span>
 
                 <input
                     id="globalSearch"
@@ -217,6 +220,9 @@
     </main>
 
 
+    <script src="js/api.js"></script>
+    <script src="js/user.js"></script>
+    <script src="js/bookmark.js"></script>
     <script src="js/resources.js"></script>
 
 </body>

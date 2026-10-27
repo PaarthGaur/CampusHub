@@ -1,3 +1,5 @@
+import { Resource } from '../models/Resource.js';
+import { Note } from '../models/Note.js';
 /**
  * Resource Controller (Course Topic: 52 - Streams/Buffers & 58 - Multer Uploads)
  * Handles file uploads via Multer, stream-based downloads, and metadata retrieval.
@@ -54,9 +56,19 @@ export const uploadResource = catchAsync(async (req, res, next) => {
  */
 export const streamDownloadResource = catchAsync(async (req, res, next) => {
   const { fileName } = req.params;
-
-  // Prevent directory traversal attacks
   const safeBaseName = path.basename(fileName);
+  const resource = await Resource.findOne({ fileName: safeBaseName });
+  if (!resource) return next(new AppError('Resource not found.', 404));
+
+  const isOwner = String(resource.owner) === String(req.user._id);
+  if (!isOwner) {
+    // Allow download if a public Note references this file
+    const fileUrl = `/api/v1/resources/download/${safeBaseName}`;
+    const publicNote = await Note.exists({ fileUrl, isPublic: true });
+    if (!publicNote) return next(new AppError('Resource not found.', 404));
+  }
+
+  // Prevent directory traversal — safeBaseName already computed above
   const filePath = resolveFromRoot('uploads', safeBaseName);
 
   try {
@@ -86,6 +98,15 @@ export const streamDownloadResource = catchAsync(async (req, res, next) => {
  */
 export const getResourceInfo = catchAsync(async (req, res, next) => {
   const safeBaseName = path.basename(req.params.fileName);
+  const resource = await Resource.findOne({ fileName: safeBaseName });
+  if (!resource) return next(new AppError('Resource not found.', 404));
+
+  const isOwner = String(resource.owner) === String(req.user._id);
+  if (!isOwner) {
+    const fileUrl = `/api/v1/resources/download/${safeBaseName}`;
+    const publicNote = await Note.exists({ fileUrl, isPublic: true });
+    if (!publicNote) return next(new AppError('Resource not found.', 404));
+  }
   const filePath = resolveFromRoot('uploads', safeBaseName);
 
   try {
@@ -107,3 +128,5 @@ export const getResourceInfo = catchAsync(async (req, res, next) => {
     return next(err);
   }
 });
+
+export const listResources=catchAsync(async(req,res)=>{ const resources=await Resource.find({owner:req.user._id}).sort('-createdAt'); res.json({status:'success',data:{resources}}); });

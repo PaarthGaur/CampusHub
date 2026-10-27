@@ -1,7 +1,7 @@
 
 import mongoose from 'mongoose';
 import config from '../config/env.js';
-import { User, Subject, Note } from '../models/index.js';
+import { Subject } from '../models/index.js';
 
 const initialSubjects = [
   {
@@ -47,36 +47,11 @@ const initialSubjects = [
 ];
 
 export async function seedDatabase() {
+  if (config.isProd) throw new Error('Demo seed is disabled in production.');
   try {
-    console.log(`[Seed] Connecting to MongoDB: ${config.mongoUri}...`);
+    console.log('[Seed] Connecting to MongoDB...');
     await mongoose.connect(config.mongoUri, { serverSelectionTimeoutMS: 5000 });
     console.log('[Seed] Connected successfully.');
-
-    // 1. Seed or find demo student & faculty users
-    let faculty = await User.findOne({ email: 'dr.rahul@campushub.edu' });
-    if (!faculty) {
-      faculty = await User.create({
-        name: 'Dr. Rahul Sharma',
-        email: 'dr.rahul@campushub.edu',
-        password: 'password123', // Will be hashed by pre-save hook
-        role: 'faculty',
-        department: 'Computer Science & AI'
-      });
-      console.log(`[Seed] Created Faculty User: ${faculty.name}`);
-    }
-
-    let student = await User.findOne({ email: 'student@campushub.edu' });
-    if (!student) {
-      student = await User.create({
-        name: 'Aman Verma',
-        email: 'student@campushub.edu',
-        password: 'password123',
-        role: 'student',
-        semester: 5,
-        department: 'Computer Science & AI'
-      });
-      console.log(`[Seed] Created Student User: ${student.name}`);
-    }
 
     // 2. Seed Subjects
     for (const subData of initialSubjects) {
@@ -85,25 +60,13 @@ export async function seedDatabase() {
         const createdSub = await Subject.create(subData);
         console.log(`[Seed] Created Subject: ${createdSub.code} - ${createdSub.name}`);
 
-        // 3. Seed initial Note for this subject (Demonstrating Relations)
-        await Note.create({
-          title: `${createdSub.name} - Unit 1 Overview & Notes`,
-          description: `Comprehensive lecture notes covering foundational concepts for ${createdSub.code}.`,
-          subject: createdSub._id,
-          author: faculty._id,
-          unit: 1,
-          tags: createdSub.tags,
-          fileName: `${createdSub.code}_Unit1_Notes.pdf`,
-          fileSize: 1024 * 1024 * 2.4, // 2.4 MB
-          fileType: 'pdf'
-        });
-        console.log(`[Seed] Created Note for ${createdSub.code}`);
       }
     }
 
     console.log('\n✅ Database seeding completed successfully!\n');
   } catch (err) {
-    console.error('[Seed Error]:', err.message);
+    console.error('[Seed Error]: Could not seed subjects. Check MongoDB and MONGO_URI.');
+    process.exitCode=1;
   } finally {
     await mongoose.disconnect();
     console.log('[Seed] Disconnected from MongoDB.');
