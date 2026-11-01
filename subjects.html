@@ -48,29 +48,30 @@
 
             <p class="nav-title">AI TOOLS</p>
 
-            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
+            <span class="nav-link is-upcoming nav-link--disabled" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
                 <span>✦</span>
                 AI Study Assistant
-                <small class="badge-upcoming">UPCOMING</small>
+                <small class="upcoming-badge badge-upcoming">UPCOMING</small>
             </span>
 
-            <a href="#" class="nav-link">
+            <span class="nav-link is-upcoming nav-link--disabled" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
                 <span>✓</span>
                 AI Quiz
-                <small class="badge-upcoming">UPCOMING</small>
-            </a>
+                <small class="upcoming-badge badge-upcoming">UPCOMING</small>
+            </span>
 
             <p class="nav-title">COMMUNITY</p>
 
-            <a href="#" class="nav-link">
+            <span class="nav-link is-upcoming nav-link--disabled" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
                 <span>💬</span>
                 Discussions
-            </a>
+                <small class="upcoming-badge badge-upcoming">UPCOMING</small>
+            </span>
 
-            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
+            <span class="nav-link is-upcoming nav-link--disabled" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
                 <span>🏆</span>
                 Leaderboard
-                <small class="badge-upcoming">UPCOMING</small>
+                <small class="upcoming-badge badge-upcoming">UPCOMING</small>
             </span>
 
         </nav>
@@ -155,7 +156,12 @@
                     </p>
                 </div>
 
-                <div class="semester_badge" id="profileSemester">
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <div class="semester_badge" id="profileSemester">
+                    </div>
+                    <button id="addSubjectBtn" class="action_primary_btn" style="display: none;" type="button">
+                        <span>+</span> Add Subject
+                    </button>
                 </div>
 
             </div>
@@ -168,11 +174,85 @@
 
         </section>
 
+        <!-- SUBJECT MANAGEMENT MODAL (Admin & Faculty) -->
+        <div id="subjectModal" class="modal_overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal_container">
+                <div class="modal_header">
+                    <h2 id="modalTitle">Add New Subject</h2>
+                    <button type="button" class="modal_close_btn" id="closeSubjectModalBtn" aria-label="Close dialog">&times;</button>
+                </div>
+                <form id="subjectForm" class="modal_form">
+                    <input type="hidden" id="subjectFormId" value="">
+                    
+                    <div class="form_group">
+                        <label for="subCodeInput">Subject Code <span class="required">*</span></label>
+                        <input type="text" id="subCodeInput" placeholder="e.g. CS501, 24CAI0303" required maxlength="15">
+                        <small class="form_hint">Unique course code (max 15 characters, will be stored uppercase).</small>
+                    </div>
+
+                    <div class="form_group">
+                        <label for="subNameInput">Subject Name <span class="required">*</span></label>
+                        <input type="text" id="subNameInput" placeholder="e.g. Database Management Systems" required minlength="3" maxlength="120">
+                    </div>
+
+                    <div class="form_row">
+                        <div class="form_group">
+                            <label for="subSemesterInput">Semester <span class="required">*</span></label>
+                            <select id="subSemesterInput" required>
+                                <option value="1">Semester 1</option>
+                                <option value="2">Semester 2</option>
+                                <option value="3">Semester 3</option>
+                                <option value="4" selected>Semester 4</option>
+                                <option value="5">Semester 5</option>
+                                <option value="6">Semester 6</option>
+                                <option value="7">Semester 7</option>
+                                <option value="8">Semester 8</option>
+                            </select>
+                        </div>
+
+                        <div class="form_group">
+                            <label for="subCreditsInput">Credits <span class="required">*</span></label>
+                            <select id="subCreditsInput" required>
+                                <option value="1">1 Credit</option>
+                                <option value="2">2 Credits</option>
+                                <option value="3">3 Credits</option>
+                                <option value="4" selected>4 Credits</option>
+                                <option value="5">5 Credits</option>
+                                <option value="6">6 Credits</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form_group">
+                        <label for="subDeptInput">Department <span class="required">*</span></label>
+                        <input type="text" id="subDeptInput" value="Computer Science & AI" required maxlength="120">
+                    </div>
+
+                    <div class="form_group">
+                        <label for="subDescInput">Description</label>
+                        <textarea id="subDescInput" rows="3" placeholder="Overview of the curriculum, topics, and syllabus."></textarea>
+                    </div>
+
+                    <div class="form_group">
+                        <label for="subTagsInput">Tags (comma-separated)</label>
+                        <input type="text" id="subTagsInput" placeholder="e.g. databases, sql, backend">
+                    </div>
+
+                    <div id="subjectFormError" class="modal_error" style="display: none;"></div>
+
+                    <div class="modal_actions">
+                        <button type="button" class="btn_secondary" id="cancelSubjectModalBtn">Cancel</button>
+                        <button type="submit" class="btn_primary" id="saveSubjectBtn">Save Subject</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </main>
 
-<script src="js/bookmark.js"></script>
 <script src="js/api.js"></script>
 <script src="js/user.js"></script>
+<script src="js/bookmark.js"></script>
 <script src="js/subjects.js"></script>
 </body>
 

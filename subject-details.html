@@ -316,29 +316,30 @@
 
             <p class="nav-title">AI TOOLS</p>
 
-            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
+            <span class="nav-link is-upcoming nav-link--disabled" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
                 <span>✦</span>
                 AI Study Assistant
-                <small class="badge-upcoming">UPCOMING</small>
+                <small class="upcoming-badge badge-upcoming">UPCOMING</small>
             </span>
 
-            <a href="#" class="nav-link">
+            <span class="nav-link is-upcoming nav-link--disabled" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
                 <span>✓</span>
                 AI Quiz
-                <small class="badge-upcoming">UPCOMING</small>
-            </a>
+                <small class="upcoming-badge badge-upcoming">UPCOMING</small>
+            </span>
 
             <p class="nav-title">COMMUNITY</p>
 
-            <a href="#" class="nav-link">
+            <span class="nav-link is-upcoming nav-link--disabled" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
                 <span>💬</span>
                 Discussions
-            </a>
+                <small class="upcoming-badge badge-upcoming">UPCOMING</small>
+            </span>
 
-            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
+            <span class="nav-link is-upcoming nav-link--disabled" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
                 <span>🏆</span>
                 Leaderboard
-                <small class="badge-upcoming">UPCOMING</small>
+                <small class="upcoming-badge badge-upcoming">UPCOMING</small>
             </span>
 
         </nav>
@@ -398,8 +399,8 @@
 
             <div class="subject-page">
 
-                <a href="dashboard.html" class="subject-back">
-                    ← Back to Dashboard
+                <a href="subjects.html" class="subject-back">
+                    ← Back to Subjects
                 </a>
 
 
@@ -469,7 +470,7 @@
 
                 <section class="subject-section">
 
-                    <div class="subject-heading">
+                    <div class="subject-heading" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px;">
 
                         <span class="small-title">
                             LEARNING MATERIAL
@@ -485,6 +486,10 @@
                         </p>
 
                     </div>
+                    <button id="uploadSubjectResourceBtn" class="action_primary_btn" style="display: none;" type="button">
+                        <span>+</span> Upload Resource
+                    </button>
+                </div>
 
                     <div
                         class="subject-resources"
@@ -492,6 +497,73 @@
                     </div>
 
                 </section>
+
+                <!-- NOTE / RESOURCE UPLOAD MODAL (Admin & Faculty) -->
+                <div id="uploadNoteModal" class="modal_overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="uploadModalTitle">
+                    <div class="modal_container">
+                        <div class="modal_header">
+                            <h2 id="uploadModalTitle">Upload Study Material</h2>
+                            <button type="button" class="modal_close_btn" id="closeUploadNoteModalBtn" aria-label="Close dialog">&times;</button>
+                        </div>
+                        <form id="uploadNoteForm" class="modal_form">
+                            <div class="form_group">
+                                <label for="noteTitleInput">Resource Title <span class="required">*</span></label>
+                                <input type="text" id="noteTitleInput" placeholder="e.g. Unit 1 Lecture Slides & Formulas" required minlength="3" maxlength="150">
+                            </div>
+
+                            <div class="form_row">
+                                <div class="form_group">
+                                    <label for="noteSubjectDisplay">Subject</label>
+                                    <input type="text" id="noteSubjectDisplay" readonly style="background: #F1F5F9; cursor: not-allowed;">
+                                </div>
+
+                                <div class="form_group">
+                                    <label for="noteUnitInput">Unit Number <span class="required">*</span></label>
+                                    <select id="noteUnitInput" required>
+                                        <option value="1" selected>Unit 1</option>
+                                        <option value="2">Unit 2</option>
+                                        <option value="3">Unit 3</option>
+                                        <option value="4">Unit 4</option>
+                                        <option value="5">Unit 5</option>
+                                        <option value="6">Unit 6</option>
+                                        <option value="7">Unit 7</option>
+                                        <option value="8">Unit 8</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form_group">
+                                <label for="noteFileInput">Select Document File <span class="required">*</span></label>
+                                <input type="file" id="noteFileInput" required accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.png,.jpg,.jpeg">
+                                <small class="form_hint">Supported formats: PDF, PPT, PPTX, DOC, DOCX, TXT, PNG, JPG (max 25MB).</small>
+                            </div>
+
+                            <div class="form_group">
+                                <label for="noteDescInput">Description</label>
+                                <textarea id="noteDescInput" rows="3" placeholder="Brief summary of topics covered in this resource."></textarea>
+                            </div>
+
+                            <div class="form_group">
+                                <label for="noteTagsInput">Tags (comma-separated)</label>
+                                <input type="text" id="noteTagsInput" placeholder="e.g. lecture-notes, exam-prep, unit-1">
+                            </div>
+
+                            <div class="form_group" style="flex-direction: row; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="noteIsPublicInput" checked style="width: auto; cursor: pointer;">
+                                <label for="noteIsPublicInput" style="cursor: pointer; margin: 0; font-weight: normal; font-size: 13px;">
+                                    Make publicly visible to all students in this curriculum
+                                </label>
+                            </div>
+
+                            <div id="uploadNoteError" class="modal_error" style="display: none;"></div>
+
+                            <div class="modal_actions">
+                                <button type="button" class="btn_secondary" id="cancelUploadNoteModalBtn">Cancel</button>
+                                <button type="submit" class="btn_primary" id="submitUploadNoteBtn">Upload Document</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
 
                 <!-- ================= UNITS ================= -->
@@ -530,9 +602,9 @@
 </div>
 
 <script src="js/api.js"></script>
+<script src="js/user.js"></script>
 <script src="js/bookmark.js"></script>
 <script src="js/subject-details.js"></script>
-<script src="js/user.js"></script>
 
 </body>
 </html>

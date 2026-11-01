@@ -155,12 +155,16 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (emptyState) emptyState.hidden = true;
             resourceGrid.innerHTML = "";
 
+            const currentUser = api ? api.getCurrentUser() : null;
+            const isAdmin = api ? api.isAdmin() : false;
+
             notes.forEach(note => {
                 const isBookmarked = bookmarks ? bookmarks.isNoteBookmarked(note._id) : false;
+                const canDeleteThisNote = isAdmin || (currentUser && note.author && String(note.author._id || note.author) === String(currentUser._id));
                 const fileType = (note.fileType || "PDF").toUpperCase();
                 const authorName = note.author?.name || "Faculty / Student";
                 const subjectTitle = note.subject?.name || note.subject?.code || "Course Note";
-                const downloadUrl = note.fileUrl || `notes.html?id=${note._id}`;
+                const downloadUrl = note.fileUrl ? (typeof CampusAPI !== 'undefined' ? CampusAPI.getDownloadUrl(note.fileUrl) : note.fileUrl) : `notes.html?id=${note._id}`;
 
                 let tagClass = "notes";
                 if (fileType === "PDF") tagClass = "pyq";
@@ -194,7 +198,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                         <span>👤 ${escapeHtml(authorName)}</span>
                         <span>📥 ${note.downloadCount || 0} downloads</span>
                     </div>
-                    <div style="display: flex; justify-content: flex-end; margin-top: 4px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+                        ${canDeleteThisNote ? `
+                            <button type="button" class="delete_resource_btn" onclick="window.CampusHubResources.deleteNote('${note._id}', '${escapeHtml(note.title)}')">
+                                Delete
+                            </button>
+                        ` : '<div></div>'}
                         <a href="${downloadUrl}" style="color: var(--primary, #2563EB); font-weight: 600; text-decoration: none; font-size: 13px;" ${note.fileUrl ? 'target="_blank"' : ''}>
                             Download Resource →
                         </a>
@@ -235,6 +244,18 @@ document.addEventListener("DOMContentLoaded", async function () {
             fetchAndRenderResources();
         });
     }
+
+    window.CampusHubResources = {
+        deleteNote: async function (noteId, title) {
+            if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
+            try {
+                await api.deleteNote(noteId);
+                fetchAndRenderResources();
+            } catch (err) {
+                alert(`Failed to delete resource: ${err.message}`);
+            }
+        }
+    };
 
     // Initial Load
     fetchAndRenderResources();

@@ -9,17 +9,26 @@ import {
   getResourceInfo
 } from '../controllers/resourceController.js';
 import { uploadStudyFile } from '../middleware/uploadMiddleware.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { protect, restrictTo } from '../middleware/authMiddleware.js';
+
+import { checkDbConnection } from '../middleware/dbCheck.js';
 
 const router = Router();
+
+// Ensure DB is ready before querying
+router.use(checkDbConnection);
+
+// All resource routes require authentication
 router.use(protect);
+
 router.get('/', listResources);
+router.post('/upload', restrictTo('admin', 'faculty'), uploadStudyFile, uploadResource);
 
-// Public download and info routes (uses Node.js Streams)
+// Download and info routes (uses Node.js Streams) - supports both :fileName and :id
 router.get('/download/:fileName', streamDownloadResource);
+router.get('/:id/download', streamDownloadResource);
 router.get('/info/:fileName', getResourceInfo);
-
-// Protected upload route (requires authentication & multipart/form-data)
-router.post('/upload', uploadStudyFile, uploadResource);
+router.get('/:id/info', getResourceInfo);
+router.get('/:id', getResourceInfo);
 
 export default router;

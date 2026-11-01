@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     const authorName = note.author?.name || 'Faculty / Student';
                     const authorInitials = authorName.trim().split(/\s+/).map(p => p[0]).join('').substring(0, 2).toUpperCase() || 'U';
                     const subjectTitle = note.subject?.name || note.subject?.code || 'Course Material';
-                    const downloadUrl = note.fileUrl || `notes.html?id=${note._id}`;
+                    const downloadUrl = note.fileUrl ? (typeof CampusAPI !== 'undefined' ? CampusAPI.getDownloadUrl(note.fileUrl) : note.fileUrl) : `notes.html?id=${note._id}`;
 
                     const card = document.createElement("article");
                     card.className = "resource-card";

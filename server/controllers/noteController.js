@@ -1,5 +1,9 @@
 import { Subject } from '../models/Subject.js';
 import { Note } from '../models/Note.js';
+import { Bookmark } from '../models/Bookmark.js';
+import { Resource } from '../models/Resource.js';
+import { resolveFromRoot } from '../utils/pathHelper.js';
+import { unlink } from 'fs/promises';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 
@@ -8,7 +12,10 @@ import catchAsync from '../utils/catchAsync.js';
  * GET /api/v1/notes
  */
 export const getAllNotes = catchAsync(async (req, res) => {
-  const queryObj = { $and: [{ $or: [{ isPublic: true }, { author: req.user._id }] }] };
+  const accessFilter = req.user
+    ? { $or: [{ isPublic: true }, { author: req.user._id }] }
+    : { isPublic: true };
+  const queryObj = { $and: [accessFilter] };
 
   if (req.query.subject) queryObj.subject = req.query.subject;
   if (req.query.author) queryObj.author = req.query.author;
@@ -52,7 +59,10 @@ export const getAllNotes = catchAsync(async (req, res) => {
  * GET /api/v1/notes/:id
  */
 export const getNote = catchAsync(async (req, res, next) => {
-  const query = { _id: req.params.id, $or: [{ isPublic: true }, { author: req.user._id }] };
+  const accessFilter = req.user
+    ? { $or: [{ isPublic: true }, { author: req.user._id }] }
+    : { isPublic: true };
+  const query = { _id: req.params.id, ...accessFilter };
 
   const note = await Note.findOne(query)
     .populate('author', 'name email role avatar department')
@@ -141,7 +151,8 @@ export const updateNote = catchAsync(async (req, res, next) => {
   }
 
   // Verify ownership: only author or admin can update
-  if (note.author.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
+  const authorId = note.author?._id ? String(note.author._id) : (note.author ? String(note.author) : null);
+  if (authorId !== String(req.user._id) && req.user.role !== 'admin') {
     return next(new AppError('You are not authorized to edit this note.', 403));
   }
 
@@ -170,11 +181,19 @@ export const deleteNote = catchAsync(async (req, res, next) => {
     return next(new AppError('No note found with that ID', 404));
   }
 
-  if (note.author.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
+  const authorId = note.author?._id ? String(note.author._id) : (note.author ? String(note.author) : null);
+  if (authorId !== String(req.user._id) && req.user.role !== 'admin') {
     return next(new AppError('You are not authorized to delete this note.', 403));
   }
 
   await Note.findByIdAndDelete(req.params.id);
+  await Bookmark.deleteMany({ note: note._id });
+
+  if (note.fileName) {
+    await Resource.deleteOne({ fileName: note.fileName }).catch(() => {});
+    const filePath = resolveFromRoot('uploads', note.fileName);
+    await unlink(filePath).catch(() => {});
+  }
 
   res.status(204).json({
     status: 'success',
@@ -193,7 +212,8 @@ export const toggleLike = catchAsync(async (req, res, next) => {
     return next(new AppError('No note found with that ID', 404));
   }
 
-  if (!note.isPublic && String(note.author) !== String(req.user._id)) {
+  const authorId = note.author?._id ? String(note.author._id) : (note.author ? String(note.author) : null);
+  if (!note.isPublic && authorId !== String(req.user._id)) {
     return next(new AppError('No note found with that ID', 404));
   }
 

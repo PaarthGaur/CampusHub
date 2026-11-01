@@ -1,20 +1,17 @@
-const curriculum = {
-    CSE: {
-        1: {
-            1: ["cs101", "ma102", "ph103"],
-            2: ["cs201", "ma202", "ee203"]
-        },
-        2: {
-            3: ["cs301", "ec302", "ma303"],
-            4: ["cs401", "cs402", "cs403"]
-        },
-        3: {
-            5: ["cs501", "ai502", "cs503"],
-            6: ["ai504", "cs505", "ma506"]
-        },
-        4: {
-            7: ["cs701", "cs702", "ai703"],
-            8: ["cs801", "cs802", "oe803"]
-        }
-    }
-};
+/**
+ * curriculum-data.js — DEPRECATED
+ *
+ * This file previously contained a hardcoded curriculum map keyed by department
+ * and semester (CSE: { 3: { 5: ["cs501", "ai502", "cs503"] } }) used as
+ * placeholder content for selecting subjects by semester.
+ *
+ * Subjects are now fetched from MongoDB via the REST API with optional
+ * semester filtering:
+ *
+ *   GET /api/v1/subjects?semester=5
+ *
+ * Use CampusAPI.getSubjects({ semester: n }) in the frontend.
+ * Do NOT add hardcoded curriculum arrays to this file.
+ *
+ * This file is intentionally empty and not loaded by any HTML page.
+ */

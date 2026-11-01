@@ -54,7 +54,8 @@ const CampusAPI = {
     };
 
     // If body is not FormData, default to application/json
-    if (!(options.body instanceof (typeof FormData !== 'undefined' ? FormData : Object)) && !headers['Content-Type']) {
+    const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData;
+    if (options.body && !isFormData && !headers['Content-Type']) {
       headers['Content-Type'] = 'application/json';
     }
 
@@ -77,7 +78,7 @@ const CampusAPI = {
     }
   },
 
-  // Auth Endpoints (Topic 57)
+  // Auth & Profile Endpoints (Topic 57)
   async signup(userData) {
     const res = await this.request('/auth/signup', {
       method: 'POST',
@@ -101,7 +102,40 @@ const CampusAPI = {
   },
 
   async getProfile() {
-    return this.request('/auth/me', { method: 'GET' });
+    try {
+      const res = await this.request('/auth/me', { method: 'GET' });
+      if (res?.data?.user) {
+        const token = this.getToken();
+        this.setSession(token, res.data.user);
+      }
+      return res;
+    } catch (err) {
+      return null;
+    }
+  },
+
+  // Role & Authorization Helpers (Strictly driven by verified backend user state)
+  getUserRole() {
+    const user = this.getCurrentUser();
+    return user?.role ? String(user.role).toLowerCase() : 'guest';
+  },
+
+  isAdmin() {
+    return this.getUserRole() === 'admin';
+  },
+
+  isFaculty() {
+    return this.getUserRole() === 'faculty';
+  },
+
+  canManageSubjects() {
+    const role = this.getUserRole();
+    return role === 'admin' || role === 'faculty';
+  },
+
+  canManageResources() {
+    const role = this.getUserRole();
+    return role === 'admin' || role === 'faculty';
   },
 
   // Subjects Endpoints (Topic 55 & 56)
@@ -113,6 +147,26 @@ const CampusAPI = {
 
   async getSubject(identifier) {
     return this.request(`/subjects/${encodeURIComponent(identifier)}`, { method: 'GET' });
+  },
+
+  async createSubject(subjectData) {
+    return this.request('/subjects', {
+      method: 'POST',
+      body: JSON.stringify(subjectData)
+    });
+  },
+
+  async updateSubject(id, subjectData) {
+    return this.request(`/subjects/${encodeURIComponent(id)}`, {
+      method: 'PATCH',
+      body: JSON.stringify(subjectData)
+    });
+  },
+
+  async deleteSubject(id) {
+    return this.request(`/subjects/${encodeURIComponent(id)}`, {
+      method: 'DELETE'
+    });
   },
 
   // Notes Endpoints (Topic 55, 56 & 58)
@@ -141,6 +195,19 @@ const CampusAPI = {
     });
   },
 
+  async updateNote(id, noteData) {
+    return this.request(`/notes/${encodeURIComponent(id)}`, {
+      method: 'PATCH',
+      body: JSON.stringify(noteData)
+    });
+  },
+
+  async deleteNote(id) {
+    return this.request(`/notes/${encodeURIComponent(id)}`, {
+      method: 'DELETE'
+    });
+  },
+
   async toggleLike(noteId) {
     return this.request(`/notes/${noteId}/like`, { method: 'POST' });
   },
@@ -165,6 +232,32 @@ const CampusAPI = {
     return this.request(`/bookmarks/${encodeURIComponent(bookmarkId)}`, {
       method: 'DELETE'
     });
+  },
+
+  // Download URL Builder (Course Topic 52 & 57)
+  getDownloadUrl(fileUrlOrName) {
+    if (!fileUrlOrName) return '#';
+    let path = fileUrlOrName;
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+      const token = this.getToken();
+      if (token && !path.includes('token=')) {
+        const sep = path.includes('?') ? '&' : '?';
+        return `${path}${sep}token=${encodeURIComponent(token)}`;
+      }
+      return path;
+    }
+    if (!path.startsWith('/')) {
+      path = `/resources/download/${path}`;
+    } else if (path.startsWith('/api/v1/')) {
+      path = path.replace('/api/v1', '');
+    }
+    let url = `${API_BASE}${path}`;
+    const token = this.getToken();
+    if (token && !url.includes('token=')) {
+      const sep = url.includes('?') ? '&' : '?';
+      url = `${url}${sep}token=${encodeURIComponent(token)}`;
+    }
+    return url;
   }
 };
 

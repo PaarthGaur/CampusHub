@@ -933,9 +933,15 @@ input {
 }
 
 
+/* =====================================================
+   [DISABLED] UPCOMING & LEADERBOARD STYLES
+   Disabled alongside the HTML blocks in dashboard.html.
+   To re-enable: remove the opening /* and closing * / comment wrappers.
+   ===================================================== */
+/*
 /* =========================
    UPCOMING
-========================= */
+========================= * /
 
 .upcoming-item {
     display: flex;
@@ -1010,7 +1016,7 @@ input {
 
 /* =========================
    LEADERBOARD
-========================= */
+========================= * /
 
 .your-rank {
     background: #FEF3C7;
@@ -1097,6 +1103,7 @@ input {
 
     border-radius: 6px;
 }
+*/
 
 
 /* =========================

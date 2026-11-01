@@ -38,10 +38,13 @@ document.addEventListener("DOMContentLoaded", function () {
         userNameEl.title = displayName;
     }
 
-    // USERNAME
+    // USERNAME & ROLE
     const userUsernameEl = document.getElementById("profileUsername");
     if (userUsernameEl) {
-        const formattedUsername = "@" + displayUsername.replace(/^@/, '');
+        let roleBadge = '';
+        if (user?.role === 'admin') roleBadge = ' • Admin';
+        else if (user?.role === 'faculty') roleBadge = ' • Faculty';
+        const formattedUsername = "@" + displayUsername.replace(/^@/, '') + roleBadge;
         userUsernameEl.textContent = formattedUsername;
         userUsernameEl.title = formattedUsername;
     }
@@ -69,10 +72,15 @@ document.addEventListener("DOMContentLoaded", function () {
         link.addEventListener("click", function (e) {
             e.preventDefault();
             try {
+                if (window.CampusAPI && typeof window.CampusAPI.clearSession === 'function') {
+                    window.CampusAPI.clearSession();
+                }
                 localStorage.removeItem("user");
                 localStorage.removeItem("currentUser");
                 localStorage.removeItem("token");
+                localStorage.removeItem("campushub_jwt_token");
                 localStorage.removeItem("tokenExpiry");
+                localStorage.removeItem("isLoggedIn");
             } catch (err) {
                 console.error("Logout error:", err);
             }
@@ -80,23 +88,94 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 3. ACCESSIBLE DISABLED NAVIGATION ITEMS
-    // Prevent mouse and keyboard activation on upcoming / disabled links
-    const disabledItems = document.querySelectorAll(".nav-link--disabled");
-    disabledItems.forEach(item => {
-        item.setAttribute("tabindex", "-1");
-        item.setAttribute("aria-disabled", "true");
-        item.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
-        });
-        item.addEventListener("keydown", function (e) {
-            if (e.key === "Enter" || e.key === " " || e.keyCode === 13 || e.keyCode === 32) {
+    // 3. ACCESSIBLE UPCOMING & DISABLED FEATURES
+    // Blocks clicks, keyboard activation, and navigation on all upcoming items
+    function setupUpcomingFeatures() {
+        const upcomingSelector = ".is-upcoming, .nav-link--disabled, [aria-disabled='true']";
+        const disabledElements = document.querySelectorAll(upcomingSelector);
+
+        disabledElements.forEach(item => {
+            item.setAttribute("tabindex", "-1");
+            item.setAttribute("aria-disabled", "true");
+            if (!item.hasAttribute("title") && !item.classList.contains("side-card") && !item.classList.contains("ai-card")) {
+                item.setAttribute("title", "Coming Soon");
+            }
+
+            // Capture-phase event listener to intercept clicks before any other handler
+            item.addEventListener("click", function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+                if (typeof e.stopImmediatePropagation === "function") {
+                    e.stopImmediatePropagation();
+                }
                 return false;
-            }
+            }, true);
+
+            // Block keyboard Enter and Space activation
+            item.addEventListener("keydown", function (e) {
+                if (e.key === "Enter" || e.key === " " || e.keyCode === 13 || e.keyCode === 32) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (typeof e.stopImmediatePropagation === "function") {
+                        e.stopImmediatePropagation();
+                    }
+                    return false;
+                }
+            }, true);
+
+            // Disable all child interactive elements (links, buttons, inputs)
+            const nestedInteractives = item.querySelectorAll("a, button, input, select, textarea");
+            nestedInteractives.forEach(child => {
+                child.setAttribute("tabindex", "-1");
+                child.setAttribute("aria-disabled", "true");
+                if (child.tagName === "BUTTON") {
+                    child.disabled = true;
+                }
+                child.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (typeof e.stopImmediatePropagation === "function") {
+                        e.stopImmediatePropagation();
+                    }
+                    return false;
+                }, true);
+                child.addEventListener("keydown", function (e) {
+                    if (e.key === "Enter" || e.key === " " || e.keyCode === 13 || e.keyCode === 32) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (typeof e.stopImmediatePropagation === "function") {
+                            e.stopImmediatePropagation();
+                        }
+                        return false;
+                    }
+                }, true);
+            });
         });
-    });
+    }
+
+    setupUpcomingFeatures();
+
+    // Export helper for future re-enablement or dynamic UI manipulation
+    window.CampusUpcoming = {
+        setup: setupUpcomingFeatures,
+        enableFeature: function (elementOrSelector) {
+            const el = typeof elementOrSelector === "string" ? document.querySelector(elementOrSelector) : elementOrSelector;
+            if (!el) return;
+            el.classList.remove("is-upcoming", "nav-link--disabled");
+            el.removeAttribute("aria-disabled");
+            el.removeAttribute("tabindex");
+            if (el.getAttribute("title") === "Coming Soon") {
+                el.removeAttribute("title");
+            }
+            const badge = el.querySelector(".upcoming-badge, .badge-upcoming");
+            if (badge) badge.remove();
+            const btns = el.querySelectorAll("button");
+            btns.forEach(b => {
+                b.disabled = false;
+                b.removeAttribute("aria-disabled");
+                b.removeAttribute("tabindex");
+                b.classList.remove("is-upcoming-btn");
+            });
+        }
+    };
 });

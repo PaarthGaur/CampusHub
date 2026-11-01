@@ -58,22 +58,97 @@ button, input, select, textarea { font-family: inherit; }
     padding: 3px 6px; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
     letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.2;
 }
+
+/* Universal UPCOMING badge */
+.upcoming-badge,
+.badge-upcoming,
+.nav-link small.upcoming-badge,
 .nav-link small.badge-upcoming {
-    background: var(--badge-upcoming-bg);
-    color: var(--badge-upcoming-color);
-    border: 1px solid var(--badge-upcoming-border);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 2.5px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: var(--badge-upcoming-bg, #E2E8F0);
+    color: var(--badge-upcoming-color, #475569);
+    border: 1px solid var(--badge-upcoming-border, #CBD5E1);
+    user-select: none;
+    vertical-align: middle;
 }
 
-/* -- Disabled nav items ------------------------------ */
+.nav-link .upcoming-badge,
+.nav-link .badge-upcoming {
+    margin-left: auto;
+}
+
+/* -- Disabled & Upcoming Items (Reusable) ------------- */
+.is-upcoming,
 .nav-link--disabled {
     opacity: 0.55;
     cursor: not-allowed !important;
     user-select: none;
 }
+
+.is-upcoming *,
+.nav-link--disabled * {
+    cursor: not-allowed !important;
+}
+
+.nav-link.is-upcoming:hover,
 .nav-link--disabled:hover {
     background: transparent !important;
     color: var(--muted) !important;
     cursor: not-allowed !important;
+}
+
+/* Card-level upcoming styling (Dashboard Leaderboard, Quick Access, AI) */
+.side-card.is-upcoming {
+    opacity: 0.85;
+    border: 1px dashed var(--border, #E2E8F0);
+    background: #FAFAFC;
+    position: relative;
+    cursor: not-allowed !important;
+}
+
+.side-card.is-upcoming .leader {
+    opacity: 0.6;
+}
+
+.side-card.is-upcoming .your-rank {
+    opacity: 0.6;
+}
+
+.quick-card.is-upcoming {
+    opacity: 0.65;
+    border: 1px dashed var(--border, #E2E8F0);
+    background: #FAFAFC;
+    cursor: not-allowed !important;
+}
+
+.quick-card.is-upcoming:hover {
+    border-color: var(--border, #E2E8F0) !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.ai-card.is-upcoming {
+    opacity: 0.82;
+    position: relative;
+}
+
+.ai-card.is-upcoming button,
+.is-upcoming-btn {
+    opacity: 0.65;
+    cursor: not-allowed !important;
+    background: #E2E8F0 !important;
+    color: #475569 !important;
+    pointer-events: none;
 }
 
 /* -- Sidebar bottom ---------------------------------- */
@@ -134,3 +209,219 @@ button, input, select, textarea { font-family: inherit; }
     .profile { width: 100%; justify-content: flex-end; }
     .topbar_right { width: 100%; justify-content: flex-end; }
 }
+
+/* =====================================================
+   Role-Based Management Modals & Controls (Admin/Faculty)
+   ===================================================== */
+.action_primary_btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary, #2563EB);
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
+}
+
+.action_primary_btn:hover {
+    background: var(--primary-dark, #1D4ED8);
+    transform: translateY(-1px);
+}
+
+.modal_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal_container {
+    background: #FFFFFF;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 540px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    animation: modalSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideIn {
+    from { opacity: 0; transform: scale(0.96) translateY(8px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border, #E2E8F0);
+}
+
+.modal_header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text, #172033);
+    margin: 0;
+}
+
+.modal_close_btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    color: var(--muted, #64748B);
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 2px 6px;
+    transition: background 0.15s ease;
+}
+
+.modal_close_btn:hover {
+    background: #F1F5F9;
+    color: #0F172A;
+}
+
+.modal_form {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form_group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form_group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text, #172033);
+}
+
+.form_group label .required {
+    color: #DC2626;
+}
+
+.form_group input,
+.form_group select,
+.form_group textarea {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border, #E2E8F0);
+    font-size: 14px;
+    background: #FFFFFF;
+    color: var(--text, #172033);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form_group input:focus,
+.form_group select:focus,
+.form_group textarea:focus {
+    border-color: var(--primary, #2563EB);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form_hint {
+    font-size: 11px;
+    color: var(--muted, #64748B);
+}
+
+.form_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.modal_error {
+    background: #FEF2F2;
+    border: 1px solid #FCA5A5;
+    color: #B91C1C;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.modal_actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border, #E2E8F0);
+}
+
+.btn_secondary {
+    padding: 9px 16px;
+    background: #F1F5F9;
+    color: var(--text, #172033);
+    border: 1px solid var(--border, #E2E8F0);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.btn_secondary:hover {
+    background: #E2E8F0;
+}
+
+.btn_primary {
+    padding: 9px 18px;
+    background: var(--primary, #2563EB);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.btn_primary:hover {
+    background: var(--primary-dark, #1D4ED8);
+}
+
+.btn_primary:disabled,
+.btn_secondary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.delete_resource_btn {
+    background: none;
+    border: 1px solid #FCA5A5;
+    color: #DC2626;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.delete_resource_btn:hover {
+    background: #FEF2F2;
+    border-color: #DC2626;
+}
+

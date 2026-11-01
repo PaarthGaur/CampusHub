@@ -197,7 +197,7 @@ const CampusBookmarks = {
                     const note = b.note;
                     const subjectName = note.subject?.name || note.subject?.code || "Subject Resource";
                     const fileType = (note.fileType || "NOTES").toUpperCase();
-                    const downloadUrl = note.fileUrl || `notes.html?id=${note._id}`;
+                    const downloadUrl = note.fileUrl ? (typeof CampusAPI !== 'undefined' ? CampusAPI.getDownloadUrl(note.fileUrl) : note.fileUrl) : `notes.html?id=${note._id}`;
 
                     let tagClass = "notes";
                     if (fileType === "PDF") tagClass = "pyq";

@@ -11,10 +11,12 @@ import { User } from '../models/User.js';
  * Protects routes by validating JWT Bearer token
  */
 export const protect = catchAsync(async (req, res, next) => {
-  // 1. Extract token from Authorization header (Format: Bearer <token>)
+  // 1. Extract token from Authorization header (Format: Bearer <token>) or query parameter
   let token;
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     token = req.headers.authorization.split(' ')[1];
+  } else if (req.query?.token) {
+    token = req.query.token;
   }
 
   if (!token) {
@@ -49,6 +51,8 @@ export const optionalProtect = catchAsync(async (req, res, next) => {
   let token;
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     token = req.headers.authorization.split(' ')[1];
+  } else if (req.query?.token) {
+    token = req.query.token;
   }
 
   if (!token) {

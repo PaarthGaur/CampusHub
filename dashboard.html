@@ -49,29 +49,30 @@
 
             <p class="nav-title">AI TOOLS</p>
 
-            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
+            <span class="nav-link is-upcoming nav-link--disabled" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
                 <span>✦</span>
                 AI Study Assistant
-                <small class="badge-upcoming">UPCOMING</small>
+                <small class="upcoming-badge badge-upcoming">UPCOMING</small>
             </span>
 
-            <a href="#" class="nav-link">
+            <span class="nav-link is-upcoming nav-link--disabled" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
                 <span>✓</span>
                 AI Quiz
-                <small class="badge-upcoming">UPCOMING</small>
-            </a>
+                <small class="upcoming-badge badge-upcoming">UPCOMING</small>
+            </span>
 
             <p class="nav-title">COMMUNITY</p>
 
-            <a href="#" class="nav-link">
+            <span class="nav-link is-upcoming nav-link--disabled" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
                 <span>💬</span>
                 Discussions
-            </a>
+                <small class="upcoming-badge badge-upcoming">UPCOMING</small>
+            </span>
 
-            <span class="nav-link nav-link--disabled" role="link" aria-disabled="true" tabindex="-1">
+            <span class="nav-link is-upcoming nav-link--disabled" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
                 <span>🏆</span>
                 Leaderboard
-                <small class="badge-upcoming">UPCOMING</small>
+                <small class="upcoming-badge badge-upcoming">UPCOMING</small>
             </span>
 
         </nav>
@@ -232,7 +233,7 @@
 
                             </div>
 
-                            <a href="#">
+                            <a href="notes.html">
                                 View all →
                             </a>
 
@@ -266,8 +267,7 @@
 
                         <div class="quick-grid">
 
-                            <a href="#" class="quick-card">
-
+                            <a href="notes.html" class="quick-card">
                                 <div class="quick-icon blue">
                                     📄
                                 </div>
@@ -291,7 +291,7 @@
                             </a>
 
 
-                            <a href="#" class="quick-card">
+                            <div class="quick-card is-upcoming" role="link" aria-disabled="true" tabindex="-1" title="Coming Soon">
 
                                 <div class="quick-icon teal">
                                     ✦
@@ -299,9 +299,12 @@
 
                                 <div>
 
-                                    <h3>
-                                        Generate AI Quiz
-                                    </h3>
+                                    <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                                        <h3 style="margin-bottom: 0;">
+                                            Generate AI Quiz
+                                        </h3>
+                                        <small class="upcoming-badge badge-upcoming">UPCOMING</small>
+                                    </div>
 
                                     <p>
                                         Practice using your study material.
@@ -313,7 +316,7 @@
                                     →
                                 </span>
 
-                            </a>
+                            </div>
 
                         </div>
 
@@ -330,15 +333,18 @@
 
                     <!-- AI -->
 
-                    <section class="ai-card">
+                    <section class="ai-card is-upcoming" aria-disabled="true" title="Coming Soon">
 
                         <div class="ai-symbol">
                             ✦
                         </div>
 
-                        <span>
-                            EASYLEARN AI
-                        </span>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                            <span>
+                                EASYLEARN AI
+                            </span>
+                            <small class="upcoming-badge badge-upcoming" style="background: rgba(226, 232, 240, 0.2); color: #E2E8F0; border-color: rgba(226, 232, 240, 0.3);">UPCOMING</small>
+                        </div>
 
                         <h2>
                             Your personal
@@ -351,7 +357,7 @@
                             difficult topics.
                         </p>
 
-                        <button>
+                        <button type="button" disabled class="is-upcoming-btn" aria-disabled="true" tabindex="-1" title="Coming Soon">
                             Ask AI →
                         </button>
 
@@ -359,7 +365,15 @@
 
 
 
-                    <!-- ================= UPCOMING ================= -->
+                    <!-- =================================================================
+     [DISABLED] UPCOMING DEADLINES & LEADERBOARD SECTIONS
+     Both sections are temporarily disabled per user requirement.
+     All HTML, classes, and structures are preserved intact below.
+     To re-enable: remove the opening <!-- and closing comment tags.
+     =====================================================================
+
+     [UPCOMING DEADLINES SECTION]
+
 
                     <section class="side-card">
 
@@ -384,7 +398,7 @@
                         </div>
 
 
-                        <!-- Assignment -->
+                        [Assignment]
 
                         <div class="upcoming-item">
 
@@ -413,7 +427,7 @@
                         </div>
 
 
-                        <!-- Quiz -->
+                        [Quiz]
 
                         <div class="upcoming-item">
 
@@ -442,7 +456,7 @@
                         </div>
 
 
-                        <!-- Exam -->
+                        [Exam]
 
                         <div class="upcoming-item">
 
@@ -475,17 +489,23 @@
 
 
 
-                    <!-- ================= LEADERBOARD ================= -->
+                    
 
-                    <section class="side-card">
+     [LEADERBOARD SECTION]
+
+
+                    <section class="side-card is-upcoming" aria-disabled="true" title="Coming Soon">
 
                         <div class="side-heading">
 
                             <div>
 
-                                <h2>
-                                    Leaderboard
-                                </h2>
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                                    <h2 style="margin-bottom: 0;">
+                                        Leaderboard
+                                    </h2>
+                                    <small class="upcoming-badge badge-upcoming">UPCOMING</small>
+                                </div>
 
                                 <p>
                                     Top students this week
@@ -574,6 +594,8 @@
                         </div>
 
                     </section>
+
+     ================================================================= -->
 
 
                 </aside>

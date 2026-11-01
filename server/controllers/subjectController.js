@@ -3,6 +3,7 @@
  */
 import { Subject } from '../models/Subject.js';
 import { Note } from '../models/Note.js';
+import { Bookmark } from '../models/Bookmark.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 
@@ -74,10 +75,25 @@ export const getSubject = catchAsync(async (req, res, next) => {
  * POST /api/v1/subjects (Protected - Admin/Faculty)
  */
 export const createSubject = catchAsync(async (req, res, next) => {
-  const existing = await Subject.findOne({ code: req.body.code?.toUpperCase() });
+  if (req.body.code) {
+    req.body.code = String(req.body.code).trim().toUpperCase();
+  }
+
+  const existing = await Subject.findOne({ code: req.body.code });
   if (existing) {
     return next(new AppError(`Subject with code '${req.body.code}' already exists.`, 409));
   }
+
+  if (typeof req.body.tags === 'string') {
+    try {
+      req.body.tags = JSON.parse(req.body.tags);
+    } catch {
+      req.body.tags = req.body.tags.split(',').map(t => t.trim()).filter(Boolean);
+    }
+  }
+
+  if (req.body.semester) req.body.semester = Number(req.body.semester);
+  if (req.body.credits) req.body.credits = Number(req.body.credits);
 
   const newSubject = await Subject.create(req.body);
 
@@ -92,6 +108,28 @@ export const createSubject = catchAsync(async (req, res, next) => {
  * PATCH /api/v1/subjects/:id (Protected - Admin/Faculty)
  */
 export const updateSubject = catchAsync(async (req, res, next) => {
+  if (req.body.code) {
+    req.body.code = String(req.body.code).trim().toUpperCase();
+    const existing = await Subject.findOne({
+      code: req.body.code,
+      _id: { $ne: req.params.id }
+    });
+    if (existing) {
+      return next(new AppError(`Subject with code '${req.body.code}' already exists.`, 409));
+    }
+  }
+
+  if (typeof req.body.tags === 'string') {
+    try {
+      req.body.tags = JSON.parse(req.body.tags);
+    } catch {
+      req.body.tags = req.body.tags.split(',').map(t => t.trim()).filter(Boolean);
+    }
+  }
+
+  if (req.body.semester) req.body.semester = Number(req.body.semester);
+  if (req.body.credits) req.body.credits = Number(req.body.credits);
+
   const subject = await Subject.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
@@ -118,8 +156,9 @@ export const deleteSubject = catchAsync(async (req, res, next) => {
     return next(new AppError('No subject found with that ID', 404));
   }
 
-  // Also clean up any notes associated with this subject
+  // Also clean up any notes and bookmarks associated with this subject
   await Note.deleteMany({ subject: subject._id });
+  await Bookmark.deleteMany({ subject: subject._id });
 
   res.status(204).json({
     status: 'success',
